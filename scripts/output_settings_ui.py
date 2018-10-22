@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\ricks\OneDrive\Work\Wesley\qt\output_settings.ui'
+# Form implementation generated from reading ui file 'c:\Users\ricks\OneDrive\Development\Tools\CCDAT\scripts\..\qt\output_settings.ui'
 #
 # Created by: PyQt5 UI code generator 5.6
 #

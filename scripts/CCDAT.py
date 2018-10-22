@@ -1,4 +1,4 @@
-""" Data Analyse Tool
+""" conditional csv data analyse Tool
     This tool can be used to analyse game data.
 """
 # -*- coding: utf-8 -*-
@@ -11,22 +11,24 @@ import os
 import xlsxwriter
 import subprocess
 import re
+import time
+
+### Get relative path ###
+import os
+dirname = os.path.dirname(os.path.abspath(__file__))
 
 ### Create python UI class ###
-subprocess.call(r"python -m PyQt5.uic.pyuic -x C:\Users\ricks\OneDrive\Work\Wesley\qt\data_analyse.ui -o C:\Users\ricks\OneDrive\Work\Wesley\scripts\data_analyse_ui.py")
-subprocess.call(r"python -m PyQt5.uic.pyuic -x C:\Users\ricks\OneDrive\Work\Wesley\qt\about.ui -o C:\Users\ricks\OneDrive\Work\Wesley\scripts\about_ui.py")
-subprocess.call(r"python -m PyQt5.uic.pyuic -x C:\Users\ricks\OneDrive\Work\Wesley\qt\output_settings.ui -o C:\Users\ricks\OneDrive\Work\Wesley\scripts\output_settings_ui.py")
+string = r"python -m PyQt5.uic.pyuic -x " + os.path.join(dirname, '..', r'qt\data_analyse.ui') + " -o " + os.path.join(dirname, '..', r'data_analyse_ui.py')
+print string
+subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(dirname, '..', r'qt\data_analyse.ui') + " -o " + os.path.join(dirname, '..', r'scripts\data_analyse_ui.py'))
+subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(dirname, '..', r'qt\output_settings.ui') + " -o " + os.path.join(dirname, '..', r'scripts\output_settings_ui.py'))
+subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(dirname, '..', r'qt\about.ui') + " -o " + os.path.join(dirname, '..', r'scripts\about_ui.py'))
 
 ### Import UI modules ###
 from data_analyse_ui import Ui_MainWindow
 from about_ui import Ui_about
 # from output_settings_ui import UI
 from PyQt5 import QtCore, QtGui, QtWidgets
-
-### Get relative path ###
-import os
-dirname = os.path.dirname(os.path.abspath(__file__))
-print dirname
 
 ##############################################################
 #### Script settings                                      ####
@@ -54,8 +56,10 @@ class DataAnalyserGUI(Ui_MainWindow):
 
         ### Link input file choice button ###
         self.input_file_browser.clicked.connect(self.get_input_file)
-        results_folder = os.path.normpath(os.path.join(dirname, 'results')).replace("c:\\","C:\\")
-        self.output_file_path.setText(results_folder)
+
+        ### Link outpuit file choice button ###
+        self.results_folder = os.path.normpath(os.path.join(dirname, '..', r'results')).replace("c:\\","C:\\")
+        self.output_file_path.setText(self.results_folder)
         self.output_file_browser.clicked.connect(self.get_output_dir)
 
         ### Create conditions grid ###
@@ -126,14 +130,16 @@ class DataAnalyserGUI(Ui_MainWindow):
         fileName = os.path.normpath(fileName)
 
         ### Check if not empty and enable field ###
-        if fileName:
+        if not (fileName == "."):
             self.input_file_path.setText(fileName)
             self.input_file_path.setEnabled(1)
         else:
+            self.input_file_path.setText("")
             self.input_file_path.setEnabled(0)
 
     ### Output file selection button slot ###
     def get_output_dir(self):
+
         folder_dir = QtWidgets.QFileDialog.getExistingDirectory(None, 'Select output directory')
         folder_dir = os.path.normpath(folder_dir).replace("c:\\","C:\\")
 
@@ -142,6 +148,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             self.output_file_path.setText(folder_dir)
             self.output_file_path.setEnabled(1)
         else:
+            self.output_file_path.setText(self.results_folder)
             self.output_file_path.setEnabled(0)
 
     ### Add condition row slot ###
@@ -218,6 +225,9 @@ class DataAnalyserGUI(Ui_MainWindow):
 
             ## Remove row count
             self.conditions_grid_rows -=1
+
+        else:
+            self.condition_line_edit[0].setText("")
 
     ##########################################################
     #### Output settings function slot                     ####
@@ -323,6 +333,12 @@ class DataAnalyserGUI(Ui_MainWindow):
                 df = pd.read_csv(self.input_file_path.text(), header=0, low_memory=False) #, encoding = "ANSI")
                 df.columns = map(str.capitalize, df.columns)  # Capitalize collumns to prohibit key errors
 
+                ### Create data writer ###
+                timestr = time.strftime("%Y%m%d-%H%M%S")
+                output_file_path = os.path.join(self.output_file_path.text(), (timestr + r'.xlsx'))
+                print output_file_path
+                writer = pd.ExcelWriter(output_file_path, engine='xlsxwriter')
+
                 ### Perform data analysis per condition ###
                 counter = 1
                 for condition_text in self.condition_line_edit:
@@ -353,11 +369,27 @@ class DataAnalyserGUI(Ui_MainWindow):
                         warn_dialog.exec_()
 
                     ## Print result to datasheet and save ##
-                    keywords = [w.capitalize() for w in condition_text.text() if w.isalpha()]
+                    keywords = [w.capitalize() for w in condition_tmp_1 if w.isalpha()]
 
-                ## increase counter
-                counter += 1
+                    ## Filter collummns ##
+                    df_filter = df_condition[keywords]
 
+                    ## print data to excel file ##
+                    df_filter.to_excel(writer, sheet_name=condition_text.text())
+
+                    ## increase counter
+                    counter += 1
+
+                ## Save xlsx file ##
+                writer.save()
+
+                ## Print succes dialog ##
+                analyse_dialog = QtWidgets.QMessageBox()
+                analyse_dialog.setIcon(QtWidgets.QMessageBox.Information)
+                analyse_dialog.setWindowTitle('Info')
+                analyse_dialog.setText("Data analysis complete you can find the file in the specified output folder")
+                analyse_dialog.setStandardButtons(QtWidgets.QMessageBox.Ok)
+                analyse_dialog.exec_()
 
 ##############################################################
 #### Main window                                          ####
@@ -365,103 +397,18 @@ class DataAnalyserGUI(Ui_MainWindow):
 if __name__ == '__main__':
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()
+
+    ### Create Main window ###
     ui = DataAnalyserGUI()
     ui.setupUi(MainWindow)
+
+    ### Set icon ###
+    CCDAT_icon = os.path.join(dirname, '..', r'media\CCDAT.svg')
+    icon = QtGui.QIcon()
+    icon.addPixmap(QtGui.QPixmap(CCDAT_icon), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+    MainWindow.setWindowIcon(icon)
+
+    ### Show main window ###
     MainWindow.show()
     sys.exit(app.exec_())
 
-
-# conditions = ["Speed > 10 & Acceleration > 0.69",
-#               "Speed > 10 & Acceleration > 1.30",
-#               "Speed > 7.5 & Acceleration > 1.30",
-#               "Speed > 7.5 & Acceleration < (-1.30)",
-#               "Acceleration > 7.50 & Acceleration < -1.30",
-#               "Speed => Acceleration"
-#              ]
-
-# ### Get current path ###
-# dirname = os.path.dirname(__file__)
-
-# ### import the csv file, note that the encoding has been set to ANSI###
-# filename = os.path.join(dirname, r'data\test.csv')
-# df = pd.read_csv(filename, header=0, low_memory=False) #, encoding = "ANSI")
-
-# ### Specify Conditions ###
-# condition1 = ((df['Speed'] > 10) & (df['Acceleration'] > 0.69))
-# condition2 = ((df['Speed'] > 10) & (df['Acceleration'] > 1.30))
-# condition3 = ((df['Speed'] > 7.5) & (df['Acceleration'] > 1.30))
-# condition4 = ((df['Speed'] > 7.5) & (df['Acceleration'] < (-1.30)))
-
-# ### Test conditions ###
-# df_sub_1 = df[condition1]
-# df_sub_2 = df[condition2]
-# df_sub_3 = df[condition3]
-# df_sub_4 = df[condition4]
-
-# idx = np.where(condition3.values == True)[0]
-# for item2 in idx:
-#     condition1[item2-2]
-
-# ### Only get collumns you want ###
-# df_sub_1 = df_sub_1[['Speed','Acceleration']]
-# df_sub_2 = df_sub_2[['Speed','Acceleration']]
-# df_sub_3 = df_sub_3[['Speed','Acceleration']]
-# df_sub_4 = df_sub_4[['Speed','Acceleration']]
-
-
-# # ### Get data around found times ###
-
-# # ### Save in excel file ###
-# # # Each condition on one sheet
-
-# # # Create a Pandas Excel writer using XlsxWriter as the engine.
-# # filename = os.path.join(dirname, 'data_analyse_result.xlsx')
-# # writer = pd.ExcelWriter(filename, engine='xlsxwriter')
-
-# # # df.to_excel(writer, sheet_name='Sheet1')
-# # df_sub_1.to_excel(writer, sheet_name='Condition1')
-# # df_sub_2.to_excel(writer, sheet_name='Condition2')
-# # df_sub_3.to_excel(writer, sheet_name='Condition3')
-# # df_sub_4.to_excel(writer, sheet_name='Condition4')
-# # writer.save()
-
-
-# # def game_analyse(input_file, output_path, output_name, condition_list):
-
-
-### Condition add ###
-### Create conditions grid ###
-# self.condition_line_edit = []
-# self.condition_label = []
-# for condition in range(1): # Loop through rows
-
-#     ## Create Line edit ##
-#     self.condition_line_edit.append(QtWidgets.QLineEdit(self.conditions_group_box))
-#     condition_label_obj_name = "condition_line_edit_" + str(condition + 1)
-#     print str(len(self.condition_line_edit))
-#     self.condition_line_edit[condition].setObjectName(condition_label_obj_name)
-#     self.conditions_grid.addWidget(self.condition_line_edit[condition], condition, 1, 1, 1)
-
-#     ## Create Label ##
-#     self.condition_label.append(QtWidgets.QLabel(self.conditions_group_box))
-#     condition_label_obj_name = "condition_label_" + str(condition + 1)
-#     self.condition_label[condition].setObjectName(condition_label_obj_name)
-#     label_txt = str(condition + 1) + "."
-#     self.condition_label[condition].setText(label_txt)
-#     self.conditions_grid.addWidget(self.condition_label[condition], condition, 0, 1, 1)
-
-# ## Add condition add and remove buttons to last condition ##
-# rows = self.conditions_grid.rowCount() # Get number of rows
-# print "rows:" + str(rows)
-# self.condition_add_row_btn = QtWidgets.QToolButton(self.conditions_group_box)
-# self.condition_add_row_btn.setMinimumSize(QtCore.QSize(22, 22))
-# self.condition_add_row_btn.setMaximumSize(QtCore.QSize(22, 22))
-# self.condition_add_row_btn.setObjectName("condition_add_row_btn")
-# self.condition_add_row_btn.setText("+")
-# self.conditions_grid.addWidget(self.condition_add_row_btn, (rows-1), 2, 1, 1)
-# self.condition_remove_row_btn = QtWidgets.QToolButton(self.conditions_group_box)
-# self.condition_remove_row_btn.setMinimumSize(QtCore.QSize(22, 22))
-# self.condition_remove_row_btn.setMaximumSize(QtCore.QSize(22, 22))
-# self.condition_remove_row_btn.setObjectName("condition_remove_row_btn")
-# self.condition_remove_row_btn.setText("-")
-# self.conditions_grid.addWidget(self.condition_remove_row_btn, (rows-1), 3, 1, 1)
