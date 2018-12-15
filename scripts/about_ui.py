@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\ricks\OneDrive\Development\Tools\CCDAT\scripts\..\qt\about.ui'
+# Form implementation generated from reading ui file 'c:\Users\ricks\OneDrive\Development\Tools\CGDAT\scripts\..\qt\about.ui'
 #
 # Created by: PyQt5 UI code generator 5.6
 #
@@ -11,7 +11,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_about(object):
     def setupUi(self, about):
         about.setObjectName("about")
-        about.resize(378, 316)
+        about.resize(333, 286)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
@@ -21,7 +21,7 @@ class Ui_about(object):
         self.verticalLayout_4.setObjectName("verticalLayout_4")
         self.label = QtWidgets.QLabel(about)
         self.label.setStyleSheet("QLabel{background-color: white;padding: 5px 10px 15px 10px;}\n"
-"QFrame{border: 1px solid rgb(179, 179, 179);border-radius: 2px;}\n"
+"QFrame{border: 1px solid rgb(179, 179, 179);border-radius: 3px;}\n"
 "")
         self.label.setFrameShape(QtWidgets.QFrame.StyledPanel)
         self.label.setFrameShadow(QtWidgets.QFrame.Plain)
@@ -35,7 +35,7 @@ class Ui_about(object):
     def retranslateUi(self, about):
         _translate = QtCore.QCoreApplication.translate
         about.setWindowTitle(_translate("about", "Dialog"))
-        self.label.setText(_translate("about", "<html><head/><body><p><span style=\" font-size:11pt; text-decoration: underline;\">Description:</span></p><p><span style=\" font-size:11pt;\">This tool was created to aid in a more streamlined <br/>game data analysation process. For questions or<br/>surgestions mail </span><a href=\"mail:wbosman@fittestbody.nl\"><span style=\" font-size:11pt; text-decoration: underline; color:#0000ff;\">wbosman@fittestbody.nl</span></a><span style=\" font-size:11pt;\">.</span></p><p><span style=\" font-size:11pt;\"><br/></span><span style=\" font-size:11pt; text-decoration: underline;\">Other info:</span></p><p><span style=\" font-size:11pt; font-weight:600;\">Repository: </span><a href=\"https://github.com/rickstaa/CDAT\"><span style=\" text-decoration: underline; color:#0000ff;\">https://github.com/rickstaa/CDAT</span></a></p><p><span style=\" font-size:11pt; font-weight:600;\">Create By: </span><a href=\"https://github.com/rickstaa\"><span style=\" font-size:11pt; text-decoration: underline; color:#0000ff;\">Rick Staa</span></a></p><p><span style=\" font-size:11pt; font-weight:600;\">Maintained by: </span><span style=\" font-size:11pt;\">Wesley Bosman<br/></span></p><p><span style=\" font-size:11pt;\">Copyright 2018 </span><span style=\" font-size:11pt; font-weight:600;\">© </span><a href=\"http://www.fittestbody.nl\"><span style=\" font-size:11pt; text-decoration: underline; color:#0000ff;\">fittestbody.nl</span></a></p></body></html>"))
+        self.label.setText(_translate("about", "<html><head/><body><p><span style=\" font-size:10pt; text-decoration: underline;\">Description:</span></p><p><span style=\" font-size:10pt;\">This tool was created to aid in a more streamlined<br/>game data analysation process. For questions or <br/>suggestions mail </span><a href=\"mail:wbosman@fittestbody.nl\"><span style=\" font-size:10pt; text-decoration: underline; color:#0000ff;\">wbosman@fittestbody.nl</span></a><span style=\" font-size:10pt;\">.</span></p><p><span style=\" font-size:10pt;\"><br/></span><span style=\" font-size:10pt; text-decoration: underline;\">Other info:</span></p><p><span style=\" font-size:10pt; font-weight:600;\">Repository: </span><a href=\"https://github.com/rickstaa/CCDAT\"><span style=\" text-decoration: underline; color:#0000ff;\">https://github.com/rickstaa/CCDAT</span></a></p><p><span style=\" font-size:10pt; font-weight:600;\">Create By: </span><a href=\"https://github.com/rickstaa\"><span style=\" font-size:10pt; text-decoration: underline; color:#0000ff;\">Rick Staa</span></a></p><p><span style=\" font-size:10pt; font-weight:600;\">Maintained by: </span><span style=\" font-size:10pt;\">Wesley Bosman<br/></span></p><p><span style=\" font-size:10pt;\">Copyright 2018 </span><span style=\" font-size:10pt; font-weight:600;\">© </span><a href=\"http://www.fittestbody.nl\"><span style=\" font-size:10pt; text-decoration: underline; color:#0000ff;\">fittestbody.nl</span></a></p></body></html>"))
 
 
 if __name__ == "__main__":

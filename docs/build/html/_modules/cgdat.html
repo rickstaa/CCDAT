@@ -1,0 +1,705 @@
+
+
+<!DOCTYPE html>
+<!--[if IE 8]><html class="no-js lt-ie9" lang="en" > <![endif]-->
+<!--[if gt IE 8]><!--> <html class="no-js" lang="en" > <!--<![endif]-->
+<head>
+  <meta charset="utf-8">
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>cgdat &mdash; CGDAT 0.2.0 documentation</title>
+  
+
+  
+  
+  
+  
+
+  
+
+  
+  
+    
+
+  
+
+  <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" /> 
+
+  
+  <script src="../_static/js/modernizr.min.js"></script>
+
+</head>
+
+<body class="wy-body-for-nav">
+
+   
+  <div class="wy-grid-for-nav">
+
+    
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search">
+          
+
+          
+            <a href="../index.html" class="icon icon-home"> CGDAT
+          
+
+          
+          </a>
+
+          
+            
+            
+          
+
+          
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+
+          
+        </div>
+
+        <div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="main navigation">
+          
+            
+            
+              
+            
+            
+              <ul>
+<li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../use.html">How to use this tool</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">Auto Generated Documentation</a></li>
+</ul>
+
+            
+          
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap">
+
+      
+      <nav class="wy-nav-top" aria-label="top navigation">
+        
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">CGDAT</a>
+        
+      </nav>
+
+
+      <div class="wy-nav-content">
+        
+        <div class="rst-content">
+        
+          
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<div role="navigation" aria-label="breadcrumbs navigation">
+
+  <ul class="wy-breadcrumbs">
+    
+      <li><a href="../index.html">Docs</a> &raquo;</li>
+        
+          <li><a href="index.html">Module code</a> &raquo;</li>
+        
+      <li>cgdat</li>
+    
+    
+      <li class="wy-breadcrumbs-aside">
+        
+      </li>
+    
+  </ul>
+
+  
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+            
+  <h1>Source code for cgdat</h1><div class="highlight"><pre>
+<span></span><span class="sd">&quot;&quot;&quot; Conditional csv data analyse Tool (CCDAT)</span>
+<span class="sd">    This tool was created for a friend of mine to help him with the data analysis he had to</span>
+<span class="sd">    do for his graduation project. It is is licences under a MIT Creative common licence.</span>
+
+<span class="sd">    Author: Rick Staa</span>
+<span class="sd">    Maintainer: Wesley Bosman</span>
+<span class="sd">    Creation Date: 22/11/2018</span>
+<span class="sd">&quot;&quot;&quot;</span>
+<span class="c1"># -*- coding: utf-8 -*-</span>
+
+<span class="c1">### Import needed python modules ###</span>
+<span class="kn">import</span> <span class="nn">sys</span>
+<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">import</span> <span class="nn">xlsxwriter</span>
+<span class="kn">import</span> <span class="nn">subprocess</span>
+<span class="kn">import</span> <span class="nn">re</span>
+<span class="kn">import</span> <span class="nn">time</span>
+<span class="kn">import</span> <span class="nn">os</span>
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtWidgets</span>
+
+<span class="c1">### Get relative script path ###</span>
+<span class="n">dirname</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
+
+<span class="c1">### Create the needed python user interface classes out of the QT UI files ###</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;python -m PyQt5.uic.pyuic -x &quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;qt\data_analyse.ui&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; -o &quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;scripts\data_analyse_ui.py&#39;</span><span class="p">))</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;python -m PyQt5.uic.pyuic -x &quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;qt\output_settings.ui&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; -o &quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;scripts\output_settings_ui.py&#39;</span><span class="p">))</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;python -m PyQt5.uic.pyuic -x &quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;qt\about.ui&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; -o &quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;scripts\about_ui.py&#39;</span><span class="p">))</span>
+
+<span class="c1">### Import the python UI classes ###</span>
+<span class="kn">from</span> <span class="nn">data_analyse_ui</span> <span class="k">import</span> <span class="n">Ui_MainWindow</span>
+<span class="kn">from</span> <span class="nn">about_ui</span> <span class="k">import</span> <span class="n">Ui_about</span>
+<span class="kn">from</span> <span class="nn">output_settings_ui</span> <span class="k">import</span> <span class="n">Ui_output_settings</span>
+
+<span class="c1">#####################################################################</span>
+<span class="c1">#### Script settings                                             ####</span>
+<span class="c1">#####################################################################</span>
+<span class="n">sections</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Speed&quot;</span><span class="p">,</span><span class="s2">&quot;Acceleration&quot;</span><span class="p">]</span>
+<span class="n">operators</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&gt;&#39;</span><span class="p">,</span><span class="s1">&#39;&gt;=&#39;</span><span class="p">,</span><span class="s1">&#39;&lt;&#39;</span><span class="p">,</span><span class="s1">&#39;&lt;=&#39;</span><span class="p">,</span><span class="s1">&#39;==&#39;</span><span class="p">,</span><span class="s1">&#39;&amp;&#39;</span><span class="p">]</span>
+
+<span class="c1">#####################################################################</span>
+<span class="c1">#### Overload Qt DataAnalyserGUI class                           ####</span>
+<span class="c1">#####################################################################</span>
+<div class="viewcode-block" id="DataAnalyserGUI"><a class="viewcode-back" href="../auto_rst/cgdat.html#cgdat.DataAnalyserGUI">[docs]</a><span class="k">class</span> <span class="nc">DataAnalyserGUI</span><span class="p">(</span><span class="n">Ui_MainWindow</span><span class="p">):</span>
+    <span class="sd">&quot;&quot;&quot;[This is the qt class used to create the general user interface for the CGDAT data analysis tool.</span>
+<span class="sd">    It uses the pyqt package to do this.]</span>
+
+<span class="sd">    Arguments:</span>
+<span class="sd">        Ui_MainWindow {[type]} -- [description]</span>
+
+<span class="sd">    Returns:</span>
+<span class="sd">        [type] -- [description]</span>
+<span class="sd">    &quot;&quot;&quot;</span>
+
+    <span class="c1">#########################################################</span>
+    <span class="c1">#### Class initiation                                ####</span>
+    <span class="c1">#########################################################</span>
+<div class="viewcode-block" id="DataAnalyserGUI.setupUi"><a class="viewcode-back" href="../auto_rst/cgdat.html#cgdat.DataAnalyserGUI.setupUi">[docs]</a>    <span class="k">def</span> <span class="nf">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MainWindow</span><span class="p">):</span>
+        <span class="nb">super</span><span class="p">(</span><span class="n">DataAnalyserGUI</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="n">MainWindow</span><span class="p">)</span>  <span class="c1"># Run parent initializer function</span>
+
+        <span class="c1">########################################</span>
+        <span class="c1">### Set main GUI menu items ############</span>
+        <span class="c1">########################################</span>
+        <span class="n">about_icon</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;media\about_icon.svg&#39;</span><span class="p">)</span>
+        <span class="n">icon</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">()</span>
+        <span class="n">icon</span><span class="o">.</span><span class="n">addPixmap</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="n">about_icon</span><span class="p">),</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="o">.</span><span class="n">Normal</span><span class="p">,</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="o">.</span><span class="n">Off</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionAbout</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span>                                                      <span class="c1"># Set icon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">actionAbout</span><span class="o">.</span><span class="n">triggered</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">action_about_slot</span><span class="p">)</span>                          <span class="c1"># Set slot</span>
+
+        <span class="c1">########################################</span>
+        <span class="c1">### Add settings buttons ###############</span>
+        <span class="c1">########################################</span>
+
+        <span class="c1">### Link input file choice button signal to slot ###</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_file_browser</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_input_file</span><span class="p">)</span>
+
+        <span class="c1">### Link out file choice button signal to slot###</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">results_folder</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;results&#39;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;c:</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span><span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_file_path</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results_folder</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_file_browser</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">get_output_dir</span><span class="p">)</span>
+
+        <span class="c1">########################################</span>
+        <span class="c1">### Create condition choicer grid ######</span>
+        <span class="c1">########################################</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid_rows</span> <span class="o">=</span><span class="mi">1</span>  <span class="c1"># Increment Condition grid counter</span>
+
+        <span class="c1">### Create Line edits ###</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conditions_group_box</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;condition_line_edit_1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1">### Create Label ###</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_label</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_label</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conditions_group_box</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_label</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;condition_label_1&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_label</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;1.&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_label</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1">### Add condition add and remove buttons to last condition ###</span>
+
+        <span class="c1">## Condition add button ##</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_add_row_btn</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QToolButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conditions_group_box</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_add_row_btn</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">22</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_add_row_btn</span><span class="o">.</span><span class="n">setMaximumSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">22</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_add_row_btn</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;condition_add_row_btn&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_add_row_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;+&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_add_row_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">add_conditions_row</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_add_row_btn</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1">## Condition remove button ##</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_remove_row_btn</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QToolButton</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conditions_group_box</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_remove_row_btn</span><span class="o">.</span><span class="n">setMinimumSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">22</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_remove_row_btn</span><span class="o">.</span><span class="n">setMaximumSize</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QSize</span><span class="p">(</span><span class="mi">22</span><span class="p">,</span> <span class="mi">22</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_remove_row_btn</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;condition_remove_row_btn&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_remove_row_btn</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;-&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_remove_row_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">remove_conditions_row</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_remove_row_btn</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1">########################################</span>
+        <span class="c1">### Create analyser menu ###############</span>
+        <span class="c1">########################################</span>
+
+        <span class="c1">## Create reset grid button ##</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">reset_conditions_grid_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">reset_conditions</span><span class="p">)</span>
+
+        <span class="c1">## Create data analyse button ##</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">analyse_data_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analyse_data</span><span class="p">)</span>
+
+        <span class="c1">## Create output settings button ##</span>
+        <span class="n">settings_icon</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;media\settings_icon.png&#39;</span><span class="p">)</span>
+        <span class="n">icon</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">()</span>
+        <span class="n">icon</span><span class="o">.</span><span class="n">addPixmap</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="n">settings_icon</span><span class="p">),</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="o">.</span><span class="n">Normal</span><span class="p">,</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="o">.</span><span class="n">Off</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_btn</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_btn</span><span class="o">.</span><span class="n">clicked</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_settings_set</span><span class="p">)</span></div>
+
+    <span class="c1">#########################################################</span>
+    <span class="c1">#### GUI member functions                            ####</span>
+    <span class="c1">#########################################################</span>
+
+    <span class="c1">#################################################</span>
+    <span class="c1">### Menu action function                      ###</span>
+    <span class="c1">#################################################</span>
+<div class="viewcode-block" id="DataAnalyserGUI.action_about_slot"><a class="viewcode-back" href="../auto_rst/cgdat.html#cgdat.DataAnalyserGUI.action_about_slot">[docs]</a>    <span class="k">def</span> <span class="nf">action_about_slot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">about</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QDialog</span><span class="p">()</span>
+        <span class="n">ui</span> <span class="o">=</span> <span class="n">Ui_about</span><span class="p">()</span>
+        <span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="n">about</span><span class="p">)</span>
+        <span class="n">about</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+        <span class="n">about</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span></div>
+
+    <span class="c1">#################################################</span>
+    <span class="c1">### Get input file path function              ###</span>
+    <span class="c1">#################################################</span>
+<div class="viewcode-block" id="DataAnalyserGUI.get_input_file"><a class="viewcode-back" href="../auto_rst/cgdat.html#cgdat.DataAnalyserGUI.get_input_file">[docs]</a>    <span class="k">def</span> <span class="nf">get_input_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">options</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">Options</span><span class="p">()</span>
+        <span class="n">options</span> <span class="o">|=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">DontUseNativeDialog</span>
+        <span class="n">fileName</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getOpenFileName</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span><span class="s2">&quot;Select input file&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">,</span><span class="s2">&quot;CSV Files (*.csv)&quot;</span><span class="p">,</span> <span class="n">options</span><span class="o">=</span><span class="n">options</span><span class="p">)</span>
+        <span class="n">fileName</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">fileName</span><span class="p">)</span>
+
+        <span class="c1">### Enable input field if not empty ###</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="n">fileName</span> <span class="o">==</span> <span class="s2">&quot;.&quot;</span><span class="p">):</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_file_path</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">fileName</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_file_path</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_file_path</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">input_file_path</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">#################################################</span>
+    <span class="c1">### Get output folder file path function      ###</span>
+    <span class="c1">#################################################</span>
+<div class="viewcode-block" id="DataAnalyserGUI.get_output_dir"><a class="viewcode-back" href="../auto_rst/cgdat.html#cgdat.DataAnalyserGUI.get_output_dir">[docs]</a>    <span class="k">def</span> <span class="nf">get_output_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">folder_dir</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QFileDialog</span><span class="o">.</span><span class="n">getExistingDirectory</span><span class="p">(</span><span class="kc">None</span><span class="p">,</span> <span class="s1">&#39;Select output directory&#39;</span><span class="p">)</span>
+        <span class="n">folder_dir</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">normpath</span><span class="p">(</span><span class="n">folder_dir</span><span class="p">)</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;c:</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span><span class="s2">&quot;C:</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">)</span>
+
+        <span class="c1">### Enable output field if user gave output folder input ###</span>
+        <span class="k">if</span> <span class="n">folder_dir</span> <span class="o">!=</span> <span class="s2">&quot;.&quot;</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_file_path</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">folder_dir</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_file_path</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_file_path</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">results_folder</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_file_path</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span></div>
+
+    <span class="c1">#################################################</span>
+    <span class="c1">### Add extra condition row function          ###</span>
+    <span class="c1">#################################################</span>
+<div class="viewcode-block" id="DataAnalyserGUI.add_conditions_row"><a class="viewcode-back" href="../auto_rst/cgdat.html#cgdat.DataAnalyserGUI.add_conditions_row">[docs]</a>    <span class="k">def</span> <span class="nf">add_conditions_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid_rows</span> <span class="c1"># Get number of rows currently present</span>
+
+        <span class="c1">### Create new line edit ###</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLineEdit</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conditions_group_box</span><span class="p">))</span>
+        <span class="n">condition_line_edit_obj_name</span> <span class="o">=</span> <span class="s2">&quot;condition_line_edit_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">rows</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">[</span><span class="n">rows</span><span class="p">]</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="n">condition_line_edit_obj_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">[</span><span class="n">rows</span><span class="p">],</span> <span class="n">rows</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1">### Create new label ###</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_label</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QLabel</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">conditions_group_box</span><span class="p">))</span>
+        <span class="n">label_txt</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="n">rows</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;.&quot;</span>
+        <span class="n">condition_label_obj_name</span> <span class="o">=</span> <span class="s2">&quot;condition_label_obj_name_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">rows</span><span class="o">+</span><span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_label</span><span class="p">[</span><span class="n">rows</span><span class="p">]</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="n">condition_label_obj_name</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">condition_label</span><span class="p">[</span><span class="n">rows</span><span class="p">]</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">label_txt</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_label</span><span class="p">[</span><span class="n">rows</span><span class="p">],</span> <span class="n">rows</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1">### Move condition buttons to new row ###</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">removeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_add_row_btn</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">removeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_remove_row_btn</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_add_row_btn</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_remove_row_btn</span><span class="p">,</span> <span class="n">rows</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+        <span class="c1">### Increase condition row counter ###</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid_rows</span> <span class="o">+=</span><span class="mi">1</span></div>
+
+    <span class="c1">#################################################</span>
+    <span class="c1">### Remove condition row function             ###</span>
+    <span class="c1">#################################################</span>
+<div class="viewcode-block" id="DataAnalyserGUI.remove_conditions_row"><a class="viewcode-back" href="../auto_rst/cgdat.html#cgdat.DataAnalyserGUI.remove_conditions_row">[docs]</a>    <span class="k">def</span> <span class="nf">remove_conditions_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="n">rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid_rows</span>  <span class="c1"># Get number of rows currently present</span>
+
+        <span class="c1">### remove condition row if more than 1 row is present ###</span>
+        <span class="k">if</span> <span class="n">rows</span> <span class="o">!=</span> <span class="mi">1</span><span class="p">:</span>
+
+            <span class="c1">### Remove last condition row ###</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">removeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">[(</span><span class="n">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">)])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">removeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_label</span><span class="p">[(</span><span class="n">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">)])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">[(</span><span class="n">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">deleteLater</span><span class="p">()</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">[(</span><span class="n">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">condition_label</span><span class="p">[(</span><span class="n">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">deleteLater</span><span class="p">()</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">condition_label</span><span class="p">[(</span><span class="n">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+
+            <span class="c1">### Move condition buttons to new last row ###</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">removeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_add_row_btn</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">removeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_remove_row_btn</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_add_row_btn</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_remove_row_btn</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+            <span class="c1">### Decrement row counter ###</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid_rows</span> <span class="o">-=</span><span class="mi">1</span></div>
+
+    <span class="c1">#################################################</span>
+    <span class="c1">### Reset condition field function            ###</span>
+    <span class="c1">#################################################</span>
+<div class="viewcode-block" id="DataAnalyserGUI.reset_conditions"><a class="viewcode-back" href="../auto_rst/cgdat.html#cgdat.DataAnalyserGUI.reset_conditions">[docs]</a>    <span class="k">def</span> <span class="nf">reset_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1">### Remove all condition rows except one ###</span>
+        <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid_rows</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+            <span class="n">rows</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid_rows</span>  <span class="c1"># Get number of rows currently present</span>
+
+            <span class="c1">### Remove last row ###</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">removeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">[(</span><span class="n">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">)])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">removeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_label</span><span class="p">[(</span><span class="n">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">)])</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">[(</span><span class="n">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">deleteLater</span><span class="p">()</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">[(</span><span class="n">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">condition_label</span><span class="p">[(</span><span class="n">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span><span class="o">.</span><span class="n">deleteLater</span><span class="p">()</span>
+            <span class="k">del</span> <span class="bp">self</span><span class="o">.</span><span class="n">condition_label</span><span class="p">[(</span><span class="n">rows</span><span class="o">-</span><span class="mi">1</span><span class="p">)]</span>
+
+            <span class="c1">### Move condition buttons to new last row ###</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">removeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_add_row_btn</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">removeWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_remove_row_btn</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_add_row_btn</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_remove_row_btn</span><span class="p">,</span> <span class="p">(</span><span class="n">rows</span><span class="o">-</span><span class="mi">2</span><span class="p">),</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+            <span class="c1">### Decrement row counter ###</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">conditions_grid_rows</span> <span class="o">-=</span><span class="mi">1</span>
+
+        <span class="c1">### Clean last condition row ###</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span></div>
+
+    <span class="c1">#################################################</span>
+    <span class="c1">#### Set output settings function            ####</span>
+    <span class="c1">#################################################</span>
+<div class="viewcode-block" id="DataAnalyserGUI.output_settings_set"><a class="viewcode-back" href="../auto_rst/cgdat.html#cgdat.DataAnalyserGUI.output_settings_set">[docs]</a>    <span class="k">def</span> <span class="nf">output_settings_set</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="k">pass</span></div>
+
+    <span class="c1">#########################################################</span>
+    <span class="c1">#### Condition validity check function               ####</span>
+    <span class="c1">#########################################################</span>
+<div class="viewcode-block" id="DataAnalyserGUI.check_condition"><a class="viewcode-back" href="../auto_rst/cgdat.html#cgdat.DataAnalyserGUI.check_condition">[docs]</a>    <span class="k">def</span> <span class="nf">check_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">condition_text</span><span class="p">):</span>
+
+        <span class="c1">### Create vallid operator list ###</span>
+        <span class="n">operator_escape_str</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">op</span><span class="p">)</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">operators</span><span class="p">]</span>
+        <span class="n">operator_str</span> <span class="o">=</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">operator_escape_str</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
+
+        <span class="c1">### Split input command in list items ###</span>
+        <span class="n">validity_result</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># True if conditional statement is vallid (Return variable)</span>
+        <span class="n">conditions_split</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">operator_str</span><span class="p">,</span> <span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">())]</span>
+
+        <span class="c1">#################################################</span>
+        <span class="c1">### Check validity of condition statement #######</span>
+        <span class="c1">#################################################</span>
+
+        <span class="c1">### Check if delimiters were placed right ###</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">([(</span><span class="s1">&#39; &#39;</span> <span class="ow">in</span> <span class="n">y</span><span class="p">)</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">conditions_split</span><span class="p">]):</span>
+            <span class="n">validity_result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># Condition failed condition validity test</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">validity_result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>   <span class="c1"># Condition passed condition validity test</span>
+
+        <span class="c1">#################################################</span>
+        <span class="c1">### Check validity of operators #################</span>
+        <span class="c1">#################################################</span>
+        <span class="n">symbols</span> <span class="o">=</span> <span class="p">[</span><span class="n">y</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">y</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;\w&quot;</span><span class="p">,</span> <span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">())]</span> <span class="c1"># Get all operators out of condition statemen</span>
+
+        <span class="c1">### Remove empty list items ###</span>
+        <span class="k">while</span> <span class="s1">&#39;&#39;</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">:</span>  <span class="c1"># Remove white spaces in trimmed</span>
+            <span class="n">symbols</span><span class="o">.</span><span class="n">remove</span><span class="p">(</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
+
+        <span class="c1">### Check if operators are valid ###</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">([</span><span class="n">sym</span> <span class="ow">in</span> <span class="n">operators</span> <span class="k">for</span> <span class="n">sym</span> <span class="ow">in</span> <span class="n">symbols</span><span class="p">]):</span>
+            <span class="n">validity_result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># Operators failed the validity test</span>
+        <span class="k">else</span><span class="p">:</span>
+            <span class="n">validity_result</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>   <span class="c1"># Operators passed the validity test</span>
+
+        <span class="c1">#################################################</span>
+        <span class="c1">### Return test results #########################</span>
+        <span class="c1">#################################################</span>
+        <span class="k">return</span> <span class="nb">any</span><span class="p">([</span><span class="ow">not</span> <span class="n">i</span> <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="n">validity_result</span><span class="p">])</span></div>
+
+    <span class="c1">#########################################################</span>
+    <span class="c1">#### Data analyse function                           ####</span>
+    <span class="c1">#########################################################</span>
+<div class="viewcode-block" id="DataAnalyserGUI.analyse_data"><a class="viewcode-back" href="../auto_rst/cgdat.html#cgdat.DataAnalyserGUI.analyse_data">[docs]</a>    <span class="k">def</span> <span class="nf">analyse_data</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+
+        <span class="c1">#################################################</span>
+        <span class="c1">### Check if conditions are not empty ###########</span>
+        <span class="c1">#################################################</span>
+        <span class="n">response_given</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="k">for</span> <span class="n">condition_text</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">:</span>
+            <span class="n">response_given</span><span class="o">.</span><span class="n">append</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span>
+
+        <span class="c1">#################################################</span>
+        <span class="c1">### Check validity of operators #################</span>
+        <span class="c1">#################################################</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_file_path</span><span class="o">.</span><span class="n">text</span><span class="p">():</span>
+            <span class="n">warn_dialog</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+            <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+            <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Warning&#39;</span><span class="p">)</span>
+            <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Please specify an input file.&#39;</span><span class="p">)</span>
+            <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+            <span class="n">warn_dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+
+        <span class="c1">#################################################</span>
+        <span class="c1">### Check if conditions are not empty ###########</span>
+        <span class="c1">#################################################</span>
+        <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="n">response_given</span><span class="p">):</span>
+
+            <span class="c1">## Check which conditions are empty ##</span>
+            <span class="n">empty_indexes</span> <span class="o">=</span>  <span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">response_given</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+            <span class="n">empty_indexes_error_str</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">empty_indexes</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">empty_indexes</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39; &amp; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">empty_indexes</span><span class="p">))</span>
+
+            <span class="c1">## Create warning dialog ##</span>
+            <span class="n">warn_dialog</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+            <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+            <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Warning&#39;</span><span class="p">)</span>
+            <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setTextFormat</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RichText</span><span class="p">)</span>
+            <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">empty_indexes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Conditions &quot;</span> <span class="o">+</span> <span class="n">empty_indexes_error_str</span> <span class="o">+</span> <span class="s2">&quot; appear to be empty please specify a condition.&quot;</span><span class="p">)</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Condition &quot;</span> <span class="o">+</span> <span class="n">empty_indexes_error_str</span> <span class="o">+</span> <span class="s2">&quot; appears to be empty please specify a condition.&quot;</span><span class="p">)</span>
+            <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setInformativeText</span><span class="p">(</span><span class="s2">&quot;&lt;b&gt;Example&lt;/b&gt;: speed &gt; 10 &amp; speed &lt; 15 &amp; acceleration &gt; 5 &amp; acceleration &lt; 8&quot;</span><span class="p">)</span>
+            <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+            <span class="n">warn_dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+
+        <span class="c1">#################################################</span>
+        <span class="c1">### Check if condition statements are valid #####</span>
+        <span class="c1">#################################################</span>
+        <span class="k">else</span><span class="p">:</span>
+
+            <span class="c1">### Check if all the given conditions are valid and not ###</span>
+            <span class="n">valid_bol_list</span> <span class="o">=</span> <span class="p">[]</span>
+            <span class="k">for</span> <span class="n">condition_text</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">:</span>
+                <span class="n">valid_bol_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">check_condition</span><span class="p">(</span><span class="n">condition_text</span><span class="p">))</span>
+
+            <span class="c1">### Print error if conditions are not valid ###</span>
+            <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">valid_bol_list</span><span class="p">):</span>
+
+                <span class="c1">### Create warning information str ###</span>
+                <span class="n">error_idx_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">valid_bol_list</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
+                <span class="n">condition_error_str</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">error_idx_list</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">error_idx_list</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39; &amp; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">error_idx_list</span><span class="p">))</span>
+
+                <span class="c1">### Create warning dialog ###</span>
+                <span class="n">warn_dialog</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Warning&#39;</span><span class="p">)</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setTextFormat</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RichText</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">error_idx_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Some of your conditions are not valid please check conditions &#39;</span> <span class="o">+</span> <span class="n">condition_error_str</span> <span class="o">+</span> <span class="s1">&#39;. The accepted operators are (&amp;gt;, &amp;gt;=, &amp;lt;, &amp;lt;=, ==, &amp;amp;)&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;One of your conditions is not valid please check condition &#39;</span> <span class="o">+</span> <span class="n">condition_error_str</span> <span class="o">+</span> <span class="s1">&#39;. The accepted operators are (&amp;gt;, &amp;gt;=, &amp;lt;, &amp;lt; =, ==, &amp;amp;)&#39;</span><span class="p">)</span>
+
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setInformativeText</span><span class="p">(</span><span class="s2">&quot;&lt;b&gt;Example&lt;/b&gt;: speed &gt; 10 &amp; speed &lt; 15 &amp; acceleration &gt; 5 &amp; acceleration &lt; 8&quot;</span><span class="p">)</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+
+            <span class="c1">#################################################</span>
+            <span class="c1">### Perform data analysis #######################</span>
+            <span class="c1">#################################################</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1">## TODO: fix Ball str key error</span>
+
+                <span class="c1">### import the csv file###</span>
+                <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_file_path</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span> <span class="n">header</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">encoding</span><span class="o">=</span><span class="s1">&#39;utf-8&#39;</span><span class="p">)</span>
+                <span class="n">df</span><span class="o">.</span><span class="n">columns</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="o">.</span><span class="n">str</span><span class="o">.</span><span class="n">title</span><span class="p">()</span>         <span class="c1"># Capitalize columns to prohibit key errors</span>
+
+                <span class="c1">### Create data writer ###</span>
+                <span class="n">timestr</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s2">&quot;%Y%m</span><span class="si">%d</span><span class="s2">-%H%M%S&quot;</span><span class="p">)</span>                                             <span class="c1"># Create filename for output file (based on time data)</span>
+                <span class="n">output_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_file_path</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span> <span class="p">(</span><span class="n">timestr</span> <span class="o">+</span> <span class="sa">r</span><span class="s1">&#39;.xlsx&#39;</span><span class="p">))</span>  <span class="c1"># Create output file path</span>
+                <span class="n">writer</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelWriter</span><span class="p">(</span><span class="n">output_file_path</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;xlsxwriter&#39;</span><span class="p">)</span>                       <span class="c1"># Create data writer</span>
+
+                <span class="c1">### Perform data analysis on each condition ###</span>
+                <span class="n">key_invalid</span> <span class="o">=</span> <span class="p">[]</span>     <span class="c1"># Create list for key_vallid boolean test</span>
+                <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>        <span class="c1"># Condition counter used in print statement</span>
+                <span class="k">for</span> <span class="n">condition_text</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">:</span>
+
+                    <span class="c1">### Create list with valid operators ###</span>
+                    <span class="n">operator_escape_str</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">op</span><span class="p">)</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">operators</span><span class="p">]</span>
+                    <span class="n">operator_str</span> <span class="o">=</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">operator_escape_str</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
+
+                    <span class="c1">### Split command in individual list items ###</span>
+                    <span class="n">condition_tmp_1</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">operator_str</span><span class="p">,</span> <span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">())]</span>
+
+                    <span class="c1">### warp database name around keywords ###</span>
+                    <span class="n">condition_tmp_2</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;df[</span><span class="se">\&quot;</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">w</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span><span class="o">+</span><span class="s2">&quot;</span><span class="se">\&quot;</span><span class="s2">]&quot;</span><span class="p">)</span> <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()</span> <span class="k">else</span> <span class="n">w</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">condition_tmp_1</span><span class="p">]</span>
+                    <span class="n">condition_tmp_3</span> <span class="o">=</span> <span class="s2">&quot; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">condition_tmp_2</span><span class="p">)</span>
+                    <span class="n">condition_split_3</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;&amp;&quot;</span><span class="p">,</span> <span class="n">condition_tmp_3</span><span class="p">)]</span>
+                    <span class="n">condition</span> <span class="o">=</span> <span class="s2">&quot; &amp; &quot;</span><span class="o">.</span><span class="n">join</span><span class="p">([</span><span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="n">item</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">condition_split_3</span><span class="p">])</span>
+
+                    <span class="c1">## NOTE: Update warning</span>
+                    <span class="c1">## NOte accept xlsx files as input</span>
+                    <span class="c1">## set output file name</span>
+                    <span class="c1">## set time range</span>
+                    <span class="c1">## set column filters</span>
+                    <span class="c1">## Add time input file option</span>
+
+                    <span class="c1">### Check dictionary keys and evaluate condition if keys are valid ###</span>
+                    <span class="k">try</span><span class="p">:</span>
+                        <span class="n">df_condition</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="nb">eval</span><span class="p">(</span><span class="n">condition</span><span class="p">)]</span>
+                        <span class="n">key_invalid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># Save key value check result</span>
+
+                        <span class="c1">### Get keywords that are used in the condition ###</span>
+                        <span class="n">keywords</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">condition_tmp_1</span> <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()]</span>
+
+                        <span class="c1">### Remove not specified vars (columns) out of dataframe ###</span>
+                        <span class="n">df_filter</span> <span class="o">=</span> <span class="n">df_condition</span><span class="p">[</span><span class="n">keywords</span><span class="p">]</span>
+
+                        <span class="c1">### print data to excel file ###</span>
+                        <span class="n">df_filter</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">())</span>
+
+                        <span class="c1">### Save that the key was vallid ###</span>
+                        <span class="n">key_invalid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
+
+                    <span class="c1">### If not vallid save what went wrong ###</span>
+                    <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                        <span class="n">key_invalid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>        <span class="c1"># Save key value check result</span>
+
+                <span class="c1">### If keys were not vallid display error message ###</span>
+                <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">key_invalid</span><span class="p">):</span>
+
+                        <span class="c1">### Make key condition index error display string ###</span>
+                        <span class="n">key_invalid_idx_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key_invalid</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
+                        <span class="n">key_condition_error_str</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">key_invalid_idx_list</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key_invalid_idx_list</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39; &amp; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">key_invalid_idx_list</span><span class="p">))</span>
+                        <span class="n">key_vallid_list</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">columns</span>
+                        <span class="n">key_vallid_list_error_str</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">key_vallid_list</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key_vallid_list</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39; &amp; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">key_vallid_list</span><span class="p">))</span>
+
+                        <span class="c1">### Print warning message ###</span>
+                        <span class="n">warn_dialog</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                        <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                        <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Warning&#39;</span><span class="p">)</span>
+                        <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key_invalid_idx_list</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                            <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Unfortunately some of your conditions contain invalid variables please check conditions &#39;</span> <span class="o">+</span> <span class="n">key_condition_error_str</span> <span class="o">+</span> <span class="s1">&#39; again.&#39;</span><span class="p">)</span>
+                        <span class="k">else</span><span class="p">:</span>
+                            <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Unfortunately one of your conditions contain invalid variables please check condition &#39;</span> <span class="o">+</span> <span class="n">key_condition_error_str</span> <span class="o">+</span> <span class="s1">&#39; again.&#39;</span><span class="p">)</span>
+                        <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setInformativeText</span><span class="p">(</span><span class="s2">&quot;&lt;b&gt;Vallid keys&lt;/b&gt;: &quot;</span> <span class="o">+</span> <span class="n">key_vallid_list_error_str</span><span class="p">)</span>
+                        <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+                        <span class="n">warn_dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+
+                <span class="c1">### Otherwise save results to xlsx file ###</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">writer</span><span class="o">.</span><span class="n">save</span><span class="p">()</span>
+
+                    <span class="c1">### Print analyse completed message ###</span>
+                    <span class="n">analyse_dialog</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                    <span class="n">analyse_dialog</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                    <span class="n">analyse_dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Info&#39;</span><span class="p">)</span>
+                    <span class="n">analyse_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Data analysis complete you can find the file in the specified output folder&quot;</span><span class="p">)</span>
+                    <span class="n">analyse_dialog</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+                    <span class="n">analyse_dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span></div></div>
+
+<span class="c1">##############################################################</span>
+<span class="c1">#### Main window function                                 ####</span>
+<span class="c1">##############################################################</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>
+    <span class="n">app</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QApplication</span><span class="p">(</span><span class="n">sys</span><span class="o">.</span><span class="n">argv</span><span class="p">)</span>
+    <span class="n">MainWindow</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMainWindow</span><span class="p">()</span>
+
+    <span class="c1">### Create Main window ###</span>
+    <span class="n">ui</span> <span class="o">=</span> <span class="n">DataAnalyserGUI</span><span class="p">()</span>
+    <span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="n">MainWindow</span><span class="p">)</span>
+
+    <span class="c1">### Set icon ###</span>
+    <span class="n">CCDAT_icon</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;media\CCDAT.svg&#39;</span><span class="p">)</span>
+    <span class="n">icon</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">()</span>
+    <span class="n">icon</span><span class="o">.</span><span class="n">addPixmap</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="n">CCDAT_icon</span><span class="p">),</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="o">.</span><span class="n">Normal</span><span class="p">,</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="o">.</span><span class="n">Off</span><span class="p">)</span>
+    <span class="n">MainWindow</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span>
+
+    <span class="c1">### Show main window ###</span>
+    <span class="n">MainWindow</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
+
+</pre></div>
+
+           </div>
+           
+          </div>
+          <footer>
+  
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>
+        &copy; Copyright 2018, Rick Staa
+
+    </p>
+  </div>
+  Built with <a href="http://sphinx-doc.org/">Sphinx</a> using a <a href="https://github.com/rtfd/sphinx_rtd_theme">theme</a> provided by <a href="https://readthedocs.org">Read the Docs</a>. 
+
+</footer>
+
+        </div>
+      </div>
+
+    </section>
+
+  </div>
+  
+
+
+  
+
+    
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../_static/jquery.js"></script>
+        <script type="text/javascript" src="../_static/underscore.js"></script>
+        <script type="text/javascript" src="../_static/doctools.js"></script>
+        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
+    
+
+  
+
+  <script type="text/javascript" src="../_static/js/theme.js"></script>
+
+  <script type="text/javascript">
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
