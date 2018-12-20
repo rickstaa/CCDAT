@@ -1,3 +1,4 @@
+This repository contains the *Conditional game data analyse tool (CGDAT)*. I created this tool for a friedn of mine to help him with the soccer game data analysis. 
 
 # Licence
 This tool is licenced under the GPL open source licence. You are therfore free use the source code in any way provided that you the original copyright statements.
