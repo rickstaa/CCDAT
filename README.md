@@ -1,7 +1,7 @@
-This repository contains the *Conditional game data analyse tool (CGDAT)*. I created this tool for a friedn of mine to help him with the soccer game data analysis. 
+This repository contains the *Conditional game data analysis tool (CGDAT)*. It can be used to load in a csv file and filter this file based on some conditions. Further you can input a file with begin and end times to specify on which sections the analysis has to be performed. I created this tool for a friend of mine to help him with the soccer game data analysis. 
 
-# Licence
-This tool is licenced under the GPL open source licence. You are therfore free use the source code in any way provided that you the original copyright statements.
+# License
+This tool is licensed under the GPL open source license. You are therefore free use the source code in any way provided that you the original copyright statements.
 
 # Contributors
 * [rickstaa](https://github.com/rickstaa)
