@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <ui version="4.0">
- <class>output_settings</class>
- <widget class="QDialog" name="output_settings">
+ <class>OutputSettings</class>
+ <widget class="QDialog" name="OutputSettings">
   <property name="geometry">
    <rect>
     <x>0</x>
@@ -123,7 +123,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>accepted()</signal>
-   <receiver>output_settings</receiver>
+   <receiver>OutputSettings</receiver>
    <slot>accept()</slot>
    <hints>
     <hint type="sourcelabel">
@@ -139,7 +139,7 @@
   <connection>
    <sender>buttonBox</sender>
    <signal>rejected()</signal>
-   <receiver>output_settings</receiver>
+   <receiver>OutputSettings</receiver>
    <slot>reject()</slot>
    <hints>
     <hint type="sourcelabel">

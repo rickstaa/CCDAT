@@ -1,20 +1,20 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\ricks\OneDrive\Development\Tools\CGDAT\scripts\..\qt\output_settings.ui'
+# Form implementation generated from reading ui file 'C:\Users\ricks\OneDrive\Development\Tools\CGDAT\scripts\..\qt\output_settings.ui'
 #
-# Created by: PyQt5 UI code generator 5.6
+# Created by: PyQt5 UI code generator 5.11.3
 #
 # WARNING! All changes made in this file will be lost!
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
-class Ui_output_settings(object):
-    def setupUi(self, output_settings):
-        output_settings.setObjectName("output_settings")
-        output_settings.resize(400, 300)
-        self.gridLayout = QtWidgets.QGridLayout(output_settings)
+class Ui_OutputSettings(object):
+    def setupUi(self, OutputSettings):
+        OutputSettings.setObjectName("OutputSettings")
+        OutputSettings.resize(400, 300)
+        self.gridLayout = QtWidgets.QGridLayout(OutputSettings)
         self.gridLayout.setObjectName("gridLayout")
-        self.groupBox = QtWidgets.QGroupBox(output_settings)
+        self.groupBox = QtWidgets.QGroupBox(OutputSettings)
         self.groupBox.setStyleSheet("QGroupBox{padding-top:15px; margin-top:-15px}")
         self.groupBox.setTitle("")
         self.groupBox.setObjectName("groupBox")
@@ -54,36 +54,36 @@ class Ui_output_settings(object):
         spacerItem = QtWidgets.QSpacerItem(20, 40, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
         self.verticalLayout.addItem(spacerItem)
         self.gridLayout.addWidget(self.groupBox, 0, 0, 1, 1)
-        self.buttonBox = QtWidgets.QDialogButtonBox(output_settings)
+        self.buttonBox = QtWidgets.QDialogButtonBox(OutputSettings)
         self.buttonBox.setOrientation(QtCore.Qt.Horizontal)
         self.buttonBox.setStandardButtons(QtWidgets.QDialogButtonBox.Cancel|QtWidgets.QDialogButtonBox.Ok)
         self.buttonBox.setObjectName("buttonBox")
         self.gridLayout.addWidget(self.buttonBox, 1, 0, 1, 1)
 
-        self.retranslateUi(output_settings)
-        self.buttonBox.accepted.connect(output_settings.accept)
-        self.buttonBox.rejected.connect(output_settings.reject)
-        QtCore.QMetaObject.connectSlotsByName(output_settings)
+        self.retranslateUi(OutputSettings)
+        self.buttonBox.accepted.connect(OutputSettings.accept)
+        self.buttonBox.rejected.connect(OutputSettings.reject)
+        QtCore.QMetaObject.connectSlotsByName(OutputSettings)
 
-    def retranslateUi(self, output_settings):
+    def retranslateUi(self, OutputSettings):
         _translate = QtCore.QCoreApplication.translate
-        output_settings.setWindowTitle(_translate("output_settings", "Dialog"))
-        self.label_2.setText(_translate("output_settings", "<html><head/><body><p><span style=\" text-decoration: underline;\">Change output name</span></p></body></html>"))
-        self.label.setText(_translate("output_settings", "<html><head/><body><p><span style=\" text-decoration: underline;\">Change output variables</span></p></body></html>"))
-        self.checkBox_3.setText(_translate("output_settings", "CheckBox"))
-        self.checkBox.setText(_translate("output_settings", "CheckBox"))
-        self.checkBox_2.setText(_translate("output_settings", "CheckBox"))
-        self.checkBox_4.setText(_translate("output_settings", "CheckBox"))
-        self.checkBox_5.setText(_translate("output_settings", "CheckBox"))
-        self.checkBox_6.setText(_translate("output_settings", "CheckBox"))
+        OutputSettings.setWindowTitle(_translate("OutputSettings", "Dialog"))
+        self.label_2.setText(_translate("OutputSettings", "<html><head/><body><p><span style=\" text-decoration: underline;\">Change output name</span></p></body></html>"))
+        self.label.setText(_translate("OutputSettings", "<html><head/><body><p><span style=\" text-decoration: underline;\">Change output variables</span></p></body></html>"))
+        self.checkBox_3.setText(_translate("OutputSettings", "CheckBox"))
+        self.checkBox.setText(_translate("OutputSettings", "CheckBox"))
+        self.checkBox_2.setText(_translate("OutputSettings", "CheckBox"))
+        self.checkBox_4.setText(_translate("OutputSettings", "CheckBox"))
+        self.checkBox_5.setText(_translate("OutputSettings", "CheckBox"))
+        self.checkBox_6.setText(_translate("OutputSettings", "CheckBox"))
 
 
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
-    output_settings = QtWidgets.QDialog()
-    ui = Ui_output_settings()
-    ui.setupUi(output_settings)
-    output_settings.show()
+    OutputSettings = QtWidgets.QDialog()
+    ui = Ui_OutputSettings()
+    ui.setupUi(OutputSettings)
+    OutputSettings.show()
     sys.exit(app.exec_())
 

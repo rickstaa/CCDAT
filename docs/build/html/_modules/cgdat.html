@@ -143,7 +143,7 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cgdat</h1><div class="highlight"><pre>
-<span></span><span class="sd">&quot;&quot;&quot; Conditional csv data analyse Tool (CCDAT)</span>
+<span></span><span class="sd">&quot;&quot;&quot; Conditional csv data analyse Tool (CGDAT)</span>
 <span class="sd">    This tool was created for a friend of mine to help him with the data analysis he had to</span>
 <span class="sd">    do for his graduation project. It is is licences under a MIT Creative common licence.</span>
 
@@ -642,9 +642,9 @@
     <span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="n">MainWindow</span><span class="p">)</span>
 
     <span class="c1">### Set icon ###</span>
-    <span class="n">CCDAT_icon</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;media\CCDAT.svg&#39;</span><span class="p">)</span>
+    <span class="n">CGDAT_icon</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">dirname</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;media\CGDAT.svg&#39;</span><span class="p">)</span>
     <span class="n">icon</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">()</span>
-    <span class="n">icon</span><span class="o">.</span><span class="n">addPixmap</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="n">CCDAT_icon</span><span class="p">),</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="o">.</span><span class="n">Normal</span><span class="p">,</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="o">.</span><span class="n">Off</span><span class="p">)</span>
+    <span class="n">icon</span><span class="o">.</span><span class="n">addPixmap</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="n">CGDAT_icon</span><span class="p">),</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="o">.</span><span class="n">Normal</span><span class="p">,</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="o">.</span><span class="n">Off</span><span class="p">)</span>
     <span class="n">MainWindow</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span>
 
     <span class="c1">### Show main window ###</span>

@@ -1,6 +1,3 @@
-
-# -*- coding: utf-8 -*-
-
 ### Import python modules ###
 import pandas as pd
 import numpy as np
@@ -8,7 +5,8 @@ import os
 import xlsxwriter
 
 ### Needed Variables ###
-timestep = 0.001
+timestep = 0.166667/100  # 100 samples is 0.166667
+player_name = " "
 
 ### Get current path ###
 dirname = os.path.dirname(__file__)
@@ -31,13 +29,13 @@ end_times = pd.to_datetime(df_data_time['End Time'], format='%H:%M:%S.%f').dt.ti
 # Begin time: List containing begin times [00:02:30, 00:07:30, ...]
 # End times: List containing end times [00:05:00, 00:10:00, ...]
 df_sections = [df_data.between_time(i, j) for (i,j) in zip(begin_times, end_times)]
-df_result = pd.concat(df_sections) # Add all the df sections togheter
+df_result = pd.concat(df_sections) # Add all the df sections together
 
-### Specify Conditions ###
-condition1 = ((df_data['Speed'] > 10) & (df_data['Acceleration'] > 0.69))
-condition2 = ((df_data['Speed'] > 10) & (df_data['Acceleration'] > 1.30))
-condition3 = ((df_data['Speed'] > 7.5) & (df_data['Acceleration'] > 1.30))
-condition4 = ((df_data['Speed'] > 7.5) & (df_data['Acceleration'] < (-1.30)))
+### Specify Conditions ###"
+condition1 = ((df_data['Speed'] > 10) & (df_data['Acceleration'] > 0.69) & (df_data['Name'] == player_name))
+condition2 = ((df_data['Speed'] > 10) & (df_data['Acceleration'] > 1.30) & (df_data['Name'] == player_name))
+condition3 = ((df_data['Speed'] > 7.5) & (df_data['Acceleration'] > 1.30) & (df_data['Name'] == player_name))
+condition4 = ((df_data['Speed'] > 7.5) & (df_data['Acceleration'] < (-1.30)) & (df_data['Name'] == player_name))
 
 ### Test conditions ###
 df_data_sub_1 = df_data[condition1]
@@ -67,3 +65,4 @@ writer.save()
 
 
 # def game_analyse(input_file, output_path, output_name, condition_list):
+print("done")

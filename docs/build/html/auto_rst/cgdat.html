@@ -50,6 +50,9 @@
           
 
           
+            
+            <img src="../_static/CGDAT.svg" class="logo" alt="Logo"/>
+          
           </a>
 
           
@@ -79,7 +82,7 @@
               <ul>
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../use.html">How to use this tool</a></li>
-<li class="toctree-l1"><a class="reference internal" href="../code.html">Auto Generated Documentation</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../info.html">Contributors</a></li>
 </ul>
 
             
@@ -144,78 +147,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-cgdat">
-<span id="cgdat-module"></span><h1>cgdat module<a class="headerlink" href="#module-cgdat" title="Permalink to this headline">¶</a></h1>
-<p>Conditional csv data analyse Tool (CCDAT)
-This tool was created for a friend of mine to help him with the data analysis he had to
-do for his graduation project. It is is licences under a MIT Creative common licence.</p>
-<p>Author: Rick Staa
-Maintainer: Wesley Bosman
-Creation Date: 22/11/2018</p>
-<dl class="class">
-<dt id="cgdat.DataAnalyserGUI">
-<em class="property">class </em><code class="descclassname">cgdat.</code><code class="descname">DataAnalyserGUI</code><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <a class="reference internal" href="data_analyse_ui.html#data_analyse_ui.Ui_MainWindow" title="data_analyse_ui.Ui_MainWindow"><code class="xref py py-class docutils literal notranslate"><span class="pre">data_analyse_ui.Ui_MainWindow</span></code></a></p>
-<p>[This is the qt class used to create the general user interface for the CGDAT data analysis tool.
-It uses the pyqt package to do this.]</p>
-<dl class="docutils">
-<dt>Arguments:</dt>
-<dd>Ui_MainWindow {[type]} – [description]</dd>
-<dt>Returns:</dt>
-<dd>[type] – [description]</dd>
-</dl>
-<dl class="method">
-<dt id="cgdat.DataAnalyserGUI.action_about_slot">
-<code class="descname">action_about_slot</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.action_about_slot"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.action_about_slot" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cgdat.DataAnalyserGUI.add_conditions_row">
-<code class="descname">add_conditions_row</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.add_conditions_row"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.add_conditions_row" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cgdat.DataAnalyserGUI.analyse_data">
-<code class="descname">analyse_data</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.analyse_data"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.analyse_data" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cgdat.DataAnalyserGUI.check_condition">
-<code class="descname">check_condition</code><span class="sig-paren">(</span><em>condition_text</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.check_condition"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.check_condition" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cgdat.DataAnalyserGUI.get_input_file">
-<code class="descname">get_input_file</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.get_input_file"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.get_input_file" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cgdat.DataAnalyserGUI.get_output_dir">
-<code class="descname">get_output_dir</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.get_output_dir"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.get_output_dir" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cgdat.DataAnalyserGUI.output_settings_set">
-<code class="descname">output_settings_set</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.output_settings_set"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.output_settings_set" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cgdat.DataAnalyserGUI.remove_conditions_row">
-<code class="descname">remove_conditions_row</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.remove_conditions_row"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.remove_conditions_row" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cgdat.DataAnalyserGUI.reset_conditions">
-<code class="descname">reset_conditions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.reset_conditions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.reset_conditions" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-<dl class="method">
-<dt id="cgdat.DataAnalyserGUI.setupUi">
-<code class="descname">setupUi</code><span class="sig-paren">(</span><em>MainWindow</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.setupUi"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.setupUi" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
-
-</dd></dl>
-
+  <div class="section" id="cgdat-module">
+<h1>cgdat module<a class="headerlink" href="#cgdat-module" title="Permalink to this headline">¶</a></h1>
 </div>
 
 
@@ -250,11 +183,20 @@ It uses the pyqt package to do this.]</p>
 
     
     
-      <script type="text/javascript" id="documentation_options" data-url_root="../" src="../_static/documentation_options.js"></script>
+      <script type="text/javascript">
+          var DOCUMENTATION_OPTIONS = {
+              URL_ROOT:'../',
+              VERSION:'0.2.0',
+              LANGUAGE:'None',
+              COLLAPSE_INDEX:false,
+              FILE_SUFFIX:'.html',
+              HAS_SOURCE:  true,
+              SOURCELINK_SUFFIX: '.txt'
+          };
+      </script>
         <script type="text/javascript" src="../_static/jquery.js"></script>
         <script type="text/javascript" src="../_static/underscore.js"></script>
         <script type="text/javascript" src="../_static/doctools.js"></script>
-        <script async="async" type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.1/MathJax.js?config=TeX-AMS-MML_HTMLorMML"></script>
     
 
   
