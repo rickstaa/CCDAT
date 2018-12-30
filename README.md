@@ -7,8 +7,5 @@ This tool is licensed under the GPL open source license. You are therefore free 
 * [rickstaa](https://github.com/rickstaa)
 
 # Credits
-<<<<<<< HEAD
-* CGDAT icon created by FreePis from [www.flaticon.com](https://www.flaticon.com/free-icon/data-search-interface-symbol-of-a-bars-graphic-with-a-magnifier-tool_38813)
-=======
 * CDAT icon created by FreePis from [www.flaticon.com](https://www.flaticon.com/free-icon/data-search-interface-symbol-of-a-bars-graphic-with-a-magnifier-tool_38813)
->>>>>>> 9c23492926a74b656681ad03689025208e0bed01
+
