@@ -35,6 +35,9 @@ class WorkerSignals(QObject):
     error
         `tuple` (exctype, value, traceback.format_exc() )
 
+    ready
+        `str` string specifying which worker was ready
+
     result
         `object` data returned from processing, anything
 
@@ -42,9 +45,9 @@ class WorkerSignals(QObject):
         `int` indicating % progress
 
     '''
-    finished = pyqtSignal()
+    finished = pyqtSignal(object)
     error = pyqtSignal(tuple)
-    # problem = pyqtSignal(tuple)
+    ready = pyqtSignal(str)
     result = pyqtSignal(object)
     progress = pyqtSignal(object)
 
@@ -85,11 +88,12 @@ class Worker(QThread):
         self.signals = WorkerSignals()
 
         # Add the callback to our kwargs
+        self.kwargs['ready_callback'] = self.signals.ready
         self.kwargs['progress_callback'] = self.signals.progress
 
-        #################################################
-        ### Class run function                        ###
-        #################################################
+    #################################################
+    ### Class run function                        ###
+    #################################################
     @pyqtSlot()
     def run(self):
         '''Retrieve args/kwargs and start up the thread using them.
@@ -104,11 +108,8 @@ class Worker(QThread):
             traceback.print_exc()
             exctype, value = sys.exc_info()[:2]
             self.signals.error.emit((exctype, value, traceback.format_exc()))
-        else:
-
-            # Return the result of the processing
-            self.signals.result.emit(result)
+            result = (False,"thread_error")
         finally:
 
 			# Send finished signal
-            self.signals.finished.emit()
+            self.signals.finished.emit(result)

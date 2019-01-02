@@ -15,3 +15,4 @@ from .about_ui import Ui_About
 from .cgdat_ui import Ui_MainWindow
 from .output_settings_ui import Ui_OutputSettings
 from .progress_dialog_ui import Ui_ProgressDialog
+from .import_dialog_ui import Ui_ImportDialog
