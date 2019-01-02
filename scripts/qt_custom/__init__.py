@@ -11,4 +11,4 @@ the following components:
 
 from .qt_thread import Worker
 from .qt_thread import WorkerSignals
-from .qt_extra import CheckableComboBox
+from .qt_extra import MultiSelectMenu

@@ -18,147 +18,128 @@ import sys, os
 ###################################################################
 ### CheckableComboBox Class                                     ###
 ###################################################################
-class CheckableComboBox(QtWidgets.QComboBox):
-    """This class is used add multi check functionality to the QComboBox.
-
-    Args:
-        default_text_holder (str, optional): Defaults to None. The default text holder that is shown when the QComboBox is not selected.
+class MultiSelectMenu(QtWidgets.QToolButton):
+    """This class is used to create a multi selection drop down menu.
     """
 
     #################################################
     ### Class initializer                         ###
     #################################################
-    def __init__(self, default_text_holder=None):
-        """Initialize object.
-        """
+    def __init__(self):
+        """Initialize object."""
 
-
-        ### Run parent initializer and constructors ###
-        super(CheckableComboBox, self).__init__()
-        self.default_text_holder = default_text_holder
-
-        ### Setup default textholder ###
-        if default_text_holder:
-            super(CheckableComboBox, self).addItem(default_text_holder)
-
-    #################################################
-    ### setDefaultTextHolder method               ###
-    #################################################
-    def setDefaultTextHolder(self, default_text_holder):
-        """This function is used to remove a default text holder for the QComboBox. This default text holder is shown
-        when the QComboBox is not selected.
-
-        Args:
-            default_text_holder (str, optional): Defaults to None. The default text holder that is shown when the QComboBox is not selected.
-        """
-
-        ### Add default text holder to QComboBox ###
-        if self.default_text_holder:  # If default text holder already exists
-            self.default_text_holder = default_text_holder
-            item = self.model().item(0,0)
-            item.setText(self.default_text_holder)
-        else:
-            self.default_text_holder = default_text_holder
-            self.insertItem(0, default_text_holder)
-
-    #################################################
-    ### removeDefaultTextHolder method            ###
-    #################################################
-    def removeDefaultTextHolder(self):
-        """This function is used to remove a default text holder for the QComboBox. This default text holder is shown
-        when the QComboBox is not selected.
-        """
-
-        ### Remove default text holder if it is present ###
-        if self.default_text_holder:
-            self.default_text_holder = None
-            self.removeItem(0)
-        else:
-            print("No default text holder was set for the QCheckBox.")
+        ### Run parent initializer and setup components ###
+        super(MultiSelectMenu, self).__init__()
+        self.setText('Select Categories ')
+        self.toolmenu = QtWidgets.QMenu(self)
+        self.setMenu(self.toolmenu)
+        self.setPopupMode(QtWidgets.QToolButton.InstantPopup)
+        self.toolmenu.installEventFilter(self)
+        self.all_text_enabled = False  # Specify whether a all text is enabled
 
     #################################################
     ### addItem method                            ###
     #################################################
     def addItem(self, item):
-        """This function overloads the original addItem function of the QComboBox class in order to add
-        the multi checkable items functionality.
+        """Method used to add additional actions to the toolbar menu."""
+
+        ### Add item to menu ###
+        action = self.toolmenu.addAction(item)
+        action.setCheckable(True)
+
+    #################################################
+    ### addAllOption method                       ###
+    #################################################
+    def addAllOption(self, all_text="Select all"):
+        """This function is used to add a "Select all" action to the toolbar menu.
 
         Args:
-            item (str): The QComboBox item.
+            all_text (str, optional): Defaults to "Select all". The text used for the select all element.
         """
 
-        ### Add item to QComboBox ###
-        super(CheckableComboBox, self).addItem(item)  # Run parrent addItem method
-        item = self.model().item(self.count()-1,0)  # Get item object
-        item.setFlags(QtCore.Qt.ItemIsUserCheckable | QtCore.Qt.ItemIsEnabled)  # Enable multiselect functionality
-        item.setCheckState(QtCore.Qt.Unchecked)
+        ### Set all_text if specified ###
+        self.all_text = all_text
 
-    def clear(self):
-        """Function that overloads the original clear function of the QComboBox class so the default text holder is not removed.
+        ### Add all action to menu ###
+        action = QtWidgets.QAction(self)
+        action.setText(all_text)
+        action.setCheckable(True)
+        action.changed.connect(self.selectAll)
+        self.toolmenu.insertAction(self.toolmenu.actions()[0], action)
+        self.all_text_enabled = True
+
+    #################################################
+    ### removeAllOption method                       ###
+    #################################################
+    def removeAllOption(self):
+        """This function is used to remove a "Select all" action to the toolbar menu.
         """
 
-        ### Run parent method ###
-        super(CheckableComboBox, self).clear()  # Run parrent addItem method
-
-        ### Add default text holder again ###
-        if self.default_text_holder:  # If default text exist add it to the QComboBox
-            self.insertItem(0, self.default_text_holder)
+        ### Remove select all element if it exists ###
+        if self.all_text_enabled:
+            self.all_text_enabled = False  # Set select all text to false
+            self.toolmenu.removeAction(self.toolmenu.actions()[0])
+        else:
+            print("No select all action was found.")
 
     #################################################
-    ### itemChecked method                        ###
+    ### selectAll method                          ###
     #################################################
-    def itemChecked(self, index):
-        """This function is created to check whether an item of the multi check QComboBox is checked.
+    def selectAll(self):
+        """This method is used to select all the options when the select all action is selected
+        """
 
-        Args:
-            index (int): Index of the item you want to check.
+        ### Check or unchecked the other actions based on the "Select all" action ###
+        if self.toolmenu.actions()[0].isChecked():  # If "Select all" action is checked
+            for action in self.toolmenu.actions()[1:]:
+                action.setChecked(1)  # Check actions
+        else:
+            for action in self.toolmenu.actions()[1:]:
+                action.setChecked(0) # Uncheck all actions
+
+    #################################################
+    ### selectedItems method                      ###
+    #################################################
+    def selectedItems(self):
+        """This method returns a list containing the items that were selected in the toolbox menu.
 
         Returns:
-            bool: Boolean specifying whether the item was checked.
+            list: List containing the items that were selected.
         """
 
-        ### Get item
-        item = self.model().item(index,0)
-        return item.checkState() == QtCore.Qt.Checked
+        ### Create selected items list ###
+        selected_items = []
+
+        ### Loop through the toolbar menu and return selected items ###
+        if self.all_text_enabled:
+            for action in self.toolmenu.actions()[1:]:
+                if action.isChecked():  # Check if item is checked
+                    selected_items.append(action.text())  # Append item text to list
+        else:
+            for action in self.toolmenu.actions():
+                if action.isChecked():  # Check if item is checked
+                    selected_items.append(action.text())  # Append item text to list
+
+        ### Return result ###
+        return selected_items
 
     #################################################
-    ### itemsChecked method                       ###
+    ### eventFilter method                        ###
     #################################################
-    def itemsChecked(self):
-        """This function is created to get a list of the items that were checked..
-
-        Returns:
-            dict: A dictionary containing all the items that were checked.
-        """
-
-        ### Create results list ###
-        checked_items = []
-
-        ### Loop through al the items and append them to the list when checked ###
-        for ii in range(0,self.count()):
-            item = self.model().item(ii,0) # Get item
-
-            ## Append item text to list if it was checked ##
-            if (item.checkState() == QtCore.Qt.Checked):
-                checked_items.append(self.model().item(ii).text())
-
-        ### Return dictionary with the result ###
-        return checked_items
-
-class multiSelectMenu():
-
-    def __init__(self):
-        self.toolbutton = QtWidgets.QToolButton(self)
-        self.toolbutton.setText('Select Categories ')
-        self.toolmenu = QtWidgets.QMenu(self)
-        for i in range(3):
-            action = self.toolmenu.addAction("Category " + str(i))
-            action.setCheckable(True)
-        self.toolbutton.setMenu(self.toolmenu)
-        self.toolbutton.setPopupMode(QtWidgets.QToolButton.InstantPopup)
-        self.toolmenu.installEventFilter(self)
-
     def eventFilter(self, obj, event):
+        """This function is used to slightly edit the open and close behaviour of the
+        QToolButton. This was done since we want the toolbar drop down menu to stay open
+        when the user is selecting players.
+
+        Args:
+            obj (QObject): The object on which the event filter needs to be applied.
+            event (QEvent): The QEvent we want to overwrite.
+
+        Returns:
+            QEvent: Pass the event to the parent class.
+        """
+
+        ### Check if the mouse button is released ###
         if event.type() in [QtCore.QEvent.MouseButtonRelease]:
             if isinstance(obj, QtWidgets.QMenu):
                 if obj.activeAction():
@@ -166,4 +147,6 @@ class multiSelectMenu():
                         #eat the event, but trigger the function
                         obj.activeAction().trigger()
                         return True
-        return super(multiSelectMenu, self).eventFilter(obj, event)
+
+        ### Return event ###
+        return super(MultiSelectMenu, self).eventFilter(obj, event)
