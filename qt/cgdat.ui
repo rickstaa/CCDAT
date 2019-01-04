@@ -140,6 +140,7 @@
            </property>
           </widget>
          </item>
+<<<<<<< HEAD
          <item row="0" column="0">
           <widget class="QCheckBox" name="time_file_toggle">
            <property name="font">
@@ -150,6 +151,10 @@
            <property name="styleSheet">
             <string notr="true"/>
            </property>
+=======
+         <item row="2" column="0">
+          <widget class="QCheckBox" name="player_filter_toggle">
+>>>>>>> 0dc5f724699be657154b5a1b13ef6236c8b519be
            <property name="text">
             <string/>
            </property>
