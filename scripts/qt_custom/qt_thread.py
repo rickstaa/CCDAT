@@ -2,11 +2,12 @@
 following components:
 
 **Classes:**
+
 .. autosummary::
    :toctree: _autosummary
 
-    WorkerSignals
-    Worker
+    .WorkerSignals
+    .Worker
 
 '''
 
@@ -56,17 +57,18 @@ class WorkerSignals(QObject):
 #####################################################################
 # class Worker(QRunnable):
 class Worker(QThread):
-    '''
-    Worker thread
+    '''Worker thread
 
     Inherits from QRunnable to handler worker thread setup, signals
     and wrap-up.
 
-    args:
+    Args:
         fn (callback): The function callback to run on this worker thread. The
                        supplied args and kwargs will be passed through to the runner.
-        args (*args): Arguments to pass to the callback function.
-        kwargs (*kwargs): Keywords to pass to the callback function.
+
+        args (\*args): Arguments to pass to the callback function.
+
+        kwargs (\*kwargs): Keywords to pass to the callback function.
 
     '''
 

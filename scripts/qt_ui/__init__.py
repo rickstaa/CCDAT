@@ -1,12 +1,13 @@
 '''This package contains all the QT python classes that were autogenearted out of the .ui files by the PyQt5.uic.pyuic module. It contains the following components:
 
 **Modules:**
+
 .. autosummary::
    :toctree: _autosummary
 
-    about_ui
-    cgdat_ui
-    output_settings_ui
+    .about_ui
+    .cgdat_ui
+    .output_settings_ui
 
 '''
 

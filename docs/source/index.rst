@@ -15,9 +15,15 @@ Contents:
    info
 
 
+For developers:
+------------------
+.. toctree::
+   :maxdepth: 1
+
+   code
+
 Indices and tables
 ------------------
-
 * :ref:`genindex`
 * :ref:`modindex`
 * :ref:`search`

@@ -83,6 +83,7 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../use.html">How to use this tool</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../info.html">Contributors</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">CGDAT API</a></li>
 </ul>
 
             
@@ -156,32 +157,78 @@
 <span id="qt-custom-qt-extra-module"></span><h2>qt_custom.qt_extra module<a class="headerlink" href="#module-qt_custom.qt_extra" title="Permalink to this headline">¶</a></h2>
 <p>This module contains classes and functions that add added custom made widgets and functionalities to the qt GUI. It contains the
 following components:</p>
-<p><strong>Classes:</strong>
-.. autosummary:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">toctree</span><span class="p">:</span> <span class="n">_autosummary</span>
-
- <span class="n">CheckableComboBox</span>
-</pre></div>
-</div>
+<p><strong>Classes:</strong></p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
 <dl class="class">
-<dt id="qt_custom.qt_extra.CheckableComboBox">
-<em class="property">class </em><code class="descclassname">qt_custom.qt_extra.</code><code class="descname">CheckableComboBox</code><span class="sig-paren">(</span><em>default_text_holder=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qt_custom/qt_extra.html#CheckableComboBox"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qt_custom.qt_extra.CheckableComboBox" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QComboBox</span></code></p>
+<dt id="qt_custom.qt_extra.MultiSelectMenu">
+<em class="property">class </em><code class="descclassname">qt_custom.qt_extra.</code><code class="descname">MultiSelectMenu</code><a class="reference internal" href="../_modules/qt_custom/qt_extra.html#MultiSelectMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qt_custom.qt_extra.MultiSelectMenu" title="Permalink to this definition">¶</a></dt>
+<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QToolButton</span></code></p>
+<p>This class is used to create a multi selection drop down menu.</p>
 <dl class="method">
-<dt id="qt_custom.qt_extra.CheckableComboBox.addItem">
-<code class="descname">addItem</code><span class="sig-paren">(</span><em>self</em>, <em>str</em>, <em>userData: Any = None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qt_custom/qt_extra.html#CheckableComboBox.addItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qt_custom.qt_extra.CheckableComboBox.addItem" title="Permalink to this definition">¶</a></dt>
-<dd><p>addItem(self, QIcon, str, userData: Any = None)</p>
+<dt id="qt_custom.qt_extra.MultiSelectMenu.addAllOption">
+<code class="descname">addAllOption</code><span class="sig-paren">(</span><em>all_text='Select all'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qt_custom/qt_extra.html#MultiSelectMenu.addAllOption"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qt_custom.qt_extra.MultiSelectMenu.addAllOption" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is used to add a “Select all” action to the toolbar menu.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>all_text (str, optional): Defaults to “Select all”. The text used for the select all element.</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
-<dt id="qt_custom.qt_extra.CheckableComboBox.itemChecked">
-<code class="descname">itemChecked</code><span class="sig-paren">(</span><em>index</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qt_custom/qt_extra.html#CheckableComboBox.itemChecked"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qt_custom.qt_extra.CheckableComboBox.itemChecked" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="qt_custom.qt_extra.MultiSelectMenu.addItem">
+<code class="descname">addItem</code><span class="sig-paren">(</span><em>item</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qt_custom/qt_extra.html#MultiSelectMenu.addItem"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qt_custom.qt_extra.MultiSelectMenu.addItem" title="Permalink to this definition">¶</a></dt>
+<dd><p>Method used to add additional actions to the toolbar menu.</p>
+</dd></dl>
 
 <dl class="method">
-<dt id="qt_custom.qt_extra.CheckableComboBox.setDefaultTextHolder">
-<code class="descname">setDefaultTextHolder</code><span class="sig-paren">(</span><em>default_text_holder</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qt_custom/qt_extra.html#CheckableComboBox.setDefaultTextHolder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qt_custom.qt_extra.CheckableComboBox.setDefaultTextHolder" title="Permalink to this definition">¶</a></dt>
-<dd></dd></dl>
+<dt id="qt_custom.qt_extra.MultiSelectMenu.clear">
+<code class="descname">clear</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qt_custom/qt_extra.html#MultiSelectMenu.clear"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qt_custom.qt_extra.MultiSelectMenu.clear" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function clears all the cations out of the Qmenu.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="qt_custom.qt_extra.MultiSelectMenu.eventFilter">
+<code class="descname">eventFilter</code><span class="sig-paren">(</span><em>obj</em>, <em>event</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qt_custom/qt_extra.html#MultiSelectMenu.eventFilter"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qt_custom.qt_extra.MultiSelectMenu.eventFilter" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is used to slightly edit the open and close behaviour of the
+QToolButton. This was done since we want the toolbar drop down menu to stay open
+when the user is selecting players.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>obj (QObject): The object on which the event filter needs to be applied.
+event (QEvent): The QEvent we want to overwrite.</dd>
+<dt>Returns:</dt>
+<dd>QEvent: Pass the event to the parent class.</dd>
+</dl>
+</dd></dl>
+
+<dl class="method">
+<dt id="qt_custom.qt_extra.MultiSelectMenu.removeAllOption">
+<code class="descname">removeAllOption</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qt_custom/qt_extra.html#MultiSelectMenu.removeAllOption"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qt_custom.qt_extra.MultiSelectMenu.removeAllOption" title="Permalink to this definition">¶</a></dt>
+<dd><p>This function is used to remove a “Select all” action to the toolbar menu.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="qt_custom.qt_extra.MultiSelectMenu.selectAll">
+<code class="descname">selectAll</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qt_custom/qt_extra.html#MultiSelectMenu.selectAll"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qt_custom.qt_extra.MultiSelectMenu.selectAll" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method is used to select all the options when the select all action is selected</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="qt_custom.qt_extra.MultiSelectMenu.selectedItems">
+<code class="descname">selectedItems</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qt_custom/qt_extra.html#MultiSelectMenu.selectedItems"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qt_custom.qt_extra.MultiSelectMenu.selectedItems" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method returns a list containing the items that were selected in the toolbox menu.</p>
+<dl class="docutils">
+<dt>Returns:</dt>
+<dd>list: List containing the items that were selected.</dd>
+</dl>
+</dd></dl>
 
 </dd></dl>
 
@@ -190,14 +237,15 @@ following components:</p>
 <span id="qt-custom-qt-thread-module"></span><h2>qt_custom.qt_thread module<a class="headerlink" href="#module-qt_custom.qt_thread" title="Permalink to this headline">¶</a></h2>
 <p>This module contains the classes and functions that are used qt gui to enable multithreading. It contains the
 following components:</p>
-<p><strong>Classes:</strong>
-.. autosummary:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">toctree</span><span class="p">:</span> <span class="n">_autosummary</span>
-
- <span class="n">WorkerSignals</span>
- <span class="n">Worker</span>
-</pre></div>
-</div>
+<p><strong>Classes:</strong></p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
 <dl class="class">
 <dt id="qt_custom.qt_thread.Worker">
 <em class="property">class </em><code class="descclassname">qt_custom.qt_thread.</code><code class="descname">Worker</code><span class="sig-paren">(</span><em>fn</em>, <em>*args</em>, <em>**kwargs</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/qt_custom/qt_thread.html#Worker"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#qt_custom.qt_thread.Worker" title="Permalink to this definition">¶</a></dt>
@@ -206,13 +254,13 @@ following components:</p>
 <p>Inherits from QRunnable to handler worker thread setup, signals
 and wrap-up.</p>
 <dl class="docutils">
-<dt>args:</dt>
+<dt>Args:</dt>
 <dd><dl class="first docutils">
 <dt>fn (callback): The function callback to run on this worker thread. The</dt>
 <dd>supplied args and kwargs will be passed through to the runner.</dd>
 </dl>
-<p class="last">args (<a href="#id1"><span class="problematic" id="id2">*</span></a>args): Arguments to pass to the callback function.
-kwargs (<a href="#id3"><span class="problematic" id="id4">*</span></a>kwargs): Keywords to pass to the callback function.</p>
+<p>args (*args): Arguments to pass to the callback function.</p>
+<p class="last">kwargs (*kwargs): Keywords to pass to the callback function.</p>
 </dd>
 </dl>
 <dl class="method">
@@ -234,6 +282,8 @@ kwargs (<a href="#id3"><span class="problematic" id="id4">*</span></a>kwargs): K
 <dd>No data</dd>
 <dt>error</dt>
 <dd><cite>tuple</cite> (exctype, value, traceback.format_exc() )</dd>
+<dt>ready</dt>
+<dd><cite>str</cite> string specifying which worker was ready</dd>
 <dt>result</dt>
 <dd><cite>object</cite> data returned from processing, anything</dd>
 <dt>progress</dt>
@@ -255,6 +305,11 @@ kwargs (<a href="#id3"><span class="problematic" id="id4">*</span></a>kwargs): K
 <dd></dd></dl>
 
 <dl class="attribute">
+<dt id="qt_custom.qt_thread.WorkerSignals.ready">
+<code class="descname">ready</code><a class="headerlink" href="#qt_custom.qt_thread.WorkerSignals.ready" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="attribute">
 <dt id="qt_custom.qt_thread.WorkerSignals.result">
 <code class="descname">result</code><a class="headerlink" href="#qt_custom.qt_thread.WorkerSignals.result" title="Permalink to this definition">¶</a></dt>
 <dd></dd></dl>
@@ -266,13 +321,15 @@ kwargs (<a href="#id3"><span class="problematic" id="id4">*</span></a>kwargs): K
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-qt_custom" title="Permalink to this headline">¶</a></h2>
 <p>This package contains all the additional classes and functions that are used in the CGDAT data anaylsis tool. It contains
 the following components:</p>
-<p><strong>Modules:</strong>
-.. autosummary:</p>
-<div class="highlight-default notranslate"><div class="highlight"><pre><span></span><span class="p">:</span><span class="n">toctree</span><span class="p">:</span> <span class="n">_autosummary</span>
-
- <span class="n">qt_thread</span>
-</pre></div>
-</div>
+<p><strong>Modules:</strong></p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
 </div>
 </div>
 

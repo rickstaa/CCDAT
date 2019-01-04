@@ -3,17 +3,17 @@
 following components:
 
 **Classes:**
+
 .. autosummary::
    :toctree: _autosummary
 
-    CheckableComboBox
+    .MultiSelectMenu
+
 '''
 
 ### Import needed modules ###
 from PyQt5 import QtGui, QtCore, QtWidgets
 import sys, os
-
-# TODO: Add all option that selects all items
 
 ###################################################################
 ### CheckableComboBox Class                                     ###
@@ -25,8 +25,12 @@ class MultiSelectMenu(QtWidgets.QToolButton):
     #################################################
     ### Class initializer                         ###
     #################################################
-    def __init__(self):
+    def __init__(self, all_text_enabled = True, all_text="Select all"):
         """Initialize object."""
+
+        ### Get extra options ###
+        self.all_text_enabled = all_text_enabled
+        self.all_text = all_text
 
         ### Run parent initializer and setup components ###
         super(MultiSelectMenu, self).__init__()
@@ -35,7 +39,16 @@ class MultiSelectMenu(QtWidgets.QToolButton):
         self.setMenu(self.toolmenu)
         self.setPopupMode(QtWidgets.QToolButton.InstantPopup)
         self.toolmenu.installEventFilter(self)
-        self.all_text_enabled = False  # Specify whether a all text is enabled
+
+        ### Add all text to menu if enabled ###
+        if all_text_enabled:
+            action = QtWidgets.QAction(self)
+            action.setText(all_text)
+            action.setCheckable(True)
+            action.changed.connect(self.selectAll)
+            self.toolmenu.addAction(action)
+            self.all_text_enabled = True
+
 
     #################################################
     ### addItem method                            ###
@@ -47,6 +60,10 @@ class MultiSelectMenu(QtWidgets.QToolButton):
         action = self.toolmenu.addAction(item)
         action.setCheckable(True)
 
+        ### Connect to selection function when All option exists ###
+        if self.all_text_enabled:
+            action.changed.connect(self.selectAction)
+
     #################################################
     ### addAllOption method                       ###
     #################################################
@@ -57,16 +74,37 @@ class MultiSelectMenu(QtWidgets.QToolButton):
             all_text (str, optional): Defaults to "Select all". The text used for the select all element.
         """
 
-        ### Set all_text if specified ###
-        self.all_text = all_text
+        ### Check whether all text was already enabled ###
+        if not self.all_text_enabled:
+            ### Set all_text if specified ###
+            self.all_text = all_text
 
-        ### Add all action to menu ###
-        action = QtWidgets.QAction(self)
-        action.setText(all_text)
-        action.setCheckable(True)
-        action.changed.connect(self.selectAll)
-        self.toolmenu.insertAction(self.toolmenu.actions()[0], action)
-        self.all_text_enabled = True
+            ### Add all action to menu ###
+            action = QtWidgets.QAction(self)
+            action.setText(all_text)
+            action.setCheckable(True)
+            action.changed.connect(self.selectAll)
+            self.toolmenu.insertAction(self.toolmenu.actions()[0], action)
+            self.all_text_enabled = True
+        else:
+            print("All text already enabled use changeAllText to change the all text.")
+
+    #################################################
+    ### ChangeAllText method                      ###
+    #################################################
+    def changeAllText(self, all_text):
+        """This function is used to change the "Select all" text.
+
+        Args:
+            all_text (str): The text used for the select all element.
+        """
+
+        ### Check whether all text was already enabled ###
+        if not self.all_text_enabled:
+            print("No all text was enabled please first use the addAllOption method to enable the select all option.")
+        else:
+            self.all_text = all_text
+            self.toolmenu.actions()[0].setText(all_text)
 
     #################################################
     ### removeAllOption method                       ###
@@ -92,10 +130,30 @@ class MultiSelectMenu(QtWidgets.QToolButton):
         ### Check or unchecked the other actions based on the "Select all" action ###
         if self.toolmenu.actions()[0].isChecked():  # If "Select all" action is checked
             for action in self.toolmenu.actions()[1:]:
+                action.changed.disconnect(self.selectAction)
                 action.setChecked(1)  # Check actions
+                action.changed.connect(self.selectAction)
         else:
             for action in self.toolmenu.actions()[1:]:
+                action.changed.disconnect(self.selectAction)
                 action.setChecked(0) # Uncheck all actions
+                action.changed.connect(self.selectAction)
+
+    #################################################
+    ### selectAction method                          ###
+    #################################################
+    def selectAction(self):
+        """This method is used to unselect the select all option when one of the other values is unselected. Further it
+        also makes sure that the select all button is selected again if all items are selected again.
+        """
+
+        ### Check or unchecked the other actions based on the "Select all" action ###
+        if self.toolmenu.actions()[0].isChecked() and len(self.selectedItems()) < len(self.toolmenu.actions()):
+            self.toolmenu.actions()[0].changed.disconnect() # Disconnect all select function
+            self.toolmenu.actions()[0].setChecked(0)  # Disable all selected
+            self.toolmenu.actions()[0].changed.connect(self.selectAll)  # Reconnect all select functino
+        elif not self.toolmenu.actions()[0].isChecked() and len(self.selectedItems()) == (len(self.toolmenu.actions())-1):
+            self.toolmenu.actions()[0].setChecked(1)  # Enable all selected
 
     #################################################
     ### selectedItems method                      ###
@@ -122,6 +180,22 @@ class MultiSelectMenu(QtWidgets.QToolButton):
 
         ### Return result ###
         return selected_items
+
+    #################################################
+    ### Clear method                      ###
+    #################################################
+    def clear(self):
+        """This function clears all the cations out of the Qmenu."""
+        self.toolmenu.clear()
+
+        ### Add select all option back if it was enabled ###
+        if self.all_text_enabled:
+            action = QtWidgets.QAction(self)
+            action.setText(self.all_text)
+            action.setCheckable(True)
+            action.changed.connect(self.selectAll)
+            self.toolmenu.addAction(action)
+            self.all_text_enabled = True
 
     #################################################
     ### eventFilter method                        ###

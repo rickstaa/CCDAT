@@ -1,4 +1,4 @@
-Auto Generated Documentation
+API - Documentation
 ============================
 
 
@@ -8,8 +8,8 @@ Modules
 .. autosummary::
    :toctree: _autosummary
 
-    qt_custom
-    qt_ui
+    .qt_custom
+    .qt_ui
 
 Classes
 --------------
@@ -17,4 +17,4 @@ Classes
 .. autosummary::
    :toctree: _autosummary
 
-    cgdat
+    .cgdat

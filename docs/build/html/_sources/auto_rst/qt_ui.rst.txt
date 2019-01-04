@@ -20,6 +20,14 @@ qt\_ui.cgdat\_ui module
     :undoc-members:
     :show-inheritance:
 
+qt\_ui.import\_dialog\_ui module
+--------------------------------
+
+.. automodule:: qt_ui.import_dialog_ui
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 qt\_ui.output\_settings\_ui module
 ----------------------------------
 

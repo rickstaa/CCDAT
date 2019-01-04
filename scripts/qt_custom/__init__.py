@@ -2,13 +2,17 @@
 the following components:
 
 **Modules:**
+
 .. autosummary::
    :toctree: _autosummary
 
-    qt_thread
+    .qt_thread
+    .qt_extra
+    .qt_dialogs
 
 '''
 
 from .qt_thread import Worker
 from .qt_thread import WorkerSignals
 from .qt_extra import MultiSelectMenu
+from .qt_dialogs import progressDialog, importDialog, outputSettingsDialog

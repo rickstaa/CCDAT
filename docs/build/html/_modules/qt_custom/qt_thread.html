@@ -84,6 +84,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../../use.html">How to use this tool</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../info.html">Contributors</a></li>
 </ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../../code.html">API - Documentation</a></li>
+</ul>
 
             
           
@@ -150,11 +153,12 @@
 <span class="sd">following components:</span>
 
 <span class="sd">**Classes:**</span>
+
 <span class="sd">.. autosummary::</span>
 <span class="sd">   :toctree: _autosummary</span>
 
-<span class="sd">    WorkerSignals</span>
-<span class="sd">    Worker</span>
+<span class="sd">    .WorkerSignals</span>
+<span class="sd">    .Worker</span>
 
 <span class="sd">&#39;&#39;&#39;</span>
 
@@ -183,6 +187,9 @@
 <span class="sd">    error</span>
 <span class="sd">        `tuple` (exctype, value, traceback.format_exc() )</span>
 
+<span class="sd">    ready</span>
+<span class="sd">        `str` string specifying which worker was ready</span>
+
 <span class="sd">    result</span>
 <span class="sd">        `object` data returned from processing, anything</span>
 
@@ -190,9 +197,9 @@
 <span class="sd">        `int` indicating % progress</span>
 
 <span class="sd">    &#39;&#39;&#39;</span>
-    <span class="n">finished</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">()</span>
+    <span class="n">finished</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
     <span class="n">error</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">tuple</span><span class="p">)</span>
-    <span class="c1"># problem = pyqtSignal(tuple)</span>
+    <span class="n">ready</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">str</span><span class="p">)</span>
     <span class="n">result</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span>
     <span class="n">progress</span> <span class="o">=</span> <span class="n">pyqtSignal</span><span class="p">(</span><span class="nb">object</span><span class="p">)</span></div>
 
@@ -201,17 +208,18 @@
 <span class="c1">#####################################################################</span>
 <span class="c1"># class Worker(QRunnable):</span>
 <div class="viewcode-block" id="Worker"><a class="viewcode-back" href="../../auto_rst/qt_custom.html#qt_custom.qt_thread.Worker">[docs]</a><span class="k">class</span> <span class="nc">Worker</span><span class="p">(</span><span class="n">QThread</span><span class="p">):</span>
-    <span class="sd">&#39;&#39;&#39;</span>
-<span class="sd">    Worker thread</span>
+    <span class="sd">&#39;&#39;&#39;Worker thread</span>
 
 <span class="sd">    Inherits from QRunnable to handler worker thread setup, signals</span>
 <span class="sd">    and wrap-up.</span>
 
-<span class="sd">    args:</span>
+<span class="sd">    Args:</span>
 <span class="sd">        fn (callback): The function callback to run on this worker thread. The</span>
 <span class="sd">                       supplied args and kwargs will be passed through to the runner.</span>
-<span class="sd">        args (*args): Arguments to pass to the callback function.</span>
-<span class="sd">        kwargs (*kwargs): Keywords to pass to the callback function.</span>
+
+<span class="sd">        args (\*args): Arguments to pass to the callback function.</span>
+
+<span class="sd">        kwargs (\*kwargs): Keywords to pass to the callback function.</span>
 
 <span class="sd">    &#39;&#39;&#39;</span>
 
@@ -233,11 +241,12 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">signals</span> <span class="o">=</span> <span class="n">WorkerSignals</span><span class="p">()</span>
 
         <span class="c1"># Add the callback to our kwargs</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;ready_callback&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">ready</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">kwargs</span><span class="p">[</span><span class="s1">&#39;progress_callback&#39;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">progress</span>
 
-        <span class="c1">#################################################</span>
-        <span class="c1">### Class run function                        ###</span>
-        <span class="c1">#################################################</span>
+    <span class="c1">#################################################</span>
+    <span class="c1">### Class run function                        ###</span>
+    <span class="c1">#################################################</span>
 <div class="viewcode-block" id="Worker.run"><a class="viewcode-back" href="../../auto_rst/qt_custom.html#qt_custom.qt_thread.Worker.run">[docs]</a>    <span class="nd">@pyqtSlot</span><span class="p">()</span>
     <span class="k">def</span> <span class="nf">run</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Retrieve args/kwargs and start up the thread using them.</span>
@@ -252,14 +261,11 @@
             <span class="n">traceback</span><span class="o">.</span><span class="n">print_exc</span><span class="p">()</span>
             <span class="n">exctype</span><span class="p">,</span> <span class="n">value</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">exc_info</span><span class="p">()[:</span><span class="mi">2</span><span class="p">]</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">emit</span><span class="p">((</span><span class="n">exctype</span><span class="p">,</span> <span class="n">value</span><span class="p">,</span> <span class="n">traceback</span><span class="o">.</span><span class="n">format_exc</span><span class="p">()))</span>
-        <span class="k">else</span><span class="p">:</span>
-
-            <span class="c1"># Return the result of the processing</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">result</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">result</span><span class="p">)</span>
+            <span class="n">result</span> <span class="o">=</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span><span class="s2">&quot;thread_error&quot;</span><span class="p">)</span>
         <span class="k">finally</span><span class="p">:</span>
 
 			<span class="c1"># Send finished signal</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">emit</span><span class="p">()</span></div></div>
+            <span class="bp">self</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="n">result</span><span class="p">)</span></div></div>
 </pre></div>
 
            </div>
