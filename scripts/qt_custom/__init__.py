@@ -14,9 +14,5 @@ the following components:
 
 from .qt_thread import Worker
 from .qt_thread import WorkerSignals
-<<<<<<< HEAD
 from .qt_extra import MultiSelectMenu
 from .qt_dialogs import progressDialog, importDialog, outputSettingsDialog
-=======
-from .qt_extra import MultiSelectMenu
->>>>>>> 0dc5f724699be657154b5a1b13ef6236c8b519be
