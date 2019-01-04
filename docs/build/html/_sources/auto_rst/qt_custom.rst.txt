@@ -4,6 +4,14 @@ qt\_custom package
 Submodules
 ----------
 
+qt\_custom.qt\_dialogs module
+-----------------------------
+
+.. automodule:: qt_custom.qt_dialogs
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 qt\_custom.qt\_extra module
 ---------------------------
 

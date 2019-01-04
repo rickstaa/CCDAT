@@ -283,9 +283,8 @@ class DataAnalyserGUI(Ui_MainWindow):
         '''Qt slot used to open the output_settings UI which can be used to set some additional settings for the output file. Currently the following
         additional settings are supported:
 
-        - Set the columns to include in the output file: By default the CGDAT tool only keeps the variables (csv columns) that are specified
-        in your conditions.
-
+            - Change the input file frequency: By default this will be around 600 hz.
+            - Set the columns to include in the output file: By default the CGDAT tool only keeps the variables (csv columns) that are specified in your conditions.
         '''
 
         ### Display output settings dialog ###

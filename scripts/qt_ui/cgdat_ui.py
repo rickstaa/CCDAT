@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\ricks\OneDrive\Development\Tools\CGDAT\scripts\..\qt\cgdat.ui'
+# Form implementation generated from reading ui file 'C:\Users\ricks\OneDrive\Development\Tools\CGDAT\scripts\..\qt\cgdat.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
@@ -269,7 +269,7 @@ class Ui_MainWindow(object):
         self.time_range_value.setSuffix(_translate("MainWindow", " [s]"))
         self.player_filter_label.setText(_translate("MainWindow", "Filter by player"))
         self.time_selection_file_label.setText(_translate("MainWindow", "Use time section file"))
-        self.time_range_label.setText(_translate("MainWindow", "Use time safety margin"))
+        self.time_range_label.setText(_translate("MainWindow", "Add time borders"))
         self.time_file_browser_btn.setText(_translate("MainWindow", "..."))
         self.analyse_data_btn.setToolTip(_translate("MainWindow", "Start data analysis."))
         self.analyse_data_btn.setText(_translate("MainWindow", "Analyse Data"))

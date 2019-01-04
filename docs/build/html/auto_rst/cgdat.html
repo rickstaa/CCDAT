@@ -161,6 +161,15 @@ You are therefore free use the source code in any way provided that you the orig
 <dt>Maintainer:</dt>
 <dd>Wesley Bosman</dd>
 </dl>
+<p><strong>Classes:</strong></p>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+</tbody>
+</table>
 <dl class="class">
 <dt id="cgdat.DataAnalyserGUI">
 <em class="property">class </em><code class="descclassname">cgdat.</code><code class="descname">DataAnalyserGUI</code><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI" title="Permalink to this definition">¶</a></dt>
@@ -245,6 +254,13 @@ run in a worker thread so it does not freeze the GUI.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="cgdat.DataAnalyserGUI.closeEvent">
+<code class="descname">closeEvent</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.closeEvent"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.closeEvent" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method gets called when the user closes the GUI. This method performs some extra
+actions to make sure all threads are killed and all timers stopped.</p>
+</dd></dl>
+
+<dl class="method">
 <dt id="cgdat.DataAnalyserGUI.createFolder">
 <code class="descname">createFolder</code><span class="sig-paren">(</span><em>directory</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.createFolder"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.createFolder" title="Permalink to this definition">¶</a></dt>
 <dd><p>This function is used to create a folder when it does not exists</p>
@@ -309,6 +325,18 @@ on the dialog window.</p>
 </dd></dl>
 
 <dl class="method">
+<dt id="cgdat.DataAnalyserGUI.output_settings_dialog_finished">
+<code class="descname">output_settings_dialog_finished</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.output_settings_dialog_finished"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.output_settings_dialog_finished" title="Permalink to this definition">¶</a></dt>
+<dd><p>Qt slot that is triggered when the output settings dialog is finished. This function
+updates the settings the user changed into the GUI member variables.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cgdat.DataAnalyserGUI.padBoolArray">
+<code class="descname">padBoolArray</code><span class="sig-paren">(</span><em>bool_array</em>, <em>n</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.padBoolArray"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.padBoolArray" title="Permalink to this definition">¶</a></dt>
+<dd></dd></dl>
+
+<dl class="method">
 <dt id="cgdat.DataAnalyserGUI.remove_conditions_row">
 <code class="descname">remove_conditions_row</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.remove_conditions_row"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.remove_conditions_row" title="Permalink to this definition">¶</a></dt>
 <dd><p>Qt slot function created to add an extra condition row to the condition grid. It is linked to the
@@ -320,6 +348,19 @@ condition_remove_row_btn and triggered when the button is clicked.</p>
 <code class="descname">reset_conditions</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.reset_conditions"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.reset_conditions" title="Permalink to this definition">¶</a></dt>
 <dd><p>Qt slot function created to reset the condition grid to its original state in which only condition row is present.
 It is linked to the reset_conditions_grid_btn.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cgdat.DataAnalyserGUI.set_output_settings">
+<code class="descname">set_output_settings</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.set_output_settings"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.set_output_settings" title="Permalink to this definition">¶</a></dt>
+<dd><p>Qt slot used to open the output_settings UI which can be used to set some additional settings for the output file. Currently the following
+additional settings are supported:</p>
+<blockquote>
+<div><ul class="simple">
+<li>Change the input file frequency: By default this will be around 600 hz.</li>
+<li>Set the columns to include in the output file: By default the CGDAT tool only keeps the variables (csv columns) that are specified in your conditions.</li>
+</ul>
+</div></blockquote>
 </dd></dl>
 
 <dl class="method">
@@ -339,6 +380,19 @@ also used to add functionalities to the objects in the generated qt GUI python c
 <dd><p>Qt slot function that is used to start the data analysis in a number of worker
 threads so that the GUI does not freeze when the data analysis is performed. The
 actual data analysis is performed by the <a class="reference internal" href="#cgdat.DataAnalyserGUI.analyse_data" title="cgdat.DataAnalyserGUI.analyse_data"><code class="xref py py-func docutils literal notranslate"><span class="pre">analyse_data()</span></code></a> function.</p>
+</dd></dl>
+
+<dl class="method">
+<dt id="cgdat.DataAnalyserGUI.timeDelta2DateTime">
+<code class="descname">timeDelta2DateTime</code><span class="sig-paren">(</span><em>time_delta_list</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.timeDelta2DateTime"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.timeDelta2DateTime" title="Permalink to this definition">¶</a></dt>
+<dd><p>This method converts a list containing the time since measurement onset [seconds] into a
+list containing dateTime objects counting up from 00:00:00.</p>
+<dl class="docutils">
+<dt>Args:</dt>
+<dd>time_delta_list (list): List containing the times since the measurement has started.</dd>
+<dt>Returns:</dt>
+<dd>list: A list with the time in the DateTime format.</dd>
+</dl>
 </dd></dl>
 
 <dl class="method">
@@ -369,52 +423,6 @@ player filter choicer menu by adding the available players to the menu options.<
 <code class="descname">worker_finished</code><span class="sig-paren">(</span><em>result</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#DataAnalyserGUI.worker_finished"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.DataAnalyserGUI.worker_finished" title="Permalink to this definition">¶</a></dt>
 <dd><p>Qt slot function which is triggered when a thread is completed. It is connected
 to the threads finished signal. These signals are created using the pyqtSignal class.</p>
-</dd></dl>
-
-</dd></dl>
-
-<dl class="class">
-<dt id="cgdat.importDialog">
-<em class="property">class </em><code class="descclassname">cgdat.</code><code class="descname">importDialog</code><span class="sig-paren">(</span><em>parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#importDialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.importDialog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code>, <a class="reference internal" href="qt_ui.html#qt_ui.import_dialog_ui.Ui_ImportDialog" title="qt_ui.import_dialog_ui.Ui_ImportDialog"><code class="xref py py-class docutils literal notranslate"><span class="pre">qt_ui.import_dialog_ui.Ui_ImportDialog</span></code></a></p>
-<p>This class overloads the qt python class that was generated by yQt5.uic.pyuic converter for the
-importDialog so it can be used as a dialog in our main GUI.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>QtWidgets (QtWidgets.QDialog): Main dialog class
-Ui_ImportDialog (object): Custom made dialog class</dd>
-</dl>
-</dd></dl>
-
-<dl class="class">
-<dt id="cgdat.progressDialog">
-<em class="property">class </em><code class="descclassname">cgdat.</code><code class="descname">progressDialog</code><span class="sig-paren">(</span><em>parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#progressDialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.progressDialog" title="Permalink to this definition">¶</a></dt>
-<dd><p>Bases: <code class="xref py py-class docutils literal notranslate"><span class="pre">PyQt5.QtWidgets.QDialog</span></code>, <a class="reference internal" href="qt_ui.html#qt_ui.progress_dialog_ui.Ui_ProgressDialog" title="qt_ui.progress_dialog_ui.Ui_ProgressDialog"><code class="xref py py-class docutils literal notranslate"><span class="pre">qt_ui.progress_dialog_ui.Ui_ProgressDialog</span></code></a></p>
-<p>This class overloads the qt python class that was generated by yQt5.uic.pyuic converter for the
-progressDialog so it can be used as a dialog in our main GUI.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>QtWidgets (QtWidgets.QDialog): Main dialog class
-Ui_ProgressDialog (object): Custom made dialog class</dd>
-</dl>
-<dl class="method">
-<dt id="cgdat.progressDialog.updateProgressBar">
-<code class="descname">updateProgressBar</code><span class="sig-paren">(</span><em>percentage</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#progressDialog.updateProgressBar"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.progressDialog.updateProgressBar" title="Permalink to this definition">¶</a></dt>
-<dd><p>Function used to update the progress bar.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>int (int): The percentage of the progress bar.</dd>
-</dl>
-</dd></dl>
-
-<dl class="method">
-<dt id="cgdat.progressDialog.updateProgressConsole">
-<code class="descname">updateProgressConsole</code><span class="sig-paren">(</span><em>text</em>, <em>color=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat.html#progressDialog.updateProgressConsole"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.progressDialog.updateProgressConsole" title="Permalink to this definition">¶</a></dt>
-<dd><p>A function used to append messages to the progress console.</p>
-<dl class="docutils">
-<dt>Args:</dt>
-<dd>text (str): The message we want to append.</dd>
-</dl>
 </dd></dl>
 
 </dd></dl>

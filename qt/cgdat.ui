@@ -181,7 +181,7 @@
             <string/>
            </property>
            <property name="text">
-            <string>Use time safety margin</string>
+            <string>Add time borders</string>
            </property>
           </widget>
          </item>
