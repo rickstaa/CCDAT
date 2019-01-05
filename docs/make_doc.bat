@@ -1,2 +1,2 @@
-sphinx-apidoc -o source/auto_rst ../scripts
+sphinx-apidoc -o source/_auto_rst ../cgdat
 make html

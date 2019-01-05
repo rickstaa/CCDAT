@@ -13,8 +13,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 import os
 import sys
-sys.path.insert(0, os.path.abspath('../../scripts'))
-
+sys.path.insert(0, os.path.abspath('../..'))
 
 # -- Project information -----------------------------------------------------
 project = u'CGDAT'
@@ -79,7 +78,7 @@ pygments_style = None
 # a list of builtin themes.
 html_theme = "sphinx_rtd_theme"
 html_theme_path = ["_themes", ]
-html_logo = "../../media/CGDAT.svg"
+html_logo = "../../media/cgdat_new.png"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the

@@ -6,15 +6,15 @@ Modules
 ----------
 
 .. autosummary::
-   :toctree: _autosummary
+   :toctree: _auto_rst
 
-    .qt_custom
-    .qt_ui
+    .cgdat.qt_custom
+    .cgdat.qt_ui
 
 Classes
 --------------
 
 .. autosummary::
-   :toctree: _autosummary
+   :toctree: _auto_rst
 
-    .cgdat
+    .cgdat.cgdat

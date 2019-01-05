@@ -1,1 +1,1 @@
-python .\scripts\create_shortcut.py
+python .\other\create_shortcut.py

@@ -1,0 +1,29 @@
+#!/usr/bin/env python
+
+### Import packages ###
+
+print("hello")
+# ##############################################################
+# #### Main window function                                 ####
+# ##############################################################
+# if __name__ == '__main__':
+#     '''The main script running the CGDAT GUI
+#     '''
+
+#     ### Create QT app ###
+#     app = QtWidgets.QApplication(sys.argv)
+#     MainWindow = QtWidgets.QMainWindow()
+
+#     ### Create Main window ###
+#     ui = DataAnalyserGUI()
+#     ui.setupUi(MainWindow)
+
+#     ### Set icon ###
+#     CGDAT_icon = os.path.join(dirname, '..', r'media\cgdat_new.png')
+#     icon = QtGui.QIcon()
+#     icon.addPixmap(QtGui.QPixmap(CGDAT_icon), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+#     MainWindow.setWindowIcon(icon)
+
+#     ### Show main window ###
+#     MainWindow.showMaximized()
+#     sys.exit(app.exec_())
