@@ -11,6 +11,9 @@ following components:
 
 '''
 
+### Set all ###
+__all__ = ['MultiSelectMenu']
+
 ### Import needed modules ###
 from PyQt5 import QtGui, QtCore, QtWidgets
 import sys, os

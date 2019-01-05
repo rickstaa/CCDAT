@@ -1,1 +1,1 @@
-python .\other\install.py
+python .\scripts\install_cgdat.py

@@ -1,1 +1,1 @@
-python .\other\create_shortcut.py
+python .\scripts\create_cgdat_shortcut.py

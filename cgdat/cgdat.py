@@ -12,6 +12,9 @@ You are therefore free use the source code in any way provided that you the orig
     .cgdat.DataAnalyserGUI
 """
 
+### Set all ###
+__all__ = ['DataAnalyserGUI']
+
 ### Import needed python modules ###
 import sys
 import pandas as pd
@@ -29,23 +32,21 @@ import traceback
 import math
 
 ### Get relative script path ###
-dirname = os.path.dirname(os.path.abspath(__file__))
+DIRNAME = os.path.dirname(os.path.abspath(__file__))
 
-### Create the needed python user interface classes out of the QT UI files ###
-subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(dirname, '..', r'qt\cgdat.ui') + " -o " + os.path.join(dirname, '..', r'cgdat\qt_ui\cgdat_ui.py'))
-subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(dirname, '..', r'qt\output_settings.ui') + " -o " + os.path.join(dirname, '..', r'cgdat\qt_ui\output_settings_ui.py'))
-subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(dirname, '..', r'qt\about.ui') + " -o " + os.path.join(dirname, '..', r'cgdat\qt_ui\about_ui.py'))
-subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(dirname, '..', r'qt\progress_dialog.ui') + " -o " + os.path.join(dirname, '..', r'cgdat\qt_ui\progress_dialog_ui.py'))
-subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(dirname, '..', r'qt\import_dialog.ui') + " -o " + os.path.join(dirname, '..', r'cgdat\qt_ui\import_dialog_ui.py'))
+# ### Create the needed python user interface classes out of the QT UI files ###
+# subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\cgdat.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\cgdat_ui.py'))
+# subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\output_settings.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\output_settings_ui.py'))
+# subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\about.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\about_ui.py'))
+# subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\progress_dialog.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\progress_dialog_ui.py'))
+# subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\import_dialog.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\import_dialog_ui.py'))
 
 ### Import custom classes and functions ###
-from qt_custom import Worker, WorkerSignals
-from qt_custom import MultiSelectMenu
+from . import qt_custom
+from .qt_custom import *
 
 ### Import the python UI classes ###
-from qt_ui import Ui_MainWindow
-from qt_ui import Ui_About
-from qt_custom import importDialog, outputSettingsDialog, progressDialog
+from . import qt_ui
 
 #####################################################################
 #### Deal with high resolution screens                           ####
@@ -65,7 +66,7 @@ freq = (1.0/(0.166667/100.0))  # Data recording frequency [Hz]
 #####################################################################
 #### Overload Qt DataAnalyserGUI class                           ####
 #####################################################################
-class DataAnalyserGUI(Ui_MainWindow):
+class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
     """This is the qt class used to create the general user interface for the CGDAT data analysis tool.
     It inherits from the Ui_MainWindow class that is automatically created by the PyQt5.uic.pyuic converter.
 
@@ -100,14 +101,14 @@ class DataAnalyserGUI(Ui_MainWindow):
         ########################################
 
         ### Create media paths ###
-        self.toggle_icon_on = os.path.abspath(os.path.join(dirname, "..", "media/toggle_on.png")).replace('\\','/')    # Toggle on icon
-        self.toggle_icon_disabled = os.path.abspath(os.path.join(dirname, "..", "media/toggle_off_disabled.png")).replace('\\','/')    # Toggle on icon
-        self.toggle_icon_off = os.path.abspath(os.path.join(dirname, "..", "media/toggle_off.png")).replace('\\','/')  # Toggle off icon
-        about_icon_path = os.path.join(dirname, '..', r'media\about_icon.svg')                      # About icon path
-        docs_icon_path = os.path.join(dirname, '..', r'media\docs_icon.png')                      # About icon path
+        self.toggle_icon_on = os.path.abspath(os.path.join(DIRNAME, "static/media/toggle_on.png")).replace('\\','/')    # Toggle on icon
+        self.toggle_icon_disabled = os.path.abspath(os.path.join(DIRNAME, "static/media/toggle_off_disabled.png")).replace('\\','/')    # Toggle on icon
+        self.toggle_icon_off = os.path.abspath(os.path.join(DIRNAME, "static/media/toggle_off.png")).replace('\\','/')  # Toggle off icon
+        about_icon_path = os.path.join(DIRNAME, r'static\media\about_icon.svg')                      # About icon path
+        docs_icon_path = os.path.join(DIRNAME, r'static\media\docs_icon.png')                      # About icon path
 
         ### Create other paths ###
-        self.docs_path = os.path.abspath(os.path.join(dirname, "..", "docs/documentation.lnk")).replace('\\','/')    # Toggle on icon
+        self.docs_path = os.path.abspath(os.path.join(DIRNAME, "static/docs/_build/html/index.html")).replace('\\','/')    # Toggle on icon
 
         ### Setup about icon menu action ###
         about_icon = QtGui.QIcon()
@@ -129,7 +130,9 @@ class DataAnalyserGUI(Ui_MainWindow):
         self.input_file_browser_btn.clicked.connect(self.get_input_file)
 
         ### Link output file chooser button signal to slot ###
-        self.results_folder = os.path.normpath(os.path.join(dirname, '..', r'results')).replace("c:\\","C:\\")
+        home = home = os.path.expanduser('~')  # Get user home folder
+        self.results_folder = os.path.normpath(os.path.join(home, r'Documents/cgdat/results')).replace("c:\\","C:\\")
+        self.createFolder(self.results_folder)
         self.output_file_path.setText(self.results_folder)
         self.output_file_browser_btn.clicked.connect(self.get_output_dir)
 
@@ -149,7 +152,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         ### Setup player filter option ###
         self.player_filter_toggle.setStyleSheet("QCheckBox::indicator:checked {image: url('"+self.toggle_icon_on+"');}\n QCheckBox::indicator:unchecked {image: url('"+self.toggle_icon_off+"');}\n QCheckBox::indicator:disabled {image: url('"+self.toggle_icon_disabled+"');}")
         self.player_filter_toggle.setEnabled(0)
-        self.player_filter_drop_down_menu = MultiSelectMenu()
+        self.player_filter_drop_down_menu = qt_extra.MultiSelectMenu()
         self.player_filter_drop_down_menu.setObjectName("player_filter_choicer")
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -211,7 +214,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         self.analyse_data_btn.clicked.connect(self.start_data_analysis)
 
         ### Create output settings button ###
-        settings_icon = os.path.join(dirname, '..', r'media\settings_icon.png')
+        settings_icon = os.path.join(DIRNAME, r'static\media\settings_icon.png')
         icon = QtGui.QIcon()
         icon.addPixmap(QtGui.QPixmap(settings_icon), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.output_settings_btn.setIcon(icon)
@@ -229,7 +232,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         self.output_settings_freq_warning = True # Create member variable to save wheter a warning needs to be displayed
 
         ##{ Create dialog object ###
-        self.output_settings_dialog = outputSettingsDialog()
+        self.output_settings_dialog = qt_dialogs.outputSettingsDialog()
         self.output_settings_dialog.setModal(True)
         self.output_settings_dialog.finished.connect(self.output_settings_dialog_finished)  # Connect finished signal to function that checks if the used cancelled the analysis
         self.output_settings_dialog.frame_rate_value.setValue(self.input_file_freq)
@@ -246,7 +249,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         the user uses the F1 keyboard shortcut.
         '''
         about = QtWidgets.QDialog()
-        ui = Ui_About()
+        ui = qt_ui.about_ui.Ui_About()
         ui.setupUi(about)
         about.show()
         about.exec_()
@@ -340,7 +343,7 @@ class DataAnalyserGUI(Ui_MainWindow):
 
             ### Create and show progress dialog ###
             import_str = """The data file is being imported. Please wait until the import is ready or cancel the import by using the cancel button below."""
-            self.import_dialog = importDialog()
+            self.import_dialog = qt_dialogs.importDialog()
             self.import_dialog.setModal(True)
             self.import_dialog.progress_header.setText(import_str)
             self.import_dialog.finished.connect(self.import_dialog_finished)  # Connect finished signal to function that checks if the used cancelled the analysis
@@ -351,7 +354,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             self.input_file_path.setEnabled(1)
 
             ### Create worker that checks if the data file is vallid ###
-            self.data_input_worker = Worker(self.analyse_input_data_file)  # Any other args, kwargs are passed to the run function
+            self.data_input_worker = qt_thread.Worker(self.analyse_input_data_file)  # Any other args, kwargs are passed to the run function
 
             ### Connect worker signals ###
             self.data_input_worker.signals.finished.connect(self.data_input_worker_finished)  # Checks the process result
@@ -557,7 +560,7 @@ class DataAnalyserGUI(Ui_MainWindow):
 
             ### Create and show progress dialog ###
             import_str = """The time sections data file is being imported. Please wait until the import is ready or cancel the import by using the cancel button below."""
-            self.import_dialog = importDialog()
+            self.import_dialog = qt_dialogs.importDialog()
             self.import_dialog.setModal(True)
             self.import_dialog.progress_header.setText(import_str)
             self.import_dialog.finished.connect(self.time_import_dialog_finished)  # Connect finished signal to function that checks if the used cancelled the analysis
@@ -568,7 +571,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             self.time_file_path.setEnabled(1)
 
             ### Create worker that checks if the data file is vallid ###
-            self.time_input_worker = Worker(self.analyse_input_time_data_file)  # Any other args, kwargs are passed to the run function
+            self.time_input_worker = qt_thread.Worker(self.analyse_input_time_data_file)  # Any other args, kwargs are passed to the run function
 
             ### Connect worker signals ###
             self.time_input_worker.signals.finished.connect(self.time_input_worker_finished)  # Checks the process result
@@ -1091,7 +1094,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         test_result = self.check_condition()
 
         ### Create progress dialog object ###
-        self.progress_dialog = progressDialog()
+        self.progress_dialog = qt_dialogs.progressDialog()
 
         ### Get player list if player filter is enabled ###
         if self.player_filter_toggle.isChecked():
@@ -1121,7 +1124,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 self.progress_dialog.show()
 
                 ### Pass the analyse_data function to the workers to execute ###
-                self.data_analyse_worker.append(Worker(self.analyse_data))  # Any other args, kwargs are passed to the run function
+                self.data_analyse_worker.append(qt_thread.Worker(self.analyse_data))  # Any other args, kwargs are passed to the run function
 
                 ### Connect status signals ###
                 self.data_analyse_worker[0].signals.ready.connect(self.progress_dialog.updateProgressConsole)
@@ -1154,7 +1157,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 self.progress_dialog.show()
 
                 ### Pass the analyse_data function to the workers to execute ###
-                self.data_analyse_worker.append(Worker(self.analyse_data))  # Any other args, kwargs are passed to the run function
+                self.data_analyse_worker.append(qt_thread.Worker(self.analyse_data))  # Any other args, kwargs are passed to the run function
 
                 ### Connect status signals ###
                 self.data_analyse_worker[0].signals.ready.connect(self.progress_dialog.updateProgressConsole)
@@ -1191,7 +1194,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                         player_name = filtered_players[ii]
 
                         ### Pass the analyse_data function to the workers to execute ###
-                        self.data_analyse_worker.append(Worker(self.analyse_data, player_name))  # Any other args, kwargs are passed to the run function
+                        self.data_analyse_worker.append(qt_thread.Worker(self.analyse_data, player_name))  # Any other args, kwargs are passed to the run function
 
                         ### Connect status signals ###
                         self.data_analyse_worker[ii].signals.ready.connect(self.progress_dialog.updateProgressConsole)
@@ -1367,11 +1370,11 @@ class DataAnalyserGUI(Ui_MainWindow):
                 if self.input_file_freq_toggle:  # If user changed frame rate
                     padding_time = self.time_range_value.value()  # Get padding time
                     padding = math.floor(padding_time/(1/self.input_file_freq))  # Calculate number of samples we should pad the sections with
-                    df_results_bool = self.padBoolArray(df_results_bool,padding)  # Apply padding
+                    df_results_bool = self.padBoolArray(df_results_bool, padding)  # Apply padding
                 else:
                     padding_time = self.time_range_value.value()  # Get padding time
                     padding = math.floor(padding_time/(1/freq))  # Calculate number of samples we should pad the sections with
-                    df_results_bool = self.padBoolArray(df_results_bool,padding)  # Apply padding
+                    df_results_bool = self.padBoolArray(df_results_bool, padding)  # Apply padding
 
             #################################################
             ### Get result data out of dataframe ############
@@ -1460,7 +1463,7 @@ if __name__ == '__main__':
     ui.setupUi(MainWindow)
 
     ### Set icon ###
-    CGDAT_icon = os.path.join(dirname, '..', r'media\cgdat_new.png')
+    CGDAT_icon = os.path.join(DIRNAME, r'static\media\CGDAT.svg')
     icon = QtGui.QIcon()
     icon.addPixmap(QtGui.QPixmap(CGDAT_icon), QtGui.QIcon.Normal, QtGui.QIcon.Off)
     MainWindow.setWindowIcon(icon)
@@ -1468,4 +1471,3 @@ if __name__ == '__main__':
     ### Show main window ###
     MainWindow.showMaximized()
     sys.exit(app.exec_())
-

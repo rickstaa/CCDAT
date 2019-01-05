@@ -11,6 +11,9 @@ following components:
 
 '''
 
+### Set all ###
+__all__ = ['WorkerSignals', 'Worker']
+
 # Import qt modules
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *

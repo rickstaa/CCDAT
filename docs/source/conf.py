@@ -13,6 +13,7 @@
 # documentation root, use os.path.abspath to make it absolute, like shown here.
 import os
 import sys
+import re
 sys.path.insert(0, os.path.abspath('../..'))
 
 # -- Project information -----------------------------------------------------
@@ -20,11 +21,10 @@ project = u'CGDAT'
 copyright = u'2018, Rick Staa'
 author = u'Rick Staa'
 
-# The short X.Y version
-version = u''
-# The full version, including alpha/beta/rc tags
-release = u'0.2.0'
-
+# The full version, including alpha/beta/rc tags.
+release = re.sub('^v', '', os.popen('git describe').read().strip())
+# The short X.Y version.
+version = release
 
 # -- General configuration ---------------------------------------------------
 
@@ -78,7 +78,7 @@ pygments_style = None
 # a list of builtin themes.
 html_theme = "sphinx_rtd_theme"
 html_theme_path = ["_themes", ]
-html_logo = "../../media/cgdat_new.png"
+html_logo = "../../cgdat/static/media/CGDAT.svg"
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the
