@@ -1,4 +1,4 @@
-'''This script is used to strat the cgdat gui out of the command line'''
+'''This script is used to starts the cgdat gui out of the command line'''
 
 ### Import modules ###
 from PyQt5 import QtCore, QtGui, QtWidgets
@@ -14,6 +14,8 @@ dirname = os.path.dirname(os.path.abspath(__file__))
 #### Main execution function                              ####
 ##############################################################
 def main():
+    '''Main function that is executed when we use the :samp:`cgdat-gui` command. This function starts the
+    cgdat gui window.'''
 
     ### Create QT app ###
     app = QtWidgets.QApplication(sys.argv)
@@ -32,5 +34,3 @@ def main():
     ### Show main window ###
     MainWindow.showMaximized()
     sys.exit(app.exec_())
-
-main()

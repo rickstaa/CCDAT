@@ -20,14 +20,15 @@ cgdat_path = os.path.abspath(os.path.join(dirname, "start_cgdat.py")).replace('\
 if __name__ == '__main__':
 
     ### Build documentation ###
-    subprocess.call(['sphinx-apidoc', '-o','./docs/source/_auto_rst', './cgdat'])  # Run autodocumentation
+    subprocess.call(['sphinx-apidoc', '-o','../docs/source/_auto_rst', '../cgdat'])  # Run autodocumentation
+    # subprocess.call(['sphinx-apidoc', '-o','../docs/source/_auto_rst', '../scripts'])  # Run autodocumentation
     subprocess.call(['python', 'setup.py', 'build_sphinx']) # Creatw HTML
 
     ### Build the program ###
     subprocess.call(['python', 'setup.py','build'])
 
-    ### Install the program ###
-    subprocess.call(['python', 'setup.py','develop'])
+    ### Develop the program ###
+    # subprocess.call(['python', 'setup.py','develop'])
 
     ### Install the program ###
     subprocess.call(['python', 'setup.py','install'])

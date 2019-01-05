@@ -2,15 +2,6 @@
 """
 This file contains some dialog classes that are created for the CGDAT GUI. These classes inherit from the
 QtWidgets.Qdialog Class.
-
-**Classes:**
-
-.. autosummary::
-   :toctree: _autosummary
-
-    .progressDialog
-    .importDialog
-    .outputSettingsDialog
 """
 
 ### Set all ###

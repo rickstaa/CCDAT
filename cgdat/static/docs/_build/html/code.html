@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>API - Documentation &mdash; CGDAT  documentation</title>
+  <title>API Reference &mdash; CGDAT 1.3.0 documentation</title>
   
 
   
@@ -26,8 +26,11 @@
 
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
-    <link rel="search" title="Search" href="search.html" /> 
+    <link rel="search" title="Search" href="search.html" />
+    <link rel="next" title="cgdat.qt_custom" href="_autosummary/cgdat.qt_custom.html" />
+    <link rel="prev" title="Contributors" href="info.html" /> 
 
   
   <script src="_static/js/modernizr.min.js"></script>
@@ -58,6 +61,10 @@
           
             
             
+              <div class="version">
+                1.3.0
+              </div>
+            
           
 
           
@@ -83,6 +90,28 @@
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use.html">How to use this tool</a></li>
 <li class="toctree-l1"><a class="reference internal" href="info.html">Contributors</a></li>
+</ul>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">API Reference</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#modules">Modules</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/cgdat.qt_custom.html">cgdat.qt_custom</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/cgdat.qt_ui.html">cgdat.qt_ui</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#functions">Functions</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/cgdat.cgdat.html">cgdat.cgdat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/cgdat.create_shortcut_cl.html">cgdat.create_shortcut_cl</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/cgdat.start_cl.html">cgdat.start_cl</a></li>
+</ul>
+</li>
+<li class="toctree-l2"><a class="reference internal" href="#scripts">Scripts</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/start_cgdat.html">start_cgdat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/install_cgdat.html">install_cgdat</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/create_shortcut_cl.html">create_shortcut_cl</a></li>
+</ul>
+</li>
+</ul>
+</li>
 </ul>
 
             
@@ -128,7 +157,7 @@
     
       <li><a href="index.html">Docs</a> &raquo;</li>
         
-      <li>API - Documentation</li>
+      <li>API Reference</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -147,8 +176,8 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="api-documentation">
-<h1>API - Documentation<a class="headerlink" href="#api-documentation" title="Permalink to this headline">¶</a></h1>
+  <div class="section" id="api-reference">
+<h1>API Reference<a class="headerlink" href="#api-reference" title="Permalink to this headline">¶</a></h1>
 <div class="section" id="modules">
 <h2>Modules<a class="headerlink" href="#modules" title="Permalink to this headline">¶</a></h2>
 <table border="1" class="longtable docutils">
@@ -157,17 +186,52 @@
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/cgdat.qt_custom.html#module-cgdat.qt_custom" title="cgdat.qt_custom"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cgdat.qt_custom</span></code></a></td>
+<td>This package contains all the additional classes and functions that are used in the CGDAT data anaylsis tool.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="_autosummary/cgdat.qt_ui.html#module-cgdat.qt_ui" title="cgdat.qt_ui"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cgdat.qt_ui</span></code></a></td>
+<td>This package contains all the QT python classes that were autogenearted out of the .ui files by the PyQt5.uic.pyuic module.</td>
+</tr>
 </tbody>
 </table>
 </div>
-<div class="section" id="classes">
-<h2>Classes<a class="headerlink" href="#classes" title="Permalink to this headline">¶</a></h2>
+<div class="section" id="functions">
+<h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <table border="1" class="longtable docutils">
 <colgroup>
 <col width="10%" />
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/cgdat.cgdat.html#module-cgdat.cgdat" title="cgdat.cgdat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cgdat.cgdat</span></code></a></td>
+<td>This file contains the main GUI class that is used in the <em>Conditional game data analyse tool (CGDAT)</em> was created for a friend of mine to help him with the data analysis he had to do for his graduation project.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="_autosummary/cgdat.create_shortcut_cl.html#module-cgdat.create_shortcut_cl" title="cgdat.create_shortcut_cl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cgdat.create_shortcut_cl</span></code></a></td>
+<td>This function creates a shortcut which can be used to run the CGDAT tool</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/cgdat.start_cl.html#module-cgdat.start_cl" title="cgdat.start_cl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cgdat.start_cl</span></code></a></td>
+<td>This script is used to starts the cgdat gui out of the command line</td>
+</tr>
+</tbody>
+</table>
+</div>
+<div class="section" id="scripts">
+<h2>Scripts<a class="headerlink" href="#scripts" title="Permalink to this headline">¶</a></h2>
+<table border="1" class="longtable docutils">
+<colgroup>
+<col width="10%" />
+<col width="90%" />
+</colgroup>
+<tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/start_cgdat.html#module-start_cgdat" title="start_cgdat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">start_cgdat</span></code></a></td>
+<td>This script is used to strat the cgdat gui out of the command line</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="_autosummary/install_cgdat.html#module-install_cgdat" title="install_cgdat"><code class="xref py py-obj docutils literal notranslate"><span class="pre">install_cgdat</span></code></a></td>
+<td>Python function used to install the CGDAT package, its dependencies and create a shortcut.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="_autosummary/create_shortcut_cl.html#module-create_shortcut_cl" title="create_shortcut_cl"><code class="xref py py-obj docutils literal notranslate"><span class="pre">create_shortcut_cl</span></code></a></td>
+<td>This function creates a shortcut which can be used to run the CGDAT tool</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -178,6 +242,15 @@
            
           </div>
           <footer>
+  
+    <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
+      
+        <a href="_autosummary/cgdat.qt_custom.html" class="btn btn-neutral float-right" title="cgdat.qt_custom" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+      
+      
+        <a href="info.html" class="btn btn-neutral" title="Contributors" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+      
+    </div>
   
 
   <hr/>
@@ -208,7 +281,7 @@
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'./',
-              VERSION:'',
+              VERSION:'1.3.0',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',

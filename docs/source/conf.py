@@ -14,6 +14,11 @@
 import os
 import sys
 import re
+print(os.path.abspath('../../cgdat'))
+print(os.path.abspath('../../scripts'))
+print(os.path.abspath('../..'))
+sys.path.insert(0, os.path.abspath('../../cgdat'))
+sys.path.insert(0, os.path.abspath('../../scripts'))
 sys.path.insert(0, os.path.abspath('../..'))
 
 # -- Project information -----------------------------------------------------
@@ -43,6 +48,7 @@ extensions = [
     'sphinx.ext.githubpages',
     'sphinx.ext.autosummary'
 ]
+autosummary_generate = True
 
 # Add any paths that contain templates here, relative to this directory.
 templates_path = ['_templates']
@@ -91,6 +97,11 @@ html_logo = "../../cgdat/static/media/CGDAT.svg"
 # so a file named "default.css" will overwrite the builtin "default.css".
 html_static_path = ['_static']
 
+html_context = {
+    'css_files': [
+        '_static/theme_overrides.css',  # overrides for wide tables in RTD theme
+        ],
+    }
 # Custom sidebar templates, must be a dictionary that maps document names
 # to template names.
 #

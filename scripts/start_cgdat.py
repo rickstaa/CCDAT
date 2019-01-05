@@ -17,6 +17,7 @@ dirname = os.path.dirname(os.path.abspath(__file__))
 #### Main execution function                              ####
 ##############################################################
 def main():
+    '''Main function starting the gcdat gui.'''
 
     ### Create QT app ###
     app = QtWidgets.QApplication(sys.argv)

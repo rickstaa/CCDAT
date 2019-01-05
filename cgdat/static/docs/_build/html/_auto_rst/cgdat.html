@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cgdat package &mdash; CGDAT  documentation</title>
+  <title>cgdat package &mdash; CGDAT 1.3.0 documentation</title>
   
 
   
@@ -26,6 +26,7 @@
 
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
 
@@ -58,6 +59,10 @@
           
             
             
+              <div class="version">
+                1.3.0
+              </div>
+            
           
 
           
@@ -83,6 +88,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../use.html">How to use this tool</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../info.html">Contributors</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">API Reference</a></li>
 </ul>
 
             
@@ -155,16 +163,13 @@
 <ul>
 <li class="toctree-l1"><a class="reference internal" href="cgdat.qt_custom.html">cgdat.qt_custom package</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="cgdat.qt_custom.html#submodules">Submodules</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cgdat.qt_custom.html#module-cgdat.qt_custom.qt_dialogs">cgdat.qt_custom.qt_dialogs module</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cgdat.qt_custom.html#module-cgdat.qt_custom.qt_extra">cgdat.qt_custom.qt_extra module</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cgdat.qt_custom.html#module-cgdat.qt_custom.qt_thread">cgdat.qt_custom.qt_thread module</a><ul class="simple">
-</ul>
-</li>
-<li class="toctree-l2"><a class="reference internal" href="cgdat.qt_custom.html#module-cgdat.qt_custom">Module contents</a><ul class="simple">
+<li class="toctree-l2"><a class="reference internal" href="cgdat.qt_custom.html#module-cgdat.qt_custom.qt_dialogs">cgdat.qt_custom.qt_dialogs module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cgdat.qt_custom.html#module-cgdat.qt_custom.qt_extra">cgdat.qt_custom.qt_extra module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cgdat.qt_custom.html#module-cgdat.qt_custom.qt_thread">cgdat.qt_custom.qt_thread module</a></li>
+<li class="toctree-l2"><a class="reference internal" href="cgdat.qt_custom.html#module-cgdat.qt_custom">Module contents</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/cgdat.qt_custom.qt_dialogs.html">cgdat.qt_custom.qt_dialogs</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/cgdat.qt_custom.qt_extra.html">cgdat.qt_custom.qt_extra</a></li>
+<li class="toctree-l3"><a class="reference internal" href="_autosummary/cgdat.qt_custom.qt_thread.html">cgdat.qt_custom.qt_thread</a></li>
 </ul>
 </li>
 </ul>
@@ -176,9 +181,7 @@
 <li class="toctree-l2"><a class="reference internal" href="cgdat.qt_ui.html#module-cgdat.qt_ui.import_dialog_ui">cgdat.qt_ui.import_dialog_ui module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cgdat.qt_ui.html#module-cgdat.qt_ui.output_settings_ui">cgdat.qt_ui.output_settings_ui module</a></li>
 <li class="toctree-l2"><a class="reference internal" href="cgdat.qt_ui.html#module-cgdat.qt_ui.progress_dialog_ui">cgdat.qt_ui.progress_dialog_ui module</a></li>
-<li class="toctree-l2"><a class="reference internal" href="cgdat.qt_ui.html#module-cgdat.qt_ui">Module contents</a><ul class="simple">
-</ul>
-</li>
+<li class="toctree-l2"><a class="reference internal" href="cgdat.qt_ui.html#module-cgdat.qt_ui">Module contents</a></li>
 </ul>
 </li>
 </ul>
@@ -192,15 +195,6 @@
 <p>This file contains the main GUI class that is used in the <em>Conditional game data analyse tool (CGDAT)</em> was created for a friend
 of mine to help him with the data analysis he had to do for his graduation project. This tool is licensed under the GPL open source license.
 You are therefore free use the source code in any way provided that you the original copyright statements.</p>
-<p><strong>Classes:</strong></p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-</tbody>
-</table>
 <dl class="class">
 <dt id="cgdat.cgdat.DataAnalyserGUI">
 <em class="property">class </em><code class="descclassname">cgdat.cgdat.</code><code class="descname">DataAnalyserGUI</code><a class="reference internal" href="../_modules/cgdat/cgdat.html#DataAnalyserGUI"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.cgdat.DataAnalyserGUI" title="Permalink to this definition">¶</a></dt>
@@ -452,6 +446,28 @@ to the threads finished signal. These signals are created using the pyqtSignal c
 </dd></dl>
 
 </div>
+<div class="section" id="module-cgdat.create_shortcut_cl">
+<span id="cgdat-create-shortcut-cl-module"></span><h2>cgdat.create_shortcut_cl module<a class="headerlink" href="#module-cgdat.create_shortcut_cl" title="Permalink to this headline">¶</a></h2>
+<p>This function creates a shortcut which can be used to run the CGDAT tool</p>
+<dl class="function">
+<dt id="cgdat.create_shortcut_cl.main">
+<code class="descclassname">cgdat.create_shortcut_cl.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat/create_shortcut_cl.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.create_shortcut_cl.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main function that is executed when we use the <code class="samp docutils literal notranslate"><span class="pre">cgdat-shortcut</span></code> command. This function creates a
+shortcut for the gui on the desktop.</p>
+</dd></dl>
+
+</div>
+<div class="section" id="module-cgdat.start_cl">
+<span id="cgdat-start-cl-module"></span><h2>cgdat.start_cl module<a class="headerlink" href="#module-cgdat.start_cl" title="Permalink to this headline">¶</a></h2>
+<p>This script is used to starts the cgdat gui out of the command line</p>
+<dl class="function">
+<dt id="cgdat.start_cl.main">
+<code class="descclassname">cgdat.start_cl.</code><code class="descname">main</code><span class="sig-paren">(</span><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat/start_cl.html#main"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.start_cl.main" title="Permalink to this definition">¶</a></dt>
+<dd><p>Main function that is executed when we use the <code class="samp docutils literal notranslate"><span class="pre">cgdat-gui</span></code> command. This function starts the
+cgdat gui window.</p>
+</dd></dl>
+
+</div>
 <div class="section" id="module-cgdat">
 <span id="module-contents"></span><h2>Module contents<a class="headerlink" href="#module-cgdat" title="Permalink to this headline">¶</a></h2>
 <p>This package contains a simple GUI for analysing csv game data. It contains the DataAnalyserGUI gui class and
@@ -494,7 +510,7 @@ all the modules and functions that are used in creating this class.</p>
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../',
-              VERSION:'',
+              VERSION:'1.3.0',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',

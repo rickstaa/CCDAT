@@ -14,6 +14,14 @@ Contents:
    use
    info
 
+For Developers:
+----------------
+
+.. toctree::
+   :maxdepth: 1
+
+   code
+
 Indices and tables
 ------------------
 * :ref:`genindex`

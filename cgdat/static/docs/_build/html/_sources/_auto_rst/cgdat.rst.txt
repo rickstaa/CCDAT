@@ -20,6 +20,22 @@ cgdat.cgdat module
     :undoc-members:
     :show-inheritance:
 
+cgdat.create\_shortcut\_cl module
+---------------------------------
+
+.. automodule:: cgdat.create_shortcut_cl
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
+cgdat.start\_cl module
+----------------------
+
+.. automodule:: cgdat.start_cl
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

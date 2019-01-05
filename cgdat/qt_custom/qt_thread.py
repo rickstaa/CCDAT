@@ -1,14 +1,5 @@
 '''This module contains the classes and functions that are used qt gui to enable multithreading. It contains the
 following components:
-
-**Classes:**
-
-.. autosummary::
-   :toctree: _autosummary
-
-    .WorkerSignals
-    .Worker
-
 '''
 
 ### Set all ###

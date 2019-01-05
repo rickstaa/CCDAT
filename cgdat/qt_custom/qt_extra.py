@@ -1,14 +1,6 @@
 # subclass
 '''This module contains classes and functions that add added custom made widgets and functionalities to the qt GUI. It contains the
 following components:
-
-**Classes:**
-
-.. autosummary::
-   :toctree: _autosummary
-
-    .MultiSelectMenu
-
 '''
 
 ### Set all ###

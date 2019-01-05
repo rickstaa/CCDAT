@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cgdat.qt_custom package &mdash; CGDAT  documentation</title>
+  <title>cgdat.qt_custom package &mdash; CGDAT 1.3.0 documentation</title>
   
 
   
@@ -26,6 +26,7 @@
 
   <link rel="stylesheet" href="../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../_static/pygments.css" type="text/css" />
+  <link rel="stylesheet" href="../_static/theme_overrides.css" type="text/css" />
     <link rel="index" title="Index" href="../genindex.html" />
     <link rel="search" title="Search" href="../search.html" /> 
 
@@ -58,6 +59,10 @@
           
             
             
+              <div class="version">
+                1.3.0
+              </div>
+            
           
 
           
@@ -83,6 +88,9 @@
 <li class="toctree-l1"><a class="reference internal" href="../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../use.html">How to use this tool</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../info.html">Contributors</a></li>
+</ul>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../code.html">API Reference</a></li>
 </ul>
 
             
@@ -156,15 +164,6 @@
 <span id="cgdat-qt-custom-qt-dialogs-module"></span><h2>cgdat.qt_custom.qt_dialogs module<a class="headerlink" href="#module-cgdat.qt_custom.qt_dialogs" title="Permalink to this headline">¶</a></h2>
 <p>This file contains some dialog classes that are created for the CGDAT GUI. These classes inherit from the
 QtWidgets.Qdialog Class.</p>
-<p><strong>Classes:</strong></p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-</tbody>
-</table>
 <dl class="class">
 <dt id="cgdat.qt_custom.qt_dialogs.progressDialog">
 <em class="property">class </em><code class="descclassname">cgdat.qt_custom.qt_dialogs.</code><code class="descname">progressDialog</code><span class="sig-paren">(</span><em>parent=None</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat/qt_custom/qt_dialogs.html#progressDialog"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.qt_custom.qt_dialogs.progressDialog" title="Permalink to this definition">¶</a></dt>
@@ -229,15 +228,6 @@ Ui_OutputSettings (object): Custom made dialog class</dd>
 <span id="cgdat-qt-custom-qt-extra-module"></span><h2>cgdat.qt_custom.qt_extra module<a class="headerlink" href="#module-cgdat.qt_custom.qt_extra" title="Permalink to this headline">¶</a></h2>
 <p>This module contains classes and functions that add added custom made widgets and functionalities to the qt GUI. It contains the
 following components:</p>
-<p><strong>Classes:</strong></p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-</tbody>
-</table>
 <dl class="class">
 <dt id="cgdat.qt_custom.qt_extra.MultiSelectMenu">
 <em class="property">class </em><code class="descclassname">cgdat.qt_custom.qt_extra.</code><code class="descname">MultiSelectMenu</code><span class="sig-paren">(</span><em>all_text_enabled=True</em>, <em>all_text='Select all'</em><span class="sig-paren">)</span><a class="reference internal" href="../_modules/cgdat/qt_custom/qt_extra.html#MultiSelectMenu"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.qt_custom.qt_extra.MultiSelectMenu" title="Permalink to this definition">¶</a></dt>
@@ -326,15 +316,6 @@ also makes sure that the select all button is selected again if all items are se
 <span id="cgdat-qt-custom-qt-thread-module"></span><h2>cgdat.qt_custom.qt_thread module<a class="headerlink" href="#module-cgdat.qt_custom.qt_thread" title="Permalink to this headline">¶</a></h2>
 <p>This module contains the classes and functions that are used qt gui to enable multithreading. It contains the
 following components:</p>
-<p><strong>Classes:</strong></p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-</tbody>
-</table>
 <dl class="class">
 <dt id="cgdat.qt_custom.qt_thread.WorkerSignals">
 <em class="property">class </em><code class="descclassname">cgdat.qt_custom.qt_thread.</code><code class="descname">WorkerSignals</code><a class="reference internal" href="../_modules/cgdat/qt_custom/qt_thread.html#WorkerSignals"><span class="viewcode-link">[source]</span></a><a class="headerlink" href="#cgdat.qt_custom.qt_thread.WorkerSignals" title="Permalink to this definition">¶</a></dt>
@@ -417,6 +398,15 @@ the following components:</p>
 <col width="90%" />
 </colgroup>
 <tbody valign="top">
+<tr class="row-odd"><td><a class="reference internal" href="../_autosummary/_autosummary/cgdat.qt_custom.qt_dialogs.html#module-cgdat.qt_custom.qt_dialogs" title="cgdat.qt_custom.qt_dialogs"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cgdat.qt_custom.qt_dialogs</span></code></a></td>
+<td>This file contains some dialog classes that are created for the CGDAT GUI.</td>
+</tr>
+<tr class="row-even"><td><a class="reference internal" href="../_autosummary/_autosummary/cgdat.qt_custom.qt_extra.html#module-cgdat.qt_custom.qt_extra" title="cgdat.qt_custom.qt_extra"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cgdat.qt_custom.qt_extra</span></code></a></td>
+<td>This module contains classes and functions that add added custom made widgets and functionalities to the qt GUI.</td>
+</tr>
+<tr class="row-odd"><td><a class="reference internal" href="../_autosummary/_autosummary/cgdat.qt_custom.qt_thread.html#module-cgdat.qt_custom.qt_thread" title="cgdat.qt_custom.qt_thread"><code class="xref py py-obj docutils literal notranslate"><span class="pre">cgdat.qt_custom.qt_thread</span></code></a></td>
+<td>This module contains the classes and functions that are used qt gui to enable multithreading.</td>
+</tr>
 </tbody>
 </table>
 </div>
@@ -457,7 +447,7 @@ the following components:</p>
       <script type="text/javascript">
           var DOCUMENTATION_OPTIONS = {
               URL_ROOT:'../',
-              VERSION:'',
+              VERSION:'1.3.0',
               LANGUAGE:'None',
               COLLAPSE_INDEX:false,
               FILE_SUFFIX:'.html',

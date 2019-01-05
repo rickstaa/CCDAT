@@ -6,10 +6,9 @@ the following components:
 .. autosummary::
    :toctree: _autosummary
 
-    .qt_thread
-    .qt_extra
-    .qt_dialogs
-
+    cgdat.qt_custom.qt_dialogs
+    cgdat.qt_custom.qt_extra
+    cgdat.qt_custom.qt_thread
 '''
 
 ### Set all ###
