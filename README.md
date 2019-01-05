@@ -4,7 +4,7 @@ This repository contains the Conditional game data analysis tool (CGDAT). It can
 1. Download the zip.
 2. Click the `installer.bat` file in the main cgdat folder.
 3. A shortcut will be created. You can run the cgdat tool by clicking on this shortcut.
-  - This shortcut can be placed anywhere but will only work as long as you do not move the cgdat folder.
+    - This shortcut can be placed anywhere but will only work as long as you do not move the cgdat folder.
 
 # Notes
 At the moment the package doesn't function as a fully independent package. For this to work I need to solve some relative import issues between the sphinx documentation tool and the python scripts.
