@@ -8,7 +8,7 @@ import os, sys
 from cgdat import DataAnalyserGUI
 
 ### Get relative script path ###
-dirname = os.path.dirname(os.path.abspath(__file__))
+DIRNAME = os.path.dirname(os.path.abspath(__file__))
 
 ##############################################################
 #### Main execution function                              ####
