@@ -26,7 +26,7 @@ def main():
     ui.setupUi(MainWindow)
 
     ### Set icon ###
-    CGDAT_icon = os.path.join(dirname, '..', r'media\CGDAT.svg')
+    CGDAT_icon = os.path.abspath(os.path.join(DIRNAME, "static/media/CGDAT.ico")).replace('\\','/')
     icon = QtGui.QIcon()
     icon.addPixmap(QtGui.QPixmap(CGDAT_icon), QtGui.QIcon.Normal, QtGui.QIcon.Off)
     MainWindow.setWindowIcon(icon)
