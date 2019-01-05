@@ -13,7 +13,8 @@ if __name__ == '__main__':
     # get git version
     git_release = re.sub('^v', '', os.popen('git describe').read().strip())
     # The short X.Y version.
-    git_version = git_release
+    git_version = git_release.split("-")[0]
+    print(git_version)
 
     # Run setup function #
     setuptools.setup(

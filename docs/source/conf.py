@@ -29,7 +29,7 @@ author = u'Rick Staa'
 # The full version, including alpha/beta/rc tags.
 release = re.sub('^v', '', os.popen('git describe').read().strip())
 # The short X.Y version.
-version = release
+version = release.split("-")[0]
 
 # -- General configuration ---------------------------------------------------
 
