@@ -1,1 +1,4 @@
 .vscode
+cgdat.egg-info
+dist
+build

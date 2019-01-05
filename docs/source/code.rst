@@ -8,8 +8,8 @@ Modules
 .. autosummary::
    :toctree: _auto_rst
 
-    .cgdat.qt_custom
-    .cgdat.qt_ui
+    .qt_custom
+    .qt_ui
 
 Classes
 --------------
@@ -17,4 +17,4 @@ Classes
 .. autosummary::
    :toctree: _auto_rst
 
-    .cgdat.cgdat
+    .cgdat
