@@ -31,7 +31,6 @@ SETUP_PY_PATH = os.path.abspath(os.path.join(DIRNAME_ONE_UP, "setup.py")).replac
 if __name__ == '__main__':
 
     ### Build documentation ###
-
     # subprocess.call(['sphinx-apidoc', '-o', SPHINX_AUTO_RST_PATH, CGDAT_PACKAGE_PATH])  # Run autodocumentation
     # subprocess.call(['sphinx-apidoc', '-o', SPHINX_AUTO_RST_PATH, SCRIPTS_FOLDER_PATH])  # Run autodocumentation
     # subprocess.call(['python', SETUP_PY_PATH, 'build_sphinx']) # Creatw HTML
