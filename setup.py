@@ -31,7 +31,8 @@ if __name__ == '__main__':
         description="A simple csv data analyse tool.",
         long_description=long_description,
         long_description_content_type="text/markdown",
-        url="https://github.com/pypa/sampleproject",
+        url="https://github.com/rickstaa/CGDAT",
+        download_url = 'https://github.com/rickstaa/CGDAT/archive/v1.4.0.tar.gz',    # I explain this later on
         packages=setuptools.find_packages(),
         entry_points = {
             'console_scripts': ['cgdat-gui=cgdat.start_cl:main','cgdat-shortcut=cgdat.create_shortcut_cl:main'],
