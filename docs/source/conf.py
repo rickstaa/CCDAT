@@ -27,9 +27,10 @@ copyright = u'2018, Rick Staa'
 author = u'Rick Staa'
 
 # The full version, including alpha/beta/rc tags.
-release = re.sub('^v', '', os.popen('git describe').read().strip())
-# The short X.Y version.
-version = release.split("-")[0]
+# release = re.sub('^v', '', os.popen('git describe').read().strip())
+# # The short X.Y version.
+# version = release.split("-")[0]
+version = r"v1.5.3"
 
 # -- General configuration ---------------------------------------------------
 
