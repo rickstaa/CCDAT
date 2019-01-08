@@ -14,24 +14,36 @@ target_location = os.path.abspath(os.path.join(dirname, '..', "cgdat.lnk")).repl
 icon_path = os.path.abspath(os.path.join(dirname, '..', "cgdat/static/media/CGDAT.ico")).replace('\\','/')    # Toggle on icon
 cgdat_path = os.path.abspath(os.path.join(dirname, "start_cgdat.py")).replace('\\','/')    # Toggle on icon
 
+### Get working directory ###
+DIRNAME = os.path.dirname(os.path.abspath(__file__))
+DIRNAME_ONE_UP = os.path.abspath(os.path.join(DIRNAME, "..")).replace('\\','/')
+print(DIRNAME_ONE_UP)
+
+### Create paths ###
+SPHINX_AUTO_RST_PATH = os.path.abspath(os.path.join(DIRNAME_ONE_UP, "docs/source/_auto_rst")).replace('\\','/')
+CGDAT_PACKAGE_PATH = os.path.abspath(os.path.join(DIRNAME_ONE_UP, "cgdat")).replace('\\','/')
+SCRIPTS_FOLDER_PATH = os.path.abspath(os.path.join(DIRNAME_ONE_UP, "scripts")).replace('\\','/')
+SETUP_PY_PATH = os.path.abspath(os.path.join(DIRNAME_ONE_UP, "setup.py")).replace('\\','/')
+
 ##############################################################
 #### Create shortuct function                             ####
 ##############################################################
 if __name__ == '__main__':
 
     ### Build documentation ###
-    subprocess.call(['sphinx-apidoc', '-o','../docs/source/_auto_rst', '../cgdat'])  # Run autodocumentation
-    subprocess.call(['sphinx-apidoc', '-o','../docs/source/_auto_rst', '../scripts'])  # Run autodocumentation
-    subprocess.call(['python', 'setup.py', 'build_sphinx']) # Creatw HTML
+
+    # subprocess.call(['sphinx-apidoc', '-o', SPHINX_AUTO_RST_PATH, CGDAT_PACKAGE_PATH])  # Run autodocumentation
+    # subprocess.call(['sphinx-apidoc', '-o', SPHINX_AUTO_RST_PATH, SCRIPTS_FOLDER_PATH])  # Run autodocumentation
+    # subprocess.call(['python', SETUP_PY_PATH, 'build_sphinx']) # Creatw HTML
 
     ### Build the program ###
-    subprocess.call(['python', 'setup.py','build'])
+    subprocess.call(['python', SETUP_PY_PATH,'build'])
 
     ### Develop the program ###
-    # subprocess.call(['python', 'setup.py','develop'])
+    # subprocess.call(['python', SETUP_PY_PATH,'develop'])
 
     ### Install the program ###
-    subprocess.call(['python', 'setup.py','install'])
+    subprocess.call(['python', SETUP_PY_PATH, 'install'])
 
     ### Create shortcut ##
     python_exe = sys.executable

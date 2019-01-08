@@ -5,8 +5,14 @@ import setuptools
 import re
 import os
 
-# Open Readme #
+### Change current working directory to file directory ###
+dirname = os.path.dirname(os.path.abspath(__file__))
+os.chdir(dirname)
+
+### Only run if run as main script ###
 if __name__ == '__main__':
+
+    ### Open Readme ###
     with open("README.md", "r") as fh:
         long_description = fh.read()
 
@@ -46,3 +52,4 @@ if __name__ == '__main__':
         },
         include_package_data=True,
     )
+
