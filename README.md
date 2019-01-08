@@ -1,13 +1,16 @@
 This repository contains the Conditional game data analysis package (CGDAT). It can be used to load in a csv file and filter this file based on some conditions. Further, you can filter the file based on (Player name, Time sections) and you can add a time padding to the output result.
 
-# How to use
+# Installation
 
-## Fast way
-1. Download the zip.
-2. Click the `installer.bat` file in the main cgdat folder.
-    - The installer will install the cgdat python package and its dependencies.
+## Install the package using the Python Package Index (PyPI)
+1. Open the cmd prompt and run the command displayed on the [PyPi package page](https://pypi.org/project/cgdat/2.0.0/).
 
-## Build the program yourself
+## Install the package using the installer script
+1. Download the zip file from the [git repository](https://github.com/rickstaa/CGDAT).
+2. Navigate to the CGDAT main folder and click the `install.bat` file.
+    - The program and its decencies are now installed.
+
+## Build and install the package yourself
 1. Open the command prompt at the main cgdat folder.
 2. Run the `python setup.py build` cmd.
 3. When the build is complete run the `python setup.py install` cmd.

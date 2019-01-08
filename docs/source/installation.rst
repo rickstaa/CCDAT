@@ -1,8 +1,13 @@
 Installation
 ========================
 
+
+Install the package using the Python Package Index (PyPI)
+---------------------------------------------------------------------
+1. Open the cmd prompt and run the command displayed on `https://pypi.org/project/cgdat/2.0.0/`_.
+
 Install the package using the installer script
--------------------------------
+---------------------------------------------------------
 1. Download the zip file from the git `github <https://github.com/rickstaa/CGDAT>`_.
 2. Navigate to the CGDAT main folder and click the :samp:`install.bat` file.
 
