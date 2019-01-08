@@ -30,27 +30,27 @@ SETUP_PY_PATH = os.path.abspath(os.path.join(DIRNAME_ONE_UP, "setup.py")).replac
 ##############################################################
 if __name__ == '__main__':
 
-    ### Build documentation ###
-    # subprocess.call(['sphinx-apidoc', '-o', SPHINX_AUTO_RST_PATH, CGDAT_PACKAGE_PATH])  # Run autodocumentation
-    # subprocess.call(['sphinx-apidoc', '-o', SPHINX_AUTO_RST_PATH, SCRIPTS_FOLDER_PATH])  # Run autodocumentation
-    # subprocess.call(['python', SETUP_PY_PATH, 'build_sphinx']) # Creatw HTML
+    ## Build documentation ###
+    subprocess.call(['sphinx-apidoc', '-o', SPHINX_AUTO_RST_PATH, CGDAT_PACKAGE_PATH])  # Run autodocumentation
+    subprocess.call(['sphinx-apidoc', '-o', SPHINX_AUTO_RST_PATH, SCRIPTS_FOLDER_PATH])  # Run autodocumentation
+    subprocess.call(['python', SETUP_PY_PATH, 'build_sphinx']) # Creatw HTML
 
-    ### Build the program ###
-    subprocess.call(['python', SETUP_PY_PATH,'build'])
+    # ### Build the program ###
+    # subprocess.call(['python', SETUP_PY_PATH,'build'])
 
-    ### Develop the program ###
-    # subprocess.call(['python', SETUP_PY_PATH,'develop'])
+    # ### Develop the program ###
+    # # subprocess.call(['python', SETUP_PY_PATH,'develop'])
 
-    ### Install the program ###
-    subprocess.call(['python', SETUP_PY_PATH, 'install'])
+    # ### Install the program ###
+    # subprocess.call(['python', SETUP_PY_PATH, 'install'])
 
-    ### Create shortcut ##
-    python_exe = sys.executable
-    python_exe_path = re.sub('\\\\python.exe', '', python_exe)
-    pythonw_exe_path = python_exe_path + "\\\\pythonw.exe"
-    ws = win32com.client.Dispatch("wscript.shell")
-    scut = ws.CreateShortcut(target_location)
-    scut.TargetPath = pythonw_exe_path
-    scut.Arguments = cgdat_path
-    scut.IconLocation = icon_path
-    scut.Save()
+    # ### Create shortcut ##
+    # python_exe = sys.executable
+    # python_exe_path = re.sub('\\\\python.exe', '', python_exe)
+    # pythonw_exe_path = python_exe_path + "\\\\pythonw.exe"
+    # ws = win32com.client.Dispatch("wscript.shell")
+    # scut = ws.CreateShortcut(target_location)
+    # scut.TargetPath = pythonw_exe_path
+    # scut.Arguments = cgdat_path
+    # scut.IconLocation = icon_path
+    # scut.Save()
