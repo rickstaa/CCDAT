@@ -1394,7 +1394,7 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
             ### Save condition result to xlsx file object ###
             #################################################
             df_result_tmp = df_result_tmp.sort_index()
-            df_result_tmp.to_excel(writer, sheet_name=condition_text.text(),index=False)
+            df_result_tmp.to_excel(writer, sheet_name=condition_text.text(), index=False)
             del df_result_tmp  # Remove temporary results dataframe
 
         ### If keys were not vallid display error message ###
