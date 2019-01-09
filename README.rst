@@ -107,6 +107,9 @@ This tool is licensed under the GPL open source license. You are therefore free 
 Release History
 --------------------------------
 
+* 2.0.7:
+
+    * FIX: Fixed missing requirement.
 
 * 2.0.6:
 

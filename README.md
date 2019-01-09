@@ -62,11 +62,37 @@ python setup.py install
 ```
 
 ## Release History
-* 2.0.2
+
+* 2.0.7:
+
+    * FIX: Fixed missing requirement.
+
+* 2.0.6:
+
+    * FIX: Fixed README.rst PiPy problem.
+
+* 2.0.5:
+
+    * FIX: Fixed README.rst problem.
+
+* 2.0.4:
+
+    * FIX: Fixes README.rst pypi incompatibility problem.
+
+* 2.0.3:
+
+    * CHANGE: Updated the images in the READme.rst to raw github images.
+
+* 2.0.2:
+
     * CHANGE: Updated the setup.py and the project Readme.md.
-* 2.0.1
-    * CHANGE(docs): Updated docs (module code remains unchanged)
-* 2.0.0
+
+* 2.0.1:
+
+    * CHANGE(docs): Updated docs (module code remains unchanged).
+
+* 2.0.0:
+
     * First proper release on PiPy.
 
 

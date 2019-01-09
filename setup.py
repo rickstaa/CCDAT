@@ -32,7 +32,7 @@ if __name__ == '__main__':
         long_description=long_description,
         long_description_content_type="text/x-rst",
         url="https://github.com/rickstaa/CGDAT",
-        download_url = 'https://github.com/rickstaa/CGDAT/archive/v2.0.5.tar.gz',    # I explain this later on
+        download_url = 'https://github.com/rickstaa/CGDAT/archive/v2.0.7.tar.gz',
         packages=setuptools.find_packages(),
         entry_points = {
             'console_scripts': ['cgdat-gui=cgdat.start_cl:main','cgdat-shortcut=cgdat.create_shortcut_cl:main'],
@@ -47,6 +47,7 @@ if __name__ == '__main__':
               'numpy',
               'xlsxwriter',
               'PyQt5',
+              'winshell',
         ],
         package_data = {
             'docs': ['docs/*'],
