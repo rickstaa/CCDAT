@@ -18,7 +18,7 @@ This package contains a simple csv data analyse GUI which I created for a friend
    :target: https://www.gnu.org/licenses/gpl-3.0
    :alt: License badge
 
-.. image:: https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/CGDAT.png
+.. image:: https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/CGDAT_small.png
    :target: https://github.com/rickstaa/CGDAT
    :alt: CGDAT LOGO
 
