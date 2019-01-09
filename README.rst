@@ -16,7 +16,7 @@ This package contains a simple csv data analyse GUI which I created for a friend
 
 |
 
-.. image:: https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/CGDAT_small.png
+.. image:: https://raw.githubusercontent.com/rickstaa/CGDAT/master/cgdat/static/media/CGDAT_small.png
    :target: https://github.com/rickstaa/CGDAT
    :alt: CGDAT LOGO
 
@@ -63,8 +63,8 @@ This package can both be imported as a python package or run as a stand alone gu
 
 Tool interface
 -------------------------
-   
-.. figure:: https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/gui_overview.png
+
+.. figure:: https://github.com/rickstaa/CGDAT/raw/master/cgdat/static/media/gui_overview.png
    :scale: 100 %
    :alt: A overview of the CGDAT GUI window.
 
@@ -121,7 +121,7 @@ Release History
 Meta
 -----------------------------------------------
 
-Rick Staa – `@github <https://github.com/rickstaa>`_
+Rick Staa – `github <https://github.com/rickstaa>`_
 
 Distributed under the GNU General Public License v3 (GPLv3). See `LICENSE <https://github.com/rickstaa/CGDAT/blob/master/LICENSE>`_ for more information.
 
