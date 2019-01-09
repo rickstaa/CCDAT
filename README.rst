@@ -55,6 +55,7 @@ If you want to manually install the python package please fork from `github <htt
     python setup.py install
 
 A overview of the CGDAT GUI.
+
 Usage
 =====================================
 This package can both be imported as a python package or run as a stand alone gui (see :numref:`figure_1`). To import the python package use :samp:`import cgdat`. To use as a stand alone package run the :samp:`cgdat-gui` cmd.
@@ -122,7 +123,7 @@ Meta
 
 Rick Staa – `@github <https://github.com/rickstaa>`_
 
-Distributed under the GNU General Public License v3 (GPLv3). See `LICENSE <https://github.com/rickstaa/CGDAT/blob/master/LICENSE>`_ for more information.
+Distributed under the GNU General Public License v3 (GPLv3). See :samp:'`LICENSE <https://github.com/rickstaa/CGDAT/blob/master/LICENSE>`_'for more information.
 
 Contributing
 ----------------------------------
