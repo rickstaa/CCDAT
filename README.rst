@@ -36,7 +36,7 @@ OS X & Linux:
 
     pip install cgdat
 
-.. image:: https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/;linux_mac_warning.png
+.. image:: https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/linux_mac_warning.png
    :alt: Warning box
 
 Windows:
