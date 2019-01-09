@@ -1,6 +1,8 @@
 .. role:: underlined(raw)
    :format: html
    :style: text-decoration: underline;
+ 
+.. role:: raw-html(raw) :format: html 
 
 Conditional Game Data Analyse Tool (CGAT)
 ===================================================
