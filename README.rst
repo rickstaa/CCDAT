@@ -1,6 +1,5 @@
-.. role:: underlined(raw)
+.. role:: raw-html(raw)
    :format: html
-   :style: text-decoration: underline;
 
 Conditional Game Data Analyse Tool (CGAT)
 ===================================================
@@ -16,17 +15,13 @@ This package contains a simple csv data analyse GUI which I created for a friend
 
 .. image:: https://img.shields.io/badge/License-GPLv3-blue.svg
    :target: https://www.gnu.org/licenses/gpl-3.0
-   :alt: License badge
+   :alt: License badge 
 
-.. image:: https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/CGDAT.png
+:raw-html:`<br />`
+
+.. image:: https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/CGDAT_small.png
    :target: https://github.com/rickstaa/CGDAT
    :alt: CGDAT LOGO
-
-Installation
-----------------------
-
-.. role:: underline
-    :class: underline
 
 Installation
 =====================
@@ -34,14 +29,20 @@ Installation
 Install using the python package index (PyPi)
 ---------------------------------------------------
 
-:underlined:`OS X & Linux:`::
+OS X & Linux:
+^^^^^^^^^^^^^^^
+
+::
 
     pip install cgdat
 
-.. Warning::
-    This package was only tested on the windows operation system.
+:warning:'This package was only tested on the windows operation system.'
 
-:underlined:`Windows:`::
+
+Windows:
+^^^^^^^^^^^^^^^
+
+::
 
     pip install cgdat
 
