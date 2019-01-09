@@ -21,12 +21,6 @@ This package contains a simple csv data analyse GUI which I created for a friend
    :alt: CGDAT LOGO
 
 Installation
-----------------------
-
-.. role:: underline
-    :class: underline
-
-Installation
 =====================
 
 Install using the python package index (PyPi)
