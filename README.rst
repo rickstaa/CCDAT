@@ -21,6 +21,7 @@ This package contains a simple csv data analyse GUI which I created for a friend
 .. image:: https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/CGDAT.png
    :target: https://github.com/rickstaa/CGDAT
    :alt: CGDAT LOGO
+   :scale:50%
 
 Installation
 ----------------------
@@ -123,7 +124,7 @@ Meta
 
 Rick Staa – `@github <https://github.com/rickstaa>`_
 
-Distributed under the GNU General Public License v3 (GPLv3). See :samp:'`LICENSE <https://github.com/rickstaa/CGDAT/blob/master/LICENSE>`_'for more information.
+Distributed under the GNU General Public License v3 (GPLv3). See `LICENSE <https://github.com/rickstaa/CGDAT/blob/master/LICENSE>`_ for more information.
 
 Contributing
 ----------------------------------
