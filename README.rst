@@ -1,5 +1,6 @@
-.. role:: raw-html(raw)
+.. role:: underlined(raw)
    :format: html
+   :style: text-decoration: underline;
 
 Conditional Game Data Analyse Tool (CGAT)
 ===================================================
@@ -15,13 +16,17 @@ This package contains a simple csv data analyse GUI which I created for a friend
 
 .. image:: https://img.shields.io/badge/License-GPLv3-blue.svg
    :target: https://www.gnu.org/licenses/gpl-3.0
-   :alt: License badge 
+   :alt: License badge
 
-:raw-html:`<br />`
-
-.. image:: https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/CGDAT_small.png
+.. image:: https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/CGDAT.png
    :target: https://github.com/rickstaa/CGDAT
    :alt: CGDAT LOGO
+
+Installation
+----------------------
+
+.. role:: underline
+    :class: underline
 
 Installation
 =====================
@@ -29,20 +34,14 @@ Installation
 Install using the python package index (PyPi)
 ---------------------------------------------------
 
-OS X & Linux:
-^^^^^^^^^^^^^^^
-
-::
+:underlined:`OS X & Linux:`::
 
     pip install cgdat
 
-.. image:: https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/linux_mac_warning.png
-   :alt: Warning box
+.. Warning::
+    This package was only tested on the windows operation system.
 
-Windows:
-^^^^^^^^^^^^^^^
-
-::
+:underlined:`Windows:`::
 
     pip install cgdat
 
@@ -56,17 +55,16 @@ If you want to manually install the python package please fork from `github <htt
     python setup.py install
 
 A overview of the CGDAT GUI.
-
 Usage
 =====================================
-This package can both be imported as a python package or run as a stand alone gui (see `fig 1`_). To import the python package use :samp:`import cgdat`. To use as a stand alone package run the :samp:`cgdat-gui` cmd.
+This package can both be imported as a python package or run as a stand alone gui (see :numref:`figure_1`). To import the python package use :samp:`import cgdat`. To use as a stand alone package run the :samp:`cgdat-gui` cmd.
 
 Tool interface
 -------------------------
 
-.. figure:: https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/gui_overview.png
+.. figure:: https://github.com/rickstaa/CGDAT/tree/master/cgdat/static/media/gui_overview.png
    :scale: 100 %
-   :alt: Fig 1: A overview of the CGDAT GUI window.
+   :alt: A overview of the CGDAT GUI window.
    :name: figure_1
 
    A overview of the CGDAT GUI.
@@ -124,7 +122,7 @@ Meta
 
 Rick Staa – `@github <https://github.com/rickstaa>`_
 
-Distributed under the GNU General Public License v3 (GPLv3). See :samp:'`LICENSE <https://github.com/rickstaa/CGDAT/blob/master/LICENSE>`_' for more information.
+Distributed under the GNU General Public License v3 (GPLv3). See `LICENSE <https://github.com/rickstaa/CGDAT/blob/master/LICENSE>`_ for more information.
 
 Contributing
 ----------------------------------
