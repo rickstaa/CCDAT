@@ -7,3 +7,4 @@ For the program to run the following packages and software needs to be installed
     * `Xlsxwriter <https://pypi.org/project/XlsxWriter/>`_
     * `Pyqt <https://pypi.org/project/PyQt5/>`_
     * `Sphinx_rtd_theme <https://pypi.org/project/sphinx_rtd_theme/>`_
+    * `Winshell <https://pypi.org/project/winshell/>`_
