@@ -27,7 +27,7 @@ if __name__ == '__main__':
         name="cgdat",
         version=git_version,
         author="Rick Staa",
-        author_email="author@example.com",
+        author_email="rick.staa@outlook.com",
         description="A simple csv data analyse tool.",
         long_description=long_description,
         long_description_content_type="text/markdown",
