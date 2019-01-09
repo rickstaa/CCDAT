@@ -21,23 +21,26 @@ This package contains a simple csv data analyse GUI which I created for a friend
 Installation
 ----------------------
 
-.. role:: underline
-    :class: underline
-
 Installation
 =====================
 
 Install using the python package index (PyPi)
 ---------------------------------------------------
 
-:underlined:`OS X & Linux:`::
+OS X & Linux:
+^^^^^^^^^^^^^^^^^^^^^^^^^
+
+::
 
     pip install cgdat
 
 .. Warning::
     This package was only tested on the windows operation system.
 
-:underlined:`Windows:`::
+Windows:
+^^^^^^^^^^^^^^^^^^^
+
+::
 
     pip install cgdat
 
