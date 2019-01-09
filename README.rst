@@ -36,7 +36,7 @@ OS X & Linux:
 
     pip install cgdat
 
-:warning:`This package was only tested on the windows operation system.`
+:warning: This package was only tested on the windows operation system.
 
 
 Windows:
