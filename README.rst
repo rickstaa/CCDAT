@@ -49,7 +49,7 @@ Windows:
 Development setup
 ------------------------------
 
-If you want to manually install the python package please fork from `github <https://github.com/rickstaa/CGDAT>`_ and run the following commands::
+If you want to manually install the python package please fork from `github <https://github.com/rickstaa/CGDAT>`__ and run the following commands::
 
     python setup.py build
     python setup.py develop
@@ -121,9 +121,9 @@ Release History
 Meta
 -----------------------------------------------
 
-Rick Staa – `github <https://github.com/rickstaa>`_
+Rick Staa – `github <https://github.com/rickstaa>`__
 
-Distributed under the GNU General Public License v3 (GPLv3). See `LICENSE <https://github.com/rickstaa/CGDAT/blob/master/LICENSE>`_ for more information.
+Distributed under the GNU General Public License v3 (GPLv3). See `LICENSE <https://github.com/rickstaa/CGDAT/blob/master/LICENSE>`__ for more information.
 
 Contributing
 ----------------------------------
@@ -137,9 +137,9 @@ Contributing
 Contributors
 -----------------------------
 * Created by Rick Staa
-* Maintained by Wesley Bosman `(wesleybosmann@gmail.com <mailto:wesleybosmann@gmail.com>`_)
+* Maintained by Wesley Bosman `(wesleybosmann@gmail.com <mailto:wesleybosmann@gmail.com>`__)
 
 Credits
 -----------------------------
-* CDAT icon created by FreePis from `www.flaticon.com <https://www.flaticon.com>`_.
+* CDAT icon created by FreePis from `www.flaticon.com <https://www.flaticon.com>`__.
 
