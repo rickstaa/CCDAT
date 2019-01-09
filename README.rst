@@ -1,7 +1,3 @@
-.. role:: underlined(raw)
-   :format: html
-   :style: text-decoration: underline;
-
 Conditional Game Data Analyse Tool (CGAT)
 ===================================================
 This package contains a simple csv data analyse GUI which I created for a friend of mine to help him with his data analysis.
