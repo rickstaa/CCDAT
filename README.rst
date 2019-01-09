@@ -29,10 +29,8 @@ Installation
 Install using the python package index (PyPi)
 ---------------------------------------------------
 
-.. raw:: html
-   
-   <u>OS X & Linux</u>
-   
+:raw-html:`<u>OS X & Linux:</u>`
+
 ::
 
     pip install cgdat
@@ -40,9 +38,7 @@ Install using the python package index (PyPi)
 .. Warning::
     This package was only tested on the windows operation system.
 
-.. raw:: html
-   
-   <u>Windows</u>
+:raw-html:`<u>Windows:</u>`
 
 ::
 
