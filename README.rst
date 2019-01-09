@@ -19,9 +19,10 @@ This package contains a simple csv data analyse GUI which I created for a friend
    :alt: License badge
 
 .. image:: https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/CGDAT.png
+   :scale: 50 %
    :target: https://github.com/rickstaa/CGDAT
    :alt: CGDAT LOGO
-   :scale:50%
+
 
 Installation
 ----------------------
