@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cgdat.cgdat &mdash; CGDAT  documentation</title>
+  <title>cgdat.cgdat_gui &mdash; CGDAT  documentation</title>
   
 
   
@@ -138,7 +138,7 @@
         
           <li><a href="../index.html">Module code</a> &raquo;</li>
         
-      <li>cgdat.cgdat</li>
+      <li>cgdat.cgdat_gui</li>
     
     
       <li class="wy-breadcrumbs-aside">
@@ -153,7 +153,7 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <h1>Source code for cgdat.cgdat</h1><div class="highlight"><pre>
+  <h1>Source code for cgdat.cgdat_gui</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 <span class="sd">&quot;&quot;&quot;</span>
 <span class="sd">This file contains the main GUI class that is used in the *Conditional game data analyse tool (CGDAT)* was created for a friend</span>
@@ -183,19 +183,22 @@
 <span class="c1">### Get relative script path ###</span>
 <span class="n">DIRNAME</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
 
-<span class="c1"># ### Create the needed python user interface classes out of the QT UI files ###</span>
-<span class="c1"># subprocess.call(r&quot;python -m PyQt5.uic.pyuic -x &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;qt\cgdat.ui&#39;) + &quot; -o &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;cgdat\qt_ui\cgdat_ui.py&#39;))</span>
-<span class="c1"># subprocess.call(r&quot;python -m PyQt5.uic.pyuic -x &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;qt\output_settings.ui&#39;) + &quot; -o &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;cgdat\qt_ui\output_settings_ui.py&#39;))</span>
-<span class="c1"># subprocess.call(r&quot;python -m PyQt5.uic.pyuic -x &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;qt\about.ui&#39;) + &quot; -o &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;cgdat\qt_ui\about_ui.py&#39;))</span>
-<span class="c1"># subprocess.call(r&quot;python -m PyQt5.uic.pyuic -x &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;qt\progress_dialog.ui&#39;) + &quot; -o &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;cgdat\qt_ui\progress_dialog_ui.py&#39;))</span>
-<span class="c1"># subprocess.call(r&quot;python -m PyQt5.uic.pyuic -x &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;qt\import_dialog.ui&#39;) + &quot; -o &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;cgdat\qt_ui\import_dialog_ui.py&#39;))</span>
+<span class="c1">### Create the needed python user interface classes out of the QT UI files ###</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;python -m PyQt5.uic.pyuic -x &quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;qt\cgdat.ui&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; -o &quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;cgdat\qt_ui\cgdat_ui.py&#39;</span><span class="p">))</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;python -m PyQt5.uic.pyuic -x &quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;qt\output_settings.ui&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; -o &quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;cgdat\qt_ui\output_settings_ui.py&#39;</span><span class="p">))</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;python -m PyQt5.uic.pyuic -x &quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;qt\about.ui&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; -o &quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;cgdat\qt_ui\about_ui.py&#39;</span><span class="p">))</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;python -m PyQt5.uic.pyuic -x &quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;qt\progress_dialog.ui&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; -o &quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;cgdat\qt_ui\progress_dialog_ui.py&#39;</span><span class="p">))</span>
+<span class="n">subprocess</span><span class="o">.</span><span class="n">call</span><span class="p">(</span><span class="sa">r</span><span class="s2">&quot;python -m PyQt5.uic.pyuic -x &quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;qt\import_dialog.ui&#39;</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; -o &quot;</span> <span class="o">+</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s1">&#39;..&#39;</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;cgdat\qt_ui\import_dialog_ui.py&#39;</span><span class="p">))</span>
 
-<span class="c1">### Import custom classes and functions ###</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">qt_custom</span>
-<span class="kn">from</span> <span class="nn">.qt_custom</span> <span class="k">import</span> <span class="o">*</span>
-
-<span class="c1">### Import the python UI classes ###</span>
-<span class="kn">from</span> <span class="nn">.</span> <span class="k">import</span> <span class="n">qt_ui</span>
+<span class="c1">### Test wheter the script is run as module or main script ###</span>
+<span class="n">parent_module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__name__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="ow">or</span> <span class="s1">&#39;__main__&#39;</span><span class="p">]</span>
+<span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span> <span class="ow">or</span> <span class="n">parent_module</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>  <span class="c1"># Run as main script</span>
+    <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">pardir</span><span class="p">)))</span>
+    <span class="kn">from</span> <span class="nn">cgdat.qt_custom</span> <span class="k">import</span> <span class="n">qt_extra</span><span class="p">,</span> <span class="n">qt_dialogs</span><span class="p">,</span> <span class="n">qt_thread</span>
+    <span class="kn">from</span> <span class="nn">cgdat.qt_ui</span> <span class="k">import</span> <span class="n">Ui_MainWindow</span><span class="p">,</span> <span class="n">Ui_About</span>
+<span class="k">else</span><span class="p">:</span>  <span class="c1"># If run as module</span>
+    <span class="kn">from</span> <span class="nn">.qt_custom</span> <span class="k">import</span> <span class="n">qt_extra</span><span class="p">,</span> <span class="n">qt_dialogs</span><span class="p">,</span> <span class="n">qt_thread</span>
+    <span class="kn">from</span> <span class="nn">.qt_ui</span> <span class="k">import</span> <span class="n">Ui_MainWindow</span><span class="p">,</span> <span class="n">Ui_About</span>
 
 <span class="c1">#####################################################################</span>
 <span class="c1">#### Deal with high resolution screens                           ####</span>
@@ -215,7 +218,7 @@
 <span class="c1">#####################################################################</span>
 <span class="c1">#### Overload Qt DataAnalyserGUI class                           ####</span>
 <span class="c1">#####################################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI">[docs]</a><span class="k">class</span> <span class="nc">DataAnalyserGUI</span><span class="p">(</span><span class="n">qt_ui</span><span class="o">.</span><span class="n">cgdat_ui</span><span class="o">.</span><span class="n">Ui_MainWindow</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI">[docs]</a><span class="k">class</span> <span class="nc">DataAnalyserGUI</span><span class="p">(</span><span class="n">Ui_MainWindow</span><span class="p">):</span>
     <span class="sd">&quot;&quot;&quot;This is the qt class used to create the general user interface for the CGDAT data analysis tool.</span>
 <span class="sd">    It inherits from the Ui_MainWindow class that is automatically created by the PyQt5.uic.pyuic converter.</span>
 
@@ -236,7 +239,7 @@
     <span class="c1">#########################################################</span>
     <span class="c1">#### UI initiation                                   ####</span>
     <span class="c1">#########################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.setupUi"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.setupUi">[docs]</a>    <span class="k">def</span> <span class="nf">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MainWindow</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.setupUi"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.setupUi">[docs]</a>    <span class="k">def</span> <span class="nf">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">MainWindow</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;The function which is used to set up the parts of the GUI that were not already defined in the CGDAT.ui file. Further it is</span>
 <span class="sd">        also used to add functionalities to the objects in the generated qt GUI python class.</span>
 
@@ -253,6 +256,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">toggle_icon_on</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s2">&quot;static/media/toggle_on.png&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>    <span class="c1"># Toggle on icon</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">toggle_icon_disabled</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s2">&quot;static/media/toggle_off_disabled.png&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>    <span class="c1"># Toggle on icon</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">toggle_icon_off</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s2">&quot;static/media/toggle_off.png&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>  <span class="c1"># Toggle off icon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loader_gif_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s2">&quot;static/media/loader.gif&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>  <span class="c1"># Toggle off icon</span>
         <span class="n">about_icon_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;static\media\about_icon.svg&#39;</span><span class="p">)</span>                      <span class="c1"># About icon path</span>
         <span class="n">docs_icon_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;static\media\docs_icon.png&#39;</span><span class="p">)</span>                      <span class="c1"># About icon path</span>
 
@@ -288,6 +292,8 @@
         <span class="c1">########################################</span>
         <span class="c1">### Add additional options #############</span>
         <span class="c1">########################################</span>
+        <span class="c1">### Add response empty member list ###</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_given</span> <span class="o">=</span> <span class="p">[]</span>
 
         <span class="c1">### Setup time range option ###</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">setStyleSheet</span><span class="p">(</span><span class="s2">&quot;QCheckBox::indicator:checked {image: url(&#39;&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">toggle_icon_on</span><span class="o">+</span><span class="s2">&quot;&#39;);}</span><span class="se">\n</span><span class="s2"> QCheckBox::indicator:unchecked {image: url(&#39;&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">toggle_icon_off</span><span class="o">+</span><span class="s2">&quot;&#39;);}</span><span class="se">\n</span><span class="s2"> QCheckBox::indicator:disabled {image: url(&#39;&quot;</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">toggle_icon_disabled</span><span class="o">+</span><span class="s2">&quot;&#39;);}&quot;</span><span class="p">)</span>
@@ -380,7 +386,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">output_columns_toggle</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Create member variable to save old output columns toggle</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_freq_warning</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Create member variable to save wheter a warning needs to be displayed</span>
 
-        <span class="c1">##{ Create dialog object ###</span>
+        <span class="c1">### Create dialog object ###</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span> <span class="o">=</span> <span class="n">qt_dialogs</span><span class="o">.</span><span class="n">outputSettingsDialog</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span><span class="o">.</span><span class="n">setModal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog_finished</span><span class="p">)</span>  <span class="c1"># Connect finished signal to function that checks if the used cancelled the analysis</span>
@@ -393,12 +399,12 @@
     <span class="c1">#################################################</span>
     <span class="c1">### Menu about action function                ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.action_about_slot"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.action_about_slot">[docs]</a>    <span class="k">def</span> <span class="nf">action_about_slot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.action_about_slot"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.action_about_slot">[docs]</a>    <span class="k">def</span> <span class="nf">action_about_slot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Qt slot function created to display the about window. This slot is triggered when the about menu item is clicked or</span>
 <span class="sd">        the user uses the F1 keyboard shortcut.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
         <span class="n">about</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QDialog</span><span class="p">()</span>
-        <span class="n">ui</span> <span class="o">=</span> <span class="n">qt_ui</span><span class="o">.</span><span class="n">about_ui</span><span class="o">.</span><span class="n">Ui_About</span><span class="p">()</span>
+        <span class="n">ui</span> <span class="o">=</span> <span class="n">Ui_About</span><span class="p">()</span>
         <span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="n">about</span><span class="p">)</span>
         <span class="n">about</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
         <span class="n">about</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span></div>
@@ -406,7 +412,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">### Menu docs action function                 ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.action_doc_slot"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.action_doc_slot">[docs]</a>    <span class="k">def</span> <span class="nf">action_doc_slot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.action_doc_slot"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.action_doc_slot">[docs]</a>    <span class="k">def</span> <span class="nf">action_doc_slot</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Qt slot function displays the documentation. This slot is triggered when the docs menu item is clicked or</span>
 <span class="sd">        the user uses the F2 keyboard shortcut.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -417,7 +423,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">### Menu docs action function                 ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.set_output_settings"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.set_output_settings">[docs]</a>    <span class="k">def</span> <span class="nf">set_output_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.set_output_settings"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.set_output_settings">[docs]</a>    <span class="k">def</span> <span class="nf">set_output_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Qt slot used to open the output_settings UI which can be used to set some additional settings for the output file. Currently the following</span>
 <span class="sd">        additional settings are supported:</span>
 
@@ -431,7 +437,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">### Settings dialog finished slot             ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.output_settings_dialog_finished"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.output_settings_dialog_finished">[docs]</a>    <span class="k">def</span> <span class="nf">output_settings_dialog_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.output_settings_dialog_finished"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.output_settings_dialog_finished">[docs]</a>    <span class="k">def</span> <span class="nf">output_settings_dialog_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Qt slot that is triggered when the output settings dialog is finished. This function</span>
 <span class="sd">        updates the settings the user changed into the GUI member variables.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -477,7 +483,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">### Get input file path function              ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.get_input_file"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.get_input_file">[docs]</a>    <span class="k">def</span> <span class="nf">get_input_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.get_input_file"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.get_input_file">[docs]</a>    <span class="k">def</span> <span class="nf">get_input_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Qt slot function created to get a user specified input file. It is linked to the input_file_browser_btn and displays a</span>
 <span class="sd">        file choicer dialog in which the user can specify the input data file.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -526,7 +532,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">### Get input file path function              ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.analyse_input_data_file"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.analyse_input_data_file">[docs]</a>    <span class="k">def</span> <span class="nf">analyse_input_data_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.analyse_input_data_file"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.analyse_input_data_file">[docs]</a>    <span class="k">def</span> <span class="nf">analyse_input_data_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Qt slot function that is used to check if the data file is vallid and following add the available players to the player filter comboBox. This slot function is</span>
 <span class="sd">        run in a worker thread so it does not freeze the GUI.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -574,7 +580,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">### Update player filter menu function        ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.data_input_worker_finished"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.data_input_worker_finished">[docs]</a>    <span class="k">def</span> <span class="nf">data_input_worker_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.data_input_worker_finished"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.data_input_worker_finished">[docs]</a>    <span class="k">def</span> <span class="nf">data_input_worker_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;QT slot function used to check whether the data file import was successful. If successful it updates the</span>
 <span class="sd">        player filter choicer menu by adding the available players to the menu options.</span>
 
@@ -671,7 +677,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">#### Data analyse dialog finished function   ####</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.import_dialog_finished"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.import_dialog_finished">[docs]</a>    <span class="k">def</span> <span class="nf">import_dialog_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.import_dialog_finished"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.import_dialog_finished">[docs]</a>    <span class="k">def</span> <span class="nf">import_dialog_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;This function is used to check whether the data import was</span>
 <span class="sd">        successful or whether the user cancelled the import using the cancel button present</span>
 <span class="sd">        on the dialog window.</span>
@@ -693,7 +699,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">### Get time sections file path function      ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.get_time_sections_file"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.get_time_sections_file">[docs]</a>    <span class="k">def</span> <span class="nf">get_time_sections_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.get_time_sections_file"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.get_time_sections_file">[docs]</a>    <span class="k">def</span> <span class="nf">get_time_sections_file</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Qt slot function created to get a user specified time sectsions input file. In this file the :samp:`begin times`</span>
 <span class="sd">        and :samp:`End times` of the sections where the data analysis has to be performed are specified.</span>
 <span class="sd">        It is linked to the time_file_browser_btn and displays a file choicer dialog in which the user can specify the input data file.</span>
@@ -737,7 +743,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">### Get input file path function              ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.analyse_input_time_data_file"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.analyse_input_time_data_file">[docs]</a>    <span class="k">def</span> <span class="nf">analyse_input_time_data_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.analyse_input_time_data_file"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.analyse_input_time_data_file">[docs]</a>    <span class="k">def</span> <span class="nf">analyse_input_time_data_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Qt slot function that is used to check if the time sections data file is vallid. This slot function is</span>
 <span class="sd">        run in a worker thread so it does not freeze the GUI.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -767,7 +773,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">### Update player filter menu function        ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.time_input_worker_finished"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.time_input_worker_finished">[docs]</a>    <span class="k">def</span> <span class="nf">time_input_worker_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.time_input_worker_finished"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.time_input_worker_finished">[docs]</a>    <span class="k">def</span> <span class="nf">time_input_worker_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;QT slot function used to check whether the time section file was successfully imported. If successful it updates the</span>
 <span class="sd">        player filter choicer menu by adding the available players to the menu options.</span>
 
@@ -822,7 +828,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">#### Time import dialog finished function    ####</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.time_import_dialog_finished"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.time_import_dialog_finished">[docs]</a>    <span class="k">def</span> <span class="nf">time_import_dialog_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.time_import_dialog_finished"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.time_import_dialog_finished">[docs]</a>    <span class="k">def</span> <span class="nf">time_import_dialog_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;This function is used to check whether the file specifying the time sections was</span>
 <span class="sd">        imported successfully or whether the user cancelled the import using the cancel button present</span>
 <span class="sd">        on the dialog window.</span>
@@ -841,7 +847,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">### Get output folder file path function      ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.get_output_dir"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.get_output_dir">[docs]</a>    <span class="k">def</span> <span class="nf">get_output_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.get_output_dir"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.get_output_dir">[docs]</a>    <span class="k">def</span> <span class="nf">get_output_dir</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Qt slot function created to get a user specified output folder. It is linked to the output_file_browser_btn_btn and displays a</span>
 <span class="sd">        folder choicer dialog in which the user can specify the input data file. If no folder is specified the output files will</span>
 <span class="sd">        be placed in a CGDAT/results folder which is placed in the windows documents folder.</span>
@@ -862,7 +868,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">### Add extra condition row function          ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.add_conditions_row"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.add_conditions_row">[docs]</a>    <span class="k">def</span> <span class="nf">add_conditions_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.add_conditions_row"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.add_conditions_row">[docs]</a>    <span class="k">def</span> <span class="nf">add_conditions_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Qt slot function created to add an extra condition row to the condition grid. It is linked to the</span>
 <span class="sd">        condition_add_row_btn and triggered when the button is clicked.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -896,7 +902,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">### Remove condition row function             ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.remove_conditions_row"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.remove_conditions_row">[docs]</a>    <span class="k">def</span> <span class="nf">remove_conditions_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.remove_conditions_row"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.remove_conditions_row">[docs]</a>    <span class="k">def</span> <span class="nf">remove_conditions_row</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Qt slot function created to add an extra condition row to the condition grid. It is linked to the</span>
 <span class="sd">        condition_remove_row_btn and triggered when the button is clicked.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -927,7 +933,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">### Reset condition field function            ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.reset_conditions"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.reset_conditions">[docs]</a>    <span class="k">def</span> <span class="nf">reset_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.reset_conditions"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.reset_conditions">[docs]</a>    <span class="k">def</span> <span class="nf">reset_conditions</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Qt slot function created to reset the condition grid to its original state in which only condition row is present.</span>
 <span class="sd">        It is linked to the reset_conditions_grid_btn.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -960,7 +966,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">#### Catch worker error                      ####</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.catch_thread_errors"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.catch_thread_errors">[docs]</a>    <span class="k">def</span> <span class="nf">catch_thread_errors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_tuple</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.catch_thread_errors"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.catch_thread_errors">[docs]</a>    <span class="k">def</span> <span class="nf">catch_thread_errors</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">error_tuple</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;This function catches errors in worker threads and outputs them to the user.</span>
 
 <span class="sd">        Args:</span>
@@ -979,7 +985,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">#### Create folder function                   ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.createFolder"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.createFolder">[docs]</a>    <span class="k">def</span> <span class="nf">createFolder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.createFolder"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.createFolder">[docs]</a>    <span class="k">def</span> <span class="nf">createFolder</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">directory</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;This function is used to create a folder when it does not exists&quot;&quot;&quot;</span>
         <span class="k">try</span><span class="p">:</span>
             <span class="k">if</span> <span class="ow">not</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">directory</span><span class="p">):</span>
@@ -990,7 +996,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">#### Create DateTime list function            ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.timeDelta2DateTime"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.timeDelta2DateTime">[docs]</a>    <span class="k">def</span> <span class="nf">timeDelta2DateTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_delta_list</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.timeDelta2DateTime"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.timeDelta2DateTime">[docs]</a>    <span class="k">def</span> <span class="nf">timeDelta2DateTime</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">time_delta_list</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;This method converts a list containing the time since measurement onset [seconds] into a</span>
 <span class="sd">        list containing dateTime objects counting up from 00:00:00.</span>
 
@@ -1016,7 +1022,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">#### Add padding to bool array function        ###</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.padBoolArray"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.padBoolArray">[docs]</a>    <span class="k">def</span> <span class="nf">padBoolArray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bool_array</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.padBoolArray"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.padBoolArray">[docs]</a>    <span class="k">def</span> <span class="nf">padBoolArray</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">bool_array</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
 
         <span class="c1">### Check whether a bool array was inputted ###</span>
         <span class="n">bool_test</span> <span class="o">=</span> <span class="nb">all</span><span class="p">([</span><span class="n">item</span><span class="o">.</span><span class="n">dtype</span> <span class="o">==</span> <span class="nb">bool</span> <span class="k">for</span> <span class="n">item</span> <span class="ow">in</span> <span class="n">bool_array</span><span class="p">])</span>
@@ -1036,7 +1042,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">#### Condition validity check function       ####</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.check_condition"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.check_condition">[docs]</a>    <span class="k">def</span> <span class="nf">check_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.check_condition"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.check_condition">[docs]</a>    <span class="k">def</span> <span class="nf">check_condition</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Qt slot function created to check whether the conditions have the right format.</span>
 
 <span class="sd">        Args:</span>
@@ -1063,15 +1069,15 @@
         <span class="c1">#################################################</span>
         <span class="c1">### Check if conditions are not empty ###########</span>
         <span class="c1">#################################################</span>
-        <span class="n">response_given</span> <span class="o">=</span> <span class="p">[]</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">response_given</span> <span class="o">=</span> <span class="p">[]</span>
         <span class="k">for</span> <span class="n">condition_text</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">:</span>
-            <span class="n">response_given</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span> <span class="c1">## Set true if empty</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">response_given</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">())</span> <span class="o">==</span> <span class="mi">0</span><span class="p">))</span> <span class="c1">## Set true if empty</span>
 
         <span class="c1">### Check if response list is empty ###</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">response_given</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="ow">not</span> <span class="nb">bool</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">checkState</span><span class="p">())</span> <span class="ow">or</span> <span class="ow">not</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span> <span class="c1"># Throw error if empty unless time sections is enabled and only one condition row is present.</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">response_given</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_filter_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_filter_drop_down_menu</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">())</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)):</span> <span class="c1"># Throw error if empty unless time sections is enabled and only one condition row is present.</span>
 
             <span class="c1">### Check which conditions are empty ###</span>
-            <span class="n">empty_indexes</span> <span class="o">=</span>  <span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">response_given</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
+            <span class="n">empty_indexes</span> <span class="o">=</span>  <span class="p">[</span><span class="n">i</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">response_given</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span><span class="p">]</span>
             <span class="n">empty_indexes_error_str</span> <span class="o">=</span> <span class="s1">&#39;,&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">empty_indexes</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">empty_indexes</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39; &amp; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">empty_indexes</span><span class="p">))</span>
 
             <span class="c1">### Create warning dialog specifying the empty conditions ###</span>
@@ -1080,9 +1086,9 @@
             <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Warning&#39;</span><span class="p">)</span>
             <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setTextFormat</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RichText</span><span class="p">)</span>
             <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">empty_indexes</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Conditions &quot;</span> <span class="o">+</span> <span class="n">empty_indexes_error_str</span> <span class="o">+</span> <span class="s2">&quot; appear to be empty please specify a condition.&quot;</span><span class="p">)</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Conditions &quot;</span> <span class="o">+</span> <span class="n">empty_indexes_error_str</span> <span class="o">+</span> <span class="s2">&quot; appear to be empty. Please specify a condition.&quot;</span><span class="p">)</span>
             <span class="k">else</span><span class="p">:</span>
-                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Condition &quot;</span> <span class="o">+</span> <span class="n">empty_indexes_error_str</span> <span class="o">+</span> <span class="s2">&quot; appears to be empty please specify a condition. Or add a time section file.&quot;</span><span class="p">)</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s2">&quot;Condition &quot;</span> <span class="o">+</span> <span class="n">empty_indexes_error_str</span> <span class="o">+</span> <span class="s2">&quot; appears to be empty. Please specify a condition or enable the time section filter or player filter.&quot;</span><span class="p">)</span>
             <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setInformativeText</span><span class="p">(</span><span class="s2">&quot;&lt;b&gt;Example&lt;/b&gt;: speed &gt; 10 &amp; speed &lt; 15 &amp; acceleration &gt; 5 &amp; acceleration &lt; 8&quot;</span><span class="p">)</span>
             <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
             <span class="n">warn_dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
@@ -1154,7 +1160,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">#### Data analyse dialog finished function   ####</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.data_analyse_dialog_finished"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.data_analyse_dialog_finished">[docs]</a>    <span class="k">def</span> <span class="nf">data_analyse_dialog_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.data_analyse_dialog_finished"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.data_analyse_dialog_finished">[docs]</a>    <span class="k">def</span> <span class="nf">data_analyse_dialog_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
         <span class="sd">&quot;&quot;&quot;This function is used to check whether the data analysis was</span>
 <span class="sd">        completed successfully or that the user cancelled the data analysis.</span>
 <span class="sd">        When the data analysis was cancelled it terminates any running workers.</span>
@@ -1171,7 +1177,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">#### Condition validity check function       ####</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.worker_finished"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.worker_finished">[docs]</a>    <span class="k">def</span> <span class="nf">worker_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.worker_finished"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.worker_finished">[docs]</a>    <span class="k">def</span> <span class="nf">worker_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39; Qt slot function which is triggered when a thread is completed. It is connected</span>
 <span class="sd">        to the threads finished signal. These signals are created using the pyqtSignal class.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
@@ -1185,6 +1191,7 @@
 
             <span class="c1">### Update progress bar ###</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">updateProgressBar</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">finished_workers</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">worker_size</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">load_movie</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>  <span class="c1"># stop loader object</span>
 
         <span class="k">else</span><span class="p">:</span>  <span class="c1"># If data analysis failed</span>
 
@@ -1234,7 +1241,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">#### Start data analyse slot                 ####</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.start_data_analysis"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.start_data_analysis">[docs]</a>    <span class="k">def</span> <span class="nf">start_data_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.start_data_analysis"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.start_data_analysis">[docs]</a>    <span class="k">def</span> <span class="nf">start_data_analysis</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;Qt slot function that is used to start the data analysis in a number of worker</span>
 <span class="sd">        threads so that the GUI does not freeze when the data analysis is performed. The</span>
 <span class="sd">        actual data analysis is performed by the :func:`analyse_data` function.&#39;&#39;&#39;</span>
@@ -1246,8 +1253,42 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span> <span class="o">=</span> <span class="n">qt_dialogs</span><span class="o">.</span><span class="n">progressDialog</span><span class="p">()</span>
 
         <span class="c1">### Get player list if player filter is enabled ###</span>
-        <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_filter_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
-                <span class="n">filtered_players</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_filter_drop_down_menu</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+        <span class="n">filtered_players</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_filter_drop_down_menu</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
+
+        <span class="c1">### Add info message dialogs ###</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">response_given</span><span class="p">)</span> <span class="ow">and</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_filter_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_players</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)):</span>  <span class="c1"># Display info message</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_filter_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_players</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">):</span> <span class="c1"># Throw error if empty unless time sections is enabled and only one condition row is present.</span>
+
+                <span class="c1">### Display non-modal popup ###</span>
+                <span class="n">info_str</span> <span class="o">=</span> <span class="s2">&quot;You did not specify any conditions. As a result the data will be filtered based on the specified tiem section.&quot;</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">info_str</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Info&quot;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_filter_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_players</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">):</span> <span class="c1"># Throw error if empty unless time sections is enabled and only one condition row is present.</span>
+
+                <span class="c1">### Display non-modal popup ###</span>
+                <span class="n">info_str</span> <span class="o">=</span> <span class="s2">&quot;You did not specify any conditions. As a result the data will be filtered based on the specified players.&quot;</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">info_str</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Info&quot;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_filter_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_players</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">):</span> <span class="c1"># Throw error if empty unless time sections is enabled and only one condition row is present.</span>
+
+                <span class="c1">### Display non-modal popup ###</span>
+                <span class="n">info_str</span> <span class="o">=</span> <span class="s2">&quot;You did not specify any conditions. As a result the data will be filtered based on the specified players and time sections.&quot;</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">info_str</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Info&quot;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+
+            <span class="k">else</span><span class="p">:</span>
+                <span class="k">pass</span>
 
         <span class="c1">### If user input is correct run the data analysis ###</span>
         <span class="k">if</span> <span class="n">test_result</span><span class="p">:</span>
@@ -1268,8 +1309,11 @@
 
                 <span class="c1">### Create and show progress dialog ###</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">progress_header</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">dialog_header</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load_movie</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QMovie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loader_gif_path</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">loader_gif</span><span class="o">.</span><span class="n">setMovie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">load_movie</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">setModal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_dialog_finished</span><span class="p">)</span>  <span class="c1"># Connect finished signal to function that checks if the used cancelled the analysis</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load_movie</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>  <span class="c1"># Start loader object</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
                 <span class="c1">### Pass the analyse_data function to the workers to execute ###</span>
@@ -1278,6 +1322,7 @@
                 <span class="c1">### Connect status signals ###</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_worker</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">ready</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">updateProgressConsole</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_worker</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">worker_finished</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_worker</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">catch_thread_errors</span><span class="p">)</span>  <span class="c1"># Checks the process result</span>
 
                 <span class="c1">### Start workers ###</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_worker</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
@@ -1301,8 +1346,11 @@
 
                 <span class="c1">### Create progress dialog ###</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">progress_header</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">dialog_header</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load_movie</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QMovie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loader_gif_path</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">loader_gif</span><span class="o">.</span><span class="n">setMovie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">load_movie</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">setModal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_dialog_finished</span><span class="p">)</span>  <span class="c1"># Connect finished signal to function that checks if the used cancelled the analysis</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load_movie</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>  <span class="c1"># Start loader object</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
                 <span class="c1">### Pass the analyse_data function to the workers to execute ###</span>
@@ -1311,6 +1359,7 @@
                 <span class="c1">### Connect status signals ###</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_worker</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">ready</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">updateProgressConsole</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_worker</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">worker_finished</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_worker</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">catch_thread_errors</span><span class="p">)</span>  <span class="c1"># Checks the process result</span>
 
                 <span class="c1">### Start workers ###</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_worker</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
@@ -1329,8 +1378,11 @@
 
                 <span class="c1">### Create and show progress dialog ###</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">progress_header</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">dialog_header</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load_movie</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QMovie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">loader_gif_path</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">loader_gif</span><span class="o">.</span><span class="n">setMovie</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">load_movie</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">setModal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_dialog_finished</span><span class="p">)</span>  <span class="c1"># Connect finished signal to function that checks if the used cancelled the analysis</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load_movie</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>  <span class="c1"># Start loader object</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 
                 <span class="c1">### Start workers ###</span>
@@ -1348,6 +1400,7 @@
                         <span class="c1">### Connect status signals ###</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_worker</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">ready</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">updateProgressConsole</span><span class="p">)</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_worker</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">worker_finished</span><span class="p">)</span>
+                        <span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_worker</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">catch_thread_errors</span><span class="p">)</span>  <span class="c1"># Checks the process result</span>
 
                         <span class="c1">### Start workers ###</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_worker</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
@@ -1363,7 +1416,7 @@
     <span class="c1">#################################################</span>
     <span class="c1">#### Data analyse function                   ####</span>
     <span class="c1">#################################################</span>
-<div class="viewcode-block" id="DataAnalyserGUI.analyse_data"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat.DataAnalyserGUI.analyse_data">[docs]</a>    <span class="k">def</span> <span class="nf">analyse_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+<div class="viewcode-block" id="DataAnalyserGUI.analyse_data"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.analyse_data">[docs]</a>    <span class="k">def</span> <span class="nf">analyse_data</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
         <span class="sd">&#39;&#39;&#39;The function in which the data analysis is performed. The function uses the data present in the csv file</span>
 <span class="sd">        which is specified in the input_file_path member variable. The data analysis is performed using the</span>
 <span class="sd">        :func:`pandas.read_csv()` function which returns a pandas dataframe. Following the data in this dataframe</span>
@@ -1416,7 +1469,11 @@
         <span class="c1">### Perform data analysis on each condition ###</span>
         <span class="n">key_invalid</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Create list for key_vallid boolean test</span>
         <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Condition counter used in print statement</span>
+        <span class="n">conditions_str_list</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Create a list to which we add the specified conditions</span>
         <span class="k">for</span> <span class="n">condition_text</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">:</span>
+
+            <span class="c1">### Create condition sheet label ###</span>
+            <span class="n">sheet_name</span> <span class="o">=</span> <span class="p">(</span><span class="s2">&quot;Condition </span><span class="si">%i</span><span class="s2">&quot;</span> <span class="o">%</span> <span class="n">counter</span><span class="p">)</span>
 
             <span class="c1">### Create list with valid operators ###</span>
             <span class="n">operator_escape_str</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">op</span><span class="p">)</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">operators</span><span class="p">]</span>
@@ -1501,7 +1558,10 @@
             <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">player_name</span> <span class="o">==</span> <span class="kc">None</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_file_path</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">)):</span>  <span class="c1"># All filters enabled</span>
                 <span class="n">df_results_bool</span> <span class="o">=</span> <span class="n">df_player_bool_array</span><span class="o">.</span><span class="n">values</span> <span class="o">&amp;</span> <span class="n">df_time_sections_bool_array</span> <span class="o">&amp;</span> <span class="n">df_condition_bool_array</span><span class="o">.</span><span class="n">values</span>
 
-            <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">player_name</span> <span class="o">==</span> <span class="kc">None</span><span class="p">)):</span>  <span class="c1"># If only player filter was enabled</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">player_name</span> <span class="o">==</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+                <span class="n">df_results_bool</span> <span class="o">=</span> <span class="n">df_player_bool_array</span><span class="o">.</span><span class="n">values</span> <span class="c1"># Only player as filter no conditions</span>
+
+            <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">player_name</span> <span class="o">==</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>  <span class="c1"># If only player filter was enabled</span>
                 <span class="n">df_results_bool</span> <span class="o">=</span> <span class="n">df_player_bool_array</span><span class="o">.</span><span class="n">values</span> <span class="o">&amp;</span> <span class="n">df_condition_bool_array</span><span class="o">.</span><span class="n">values</span>
 
             <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_file_path</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">)):</span>  <span class="c1"># If only time section filter was enabled</span>
@@ -1550,8 +1610,23 @@
             <span class="c1">### Save condition result to xlsx file object ###</span>
             <span class="c1">#################################################</span>
             <span class="n">df_result_tmp</span> <span class="o">=</span> <span class="n">df_result_tmp</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
-            <span class="n">df_result_tmp</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">(),</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+            <span class="n">df_result_tmp</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheet_name</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">startrow</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">startcol</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+
+            <span class="c1">### Add condition header ###</span>
+            <span class="n">workbook</span>  <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">book</span>  <span class="c1"># Get workbook object</span>
+            <span class="n">worksheet</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="n">sheet_name</span><span class="p">]</span>
+            <span class="n">header_format</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span>
+                <span class="s1">&#39;bold&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s1">&#39;underline&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                <span class="s1">&#39;text_wrap&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                <span class="s1">&#39;valign&#39;</span><span class="p">:</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span>
+                <span class="s1">&#39;border&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+            <span class="n">condition_text_str</span> <span class="o">=</span> <span class="n">sheet_name</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+            <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">condition_text_str</span><span class="p">,</span> <span class="n">header_format</span><span class="p">)</span> <span class="c1"># Add condition as a header row</span>
+
+            <span class="c1">### Perform clean-up and increment actions ###</span>
             <span class="k">del</span> <span class="n">df_result_tmp</span>  <span class="c1"># Remove temporary results dataframe</span>
+            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># Increment condition counter</span>
 
         <span class="c1">### If keys were not vallid display error message ###</span>
         <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">key_invalid</span><span class="p">):</span>

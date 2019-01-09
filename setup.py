@@ -19,7 +19,7 @@ if __name__ == '__main__':
     # Run setup function #
     setuptools.setup(
         name="cgdat",
-        version="v2.1.0",
+        version="v2.2.0",
         author="Rick Staa",
         author_email="rick.staa@outlook.com",
         description="A simple csv data analyse tool.",

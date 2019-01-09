@@ -12,10 +12,10 @@ Subpackages
 Submodules
 ----------
 
-cgdat.cgdat module
-------------------
+cgdat.cgdat\_gui module
+-----------------------
 
-.. automodule:: cgdat.cgdat
+.. automodule:: cgdat.cgdat_gui
     :members:
     :undoc-members:
     :show-inheritance:
