@@ -8,6 +8,14 @@ This tool is licensed under the GPL open source license. You are therefore free 
 Release History
 --------------------------------
 
+* 2.0.6:
+
+    * FIX: Fixed README.rst PiPy problem.
+
+* 2.0.5:
+
+    * FIX: Fixed README.rst problem.
+
 * 2.0.4:
 
     * FIX: Fixes README.rst pypi incompatibility problem.
