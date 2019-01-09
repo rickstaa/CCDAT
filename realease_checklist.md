@@ -1,4 +1,4 @@
-1. Run the ``Bump version minor`` command from within the main folder.
+1. Run the ``Bumpversion minor`` command from within the main folder.
 2. Run the ``make clean`` from within docs folder.
 3. Run the ``sphinx-apidoc -o source/_auto_rst ../cgdat`` from within docs folder.
 4. Run the ``python setup.py build_sphinx`` command from within the main folder.
