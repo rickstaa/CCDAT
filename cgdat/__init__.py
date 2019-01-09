@@ -5,3 +5,4 @@ all the modules and functions that are used in creating this class.
 
 ### Set all ###
 __all__ = ['qt_ui', 'qt_custom', 'cgdat_gui']
+

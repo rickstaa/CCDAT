@@ -5,7 +5,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import os, sys
 
 ### Import package modules ###
-from cgdat import DataAnalyserGUI
+from cgdat.cgdat_gui import DataAnalyserGUI
 
 ### Get relative script path ###
 DIRNAME = os.path.dirname(os.path.abspath(__file__))
