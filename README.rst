@@ -36,11 +36,8 @@ OS X & Linux:
 
     pip install cgdat
 
-<div class="warning">
-    <p class="first admonition-title">Warning</p>
-    <p class="last">
-    This package was only tested on the windows operation system.</p>
-</div>
+:warning:`This package was only tested on the windows operation system.`
+
 
 Windows:
 ^^^^^^^^^^^^^^^
