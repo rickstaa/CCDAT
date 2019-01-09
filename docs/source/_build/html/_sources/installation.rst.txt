@@ -1,16 +1,29 @@
-Installation:
--------------------------
+.. role:: underline
+    :class: underline
 
-*OS X & Linux:*
+Installation
+=====================
 
-⚠ This package was only tested on the windows operation system.
+Install using the python package index (PyPi)
+---------------------------------------------------
 
-```sh
-pip install cgdat
-```
+:underline:`OS X & Linux:`::
 
-Windows:
+    pip install cgdat
 
-```sh
-pip install cgdat
-```
+.. Warning::
+    This package was only tested on the windows operation system.
+
+:underline:`Windows:`::
+
+    pip install cgdat
+
+Development setup
+------------------------------
+
+If you want to manually install the python package please fork from `github <https://github.com/rickstaa/CGDAT>`_ and run the following commands::
+
+    python setup.py build
+    python setup.py develop
+    python setup.py install
+
