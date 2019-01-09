@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\ricks\OneDrive\Development\Tools\CGDAT\cgdat\..\qt\import_dialog.ui'
+# Form implementation generated from reading ui file 'c:\Users\ricks\OneDrive\Development\Tools\cgdat\cgdat\..\qt\import_dialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
@@ -11,14 +11,14 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_ImportDialog(object):
     def setupUi(self, ImportDialog):
         ImportDialog.setObjectName("ImportDialog")
-        ImportDialog.resize(320, 133)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        ImportDialog.resize(350, 150)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(ImportDialog.sizePolicy().hasHeightForWidth())
         ImportDialog.setSizePolicy(sizePolicy)
-        ImportDialog.setMinimumSize(QtCore.QSize(320, 133))
-        ImportDialog.setMaximumSize(QtCore.QSize(320, 133))
+        ImportDialog.setMinimumSize(QtCore.QSize(350, 150))
+        ImportDialog.setMaximumSize(QtCore.QSize(350, 150))
         self.gridLayout = QtWidgets.QGridLayout(ImportDialog)
         self.gridLayout.setObjectName("gridLayout")
         self.progress_bar = QtWidgets.QProgressBar(ImportDialog)

@@ -27,19 +27,22 @@ import math
 ### Get relative script path ###
 DIRNAME = os.path.dirname(os.path.abspath(__file__))
 
-# ### Create the needed python user interface classes out of the QT UI files ###
-# subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\cgdat.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\cgdat_ui.py'))
-# subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\output_settings.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\output_settings_ui.py'))
-# subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\about.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\about_ui.py'))
-# subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\progress_dialog.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\progress_dialog_ui.py'))
-# subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\import_dialog.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\import_dialog_ui.py'))
+### Create the needed python user interface classes out of the QT UI files ###
+subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\cgdat.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\cgdat_ui.py'))
+subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\output_settings.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\output_settings_ui.py'))
+subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\about.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\about_ui.py'))
+subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\progress_dialog.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\progress_dialog_ui.py'))
+subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\import_dialog.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\import_dialog_ui.py'))
 
-### Import custom classes and functions ###
-from . import qt_custom
-from .qt_custom import *
-
-### Import the python UI classes ###
-from . import qt_ui
+### Test wheter the script is run as module or main script ###
+parent_module = sys.modules['.'.join(__name__.split('.')[:-1]) or '__main__']
+if __name__ == '__main__' or parent_module.__name__ == '__main__':  # Run as main script
+    sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+    from cgdat.qt_custom import qt_extra, qt_dialogs, qt_thread
+    from cgdat.qt_ui import Ui_MainWindow, Ui_About
+else:  # If run as module
+    from .qt_custom import qt_extra, qt_dialogs, qt_thread
+    from .qt_ui import Ui_MainWindow, Ui_About
 
 #####################################################################
 #### Deal with high resolution screens                           ####
@@ -59,7 +62,7 @@ freq = (1.0/(0.166667/100.0))  # Data recording frequency [Hz]
 #####################################################################
 #### Overload Qt DataAnalyserGUI class                           ####
 #####################################################################
-class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
+class DataAnalyserGUI(Ui_MainWindow):
     """This is the qt class used to create the general user interface for the CGDAT data analysis tool.
     It inherits from the Ui_MainWindow class that is automatically created by the PyQt5.uic.pyuic converter.
 
@@ -97,6 +100,7 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
         self.toggle_icon_on = os.path.abspath(os.path.join(DIRNAME, "static/media/toggle_on.png")).replace('\\','/')    # Toggle on icon
         self.toggle_icon_disabled = os.path.abspath(os.path.join(DIRNAME, "static/media/toggle_off_disabled.png")).replace('\\','/')    # Toggle on icon
         self.toggle_icon_off = os.path.abspath(os.path.join(DIRNAME, "static/media/toggle_off.png")).replace('\\','/')  # Toggle off icon
+        self.loader_gif_path = os.path.abspath(os.path.join(DIRNAME, "static/media/loader.gif")).replace('\\','/')  # Toggle off icon
         about_icon_path = os.path.join(DIRNAME, r'static\media\about_icon.svg')                      # About icon path
         docs_icon_path = os.path.join(DIRNAME, r'static\media\docs_icon.png')                      # About icon path
 
@@ -132,6 +136,8 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
         ########################################
         ### Add additional options #############
         ########################################
+        ### Add response empty member list ###
+        self.response_given = []
 
         ### Setup time range option ###
         self.time_file_toggle.setStyleSheet("QCheckBox::indicator:checked {image: url('"+self.toggle_icon_on+"');}\n QCheckBox::indicator:unchecked {image: url('"+self.toggle_icon_off+"');}\n QCheckBox::indicator:disabled {image: url('"+self.toggle_icon_disabled+"');}")
@@ -224,7 +230,7 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
         self.output_columns_toggle = False # Create member variable to save old output columns toggle
         self.output_settings_freq_warning = True # Create member variable to save wheter a warning needs to be displayed
 
-        ##{ Create dialog object ###
+        ### Create dialog object ###
         self.output_settings_dialog = qt_dialogs.outputSettingsDialog()
         self.output_settings_dialog.setModal(True)
         self.output_settings_dialog.finished.connect(self.output_settings_dialog_finished)  # Connect finished signal to function that checks if the used cancelled the analysis
@@ -242,7 +248,7 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
         the user uses the F1 keyboard shortcut.
         '''
         about = QtWidgets.QDialog()
-        ui = qt_ui.about_ui.Ui_About()
+        ui = Ui_About()
         ui.setupUi(about)
         about.show()
         about.exec_()
@@ -907,15 +913,15 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
         #################################################
         ### Check if conditions are not empty ###########
         #################################################
-        response_given = []
+        self.response_given = []
         for condition_text in self.condition_line_edit:
-            response_given.append(not (len(condition_text.text()) == 0)) ## Set true if empty
+            self.response_given.append(not (len(condition_text.text()) == 0)) ## Set true if empty
 
         ### Check if response list is empty ###
-        if not any(response_given) and (not bool(self.time_file_toggle.checkState()) or not len(self.condition_line_edit) == 1): # Throw error if empty unless time sections is enabled and only one condition row is present.
+        if not any(self.response_given) and not ((self.time_file_toggle.isChecked() and len(self.condition_line_edit) == 1) or (self.player_filter_toggle.isChecked() and len(self.player_filter_drop_down_menu.selectedItems()) >= 1 and len(self.condition_line_edit) <= 1)): # Throw error if empty unless time sections is enabled and only one condition row is present.
 
             ### Check which conditions are empty ###
-            empty_indexes =  [i+1 for i, x in enumerate(response_given) if x]
+            empty_indexes =  [i+1 for i, x in enumerate(self.response_given) if x]
             empty_indexes_error_str = ','.join(map(str, empty_indexes)) if len(empty_indexes) != 2 else ' & '.join(map(str, empty_indexes))
 
             ### Create warning dialog specifying the empty conditions ###
@@ -924,9 +930,9 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
             warn_dialog.setWindowTitle('Warning')
             warn_dialog.setTextFormat(QtCore.Qt.RichText)
             if len(empty_indexes) > 1:
-                warn_dialog.setText("Conditions " + empty_indexes_error_str + " appear to be empty please specify a condition.")
+                warn_dialog.setText("Conditions " + empty_indexes_error_str + " appear to be empty. Please specify a condition.")
             else:
-                warn_dialog.setText("Condition " + empty_indexes_error_str + " appears to be empty please specify a condition. Or add a time section file.")
+                warn_dialog.setText("Condition " + empty_indexes_error_str + " appears to be empty. Please specify a condition or enable the time section filter or player filter.")
             warn_dialog.setInformativeText("<b>Example</b>: speed > 10 & speed < 15 & acceleration > 5 & acceleration < 8")
             warn_dialog.setStandardButtons(QtWidgets.QMessageBox.Ok)
             warn_dialog.exec_()
@@ -1029,6 +1035,7 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
 
             ### Update progress bar ###
             self.progress_dialog.updateProgressBar((self.finished_workers/self.worker_size)*100)
+            self.load_movie.stop()  # stop loader object
 
         else:  # If data analysis failed
 
@@ -1090,8 +1097,42 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
         self.progress_dialog = qt_dialogs.progressDialog()
 
         ### Get player list if player filter is enabled ###
-        if self.player_filter_toggle.isChecked():
-                filtered_players = self.player_filter_drop_down_menu.selectedItems()
+        filtered_players = self.player_filter_drop_down_menu.selectedItems()
+
+        ### Add info message dialogs ###
+        if not any(self.response_given) and ((self.time_file_toggle.isChecked() and len(self.condition_line_edit) == 1) or (self.player_filter_toggle.isChecked() and len(filtered_players) >= 1 and len(self.condition_line_edit) <= 1)):  # Display info message
+            if (self.time_file_toggle.isChecked() and len(self.condition_line_edit) == 1) and not (self.player_filter_toggle.isChecked() and len(filtered_players) >= 1 and len(self.condition_line_edit) <= 1): # Throw error if empty unless time sections is enabled and only one condition row is present.
+
+                ### Display non-modal popup ###
+                info_str = "You did not specify any conditions. As a result the data will be filtered based on the specified tiem section."
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Information)
+                msg.setText(info_str)
+                msg.setWindowTitle("Info")
+                msg.exec_()
+
+            elif not (self.time_file_toggle.isChecked() and len(self.condition_line_edit) == 1) and (self.player_filter_toggle.isChecked() and len(filtered_players) >= 1 and len(self.condition_line_edit) <= 1): # Throw error if empty unless time sections is enabled and only one condition row is present.
+
+                ### Display non-modal popup ###
+                info_str = "You did not specify any conditions. As a result the data will be filtered based on the specified players."
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Information)
+                msg.setText(info_str)
+                msg.setWindowTitle("Info")
+                msg.exec_()
+
+            elif (self.time_file_toggle.isChecked() and len(self.condition_line_edit) == 1) and (self.player_filter_toggle.isChecked() and len(filtered_players) >= 1 and len(self.condition_line_edit) <= 1): # Throw error if empty unless time sections is enabled and only one condition row is present.
+
+                ### Display non-modal popup ###
+                info_str = "You did not specify any conditions. As a result the data will be filtered based on the specified players and time sections."
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Information)
+                msg.setText(info_str)
+                msg.setWindowTitle("Info")
+                msg.exec_()
+
+            else:
+                pass
 
         ### If user input is correct run the data analysis ###
         if test_result:
@@ -1112,8 +1153,11 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
 
                 ### Create and show progress dialog ###
                 self.progress_dialog.progress_header.setText(dialog_header)
+                self.load_movie = QtGui.QMovie(self.loader_gif_path)
+                self.progress_dialog.loader_gif.setMovie(self.load_movie)
                 self.progress_dialog.setModal(True)
                 self.progress_dialog.finished.connect(self.data_analyse_dialog_finished)  # Connect finished signal to function that checks if the used cancelled the analysis
+                self.load_movie.start()  # Start loader object
                 self.progress_dialog.show()
 
                 ### Pass the analyse_data function to the workers to execute ###
@@ -1122,6 +1166,7 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
                 ### Connect status signals ###
                 self.data_analyse_worker[0].signals.ready.connect(self.progress_dialog.updateProgressConsole)
                 self.data_analyse_worker[0].signals.finished.connect(self.worker_finished)
+                self.data_analyse_worker[0].signals.error.connect(self.catch_thread_errors)  # Checks the process result
 
                 ### Start workers ###
                 self.data_analyse_worker[0].start()
@@ -1145,8 +1190,11 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
 
                 ### Create progress dialog ###
                 self.progress_dialog.progress_header.setText(dialog_header)
+                self.load_movie = QtGui.QMovie(self.loader_gif_path)
+                self.progress_dialog.loader_gif.setMovie(self.load_movie)
                 self.progress_dialog.setModal(True)
                 self.progress_dialog.finished.connect(self.data_analyse_dialog_finished)  # Connect finished signal to function that checks if the used cancelled the analysis
+                self.load_movie.start()  # Start loader object
                 self.progress_dialog.show()
 
                 ### Pass the analyse_data function to the workers to execute ###
@@ -1155,6 +1203,7 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
                 ### Connect status signals ###
                 self.data_analyse_worker[0].signals.ready.connect(self.progress_dialog.updateProgressConsole)
                 self.data_analyse_worker[0].signals.finished.connect(self.worker_finished)
+                self.data_analyse_worker[0].signals.error.connect(self.catch_thread_errors)  # Checks the process result
 
                 ### Start workers ###
                 self.data_analyse_worker[0].start()
@@ -1173,8 +1222,11 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
 
                 ### Create and show progress dialog ###
                 self.progress_dialog.progress_header.setText(dialog_header)
+                self.load_movie = QtGui.QMovie(self.loader_gif_path)
+                self.progress_dialog.loader_gif.setMovie(self.load_movie)
                 self.progress_dialog.setModal(True)
                 self.progress_dialog.finished.connect(self.data_analyse_dialog_finished)  # Connect finished signal to function that checks if the used cancelled the analysis
+                self.load_movie.start()  # Start loader object
                 self.progress_dialog.show()
 
                 ### Start workers ###
@@ -1192,6 +1244,7 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
                         ### Connect status signals ###
                         self.data_analyse_worker[ii].signals.ready.connect(self.progress_dialog.updateProgressConsole)
                         self.data_analyse_worker[ii].signals.finished.connect(self.worker_finished)
+                        self.data_analyse_worker[ii].signals.error.connect(self.catch_thread_errors)  # Checks the process result
 
                         ### Start workers ###
                         self.data_analyse_worker[ii].start()
@@ -1260,7 +1313,11 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
         ### Perform data analysis on each condition ###
         key_invalid = []  # Create list for key_vallid boolean test
         counter = 1  # Condition counter used in print statement
+        conditions_str_list = []  # Create a list to which we add the specified conditions
         for condition_text in self.condition_line_edit:
+
+            ### Create condition sheet label ###
+            sheet_name = ("Condition %i" % counter)
 
             ### Create list with valid operators ###
             operator_escape_str = [("\\"+ op) for op in operators]
@@ -1345,7 +1402,10 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
             if (not (player_name == None)) & (self.time_file_toggle.isChecked() and not (self.input_file_path.text() == '')):  # All filters enabled
                 df_results_bool = df_player_bool_array.values & df_time_sections_bool_array & df_condition_bool_array.values
 
-            elif (not (player_name == None)):  # If only player filter was enabled
+            elif (not (player_name == None)) and (condition_text.text() == ''):
+                df_results_bool = df_player_bool_array.values # Only player as filter no conditions
+
+            elif (not (player_name == None)) and (condition_text.text() != ''):  # If only player filter was enabled
                 df_results_bool = df_player_bool_array.values & df_condition_bool_array.values
 
             elif (self.time_file_toggle.isChecked() and not (self.input_file_path.text() == '')):  # If only time section filter was enabled
@@ -1394,8 +1454,23 @@ class DataAnalyserGUI(qt_ui.cgdat_ui.Ui_MainWindow):
             ### Save condition result to xlsx file object ###
             #################################################
             df_result_tmp = df_result_tmp.sort_index()
-            df_result_tmp.to_excel(writer, sheet_name=condition_text.text(), index=False)
+            df_result_tmp.to_excel(writer, sheet_name=sheet_name, index=False, startrow = 2, startcol=0)
+
+            ### Add condition header ###
+            workbook  = writer.book  # Get workbook object
+            worksheet = writer.sheets[sheet_name]
+            header_format = workbook.add_format({
+                'bold': True,
+                'underline': True,
+                'text_wrap': False,
+                'valign': 'top',
+                'border': 1})
+            condition_text_str = sheet_name + ": " + condition_text.text()
+            worksheet.write(0, 0, condition_text_str, header_format) # Add condition as a header row
+
+            ### Perform clean-up and increment actions ###
             del df_result_tmp  # Remove temporary results dataframe
+            counter += 1  # Increment condition counter
 
         ### If keys were not vallid display error message ###
         if any(key_invalid):

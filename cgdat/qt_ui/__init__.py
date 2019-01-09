@@ -17,8 +17,8 @@ It contains the following components:
 __all__ = ['about_ui', 'cgdat_ui', 'output_settings_ui', 'progress_dialog_ui', 'import_dialog_ui']
 
 ### Import classes out of modules ###
-from . import about_ui
-from . import cgdat_ui
-from . import output_settings_ui
-from . import progress_dialog_ui
-from . import import_dialog_ui
+from .about_ui import Ui_About
+from .cgdat_ui import Ui_MainWindow
+from .import_dialog_ui import Ui_ImportDialog
+from .output_settings_ui import Ui_OutputSettings
+from .progress_dialog_ui import Ui_ProgressDialog

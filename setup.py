@@ -16,17 +16,10 @@ if __name__ == '__main__':
     with open("README.rst", "r") as fh:
         long_description = fh.read()
 
-    ### get git version ###
-    git_release = re.sub('^v', '', os.popen('git describe').read().strip())
-    # The short X.Y version.
-    git_version = git_release.split("-")[0]
-    print(git_version)
-    # git_version = r"v1.5.3"
-
     # Run setup function #
     setuptools.setup(
         name="cgdat",
-        version=git_version,
+        version="v2.1.0",
         author="Rick Staa",
         author_email="rick.staa@outlook.com",
         description="A simple csv data analyse tool.",

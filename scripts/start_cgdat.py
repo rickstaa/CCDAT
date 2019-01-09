@@ -1,14 +1,13 @@
 '''This script is used to strat the cgdat gui out of the command line'''
 
 ### Import modules ###
-from PyQt5 import QtCore, QtGui, QtWidgets
 import os, sys
+import os.path
+from PyQt5 import QtCore, QtGui, QtWidgets
 
 ### Import package modules ###
-import os.path
-sys.path.append(
-    os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
-from cgdat import DataAnalyserGUI
+sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
+from cgdat.cgdat_gui import DataAnalyserGUI
 
 ### Get relative script path ###
 dirname = os.path.dirname(os.path.abspath(__file__))
