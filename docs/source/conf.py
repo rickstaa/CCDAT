@@ -26,11 +26,11 @@ project = u'CGDAT'
 copyright = u'2018, Rick Staa'
 author = u'Rick Staa'
 
-# The full version, including alpha/beta/rc tags.
-release = re.sub('^v', '', os.popen('git describe').read().strip())
-# The short X.Y version.
-version = release.split("-")[0]
-# version = r"v1.5.3"
+# # The full version, including alpha/beta/rc tags.
+# release = re.sub('^v', '', os.popen('git describe').read().strip())
+# # The short X.Y version.
+# version = release.split("-")[0]
+version = r"v2.0.2"
 
 # -- General configuration ---------------------------------------------------
 
@@ -86,6 +86,7 @@ pygments_style = None
 html_theme = "sphinx_rtd_theme"
 html_theme_path = ["_themes", ]
 html_logo = "../../cgdat/static/media/CGDAT.svg"
+numfig = True
 
 # Theme options are theme-specific and customize the look and feel of a theme
 # further.  For a list of options available for each theme, see the

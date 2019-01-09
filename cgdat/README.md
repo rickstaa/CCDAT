@@ -1,31 +1,88 @@
-This repository contains the Conditional game data analysis package (CGDAT). It can be used to load in a csv file and filter this file based on some conditions. Further, you can filter the file based on (Player name, Time sections) and you can add a time padding to the output result.
+# Conditional Game Data Analyse Tool (CGAT)
+This package contains a simple csv data analyse GUI which I created for a friend of mine to help him with his data analysis.
 
-# Installation
+[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
+[![Maintained](https://img.shields.io/badge/maintained%3F-yes!-brightgreen.svg?style=flat)](https://github.com/rickstaa/CGDAT)
+[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-## Install the package using the Python Package Index (PyPI)
-1. Open the cmd prompt and run the command displayed on the [PyPi package page](https://pypi.org/project/cgdat/2.0.0/).
+![logo](https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/CGDAT.png)
 
-## Install the package using the installer script
-1. Download the zip file from the [git repository](https://github.com/rickstaa/CGDAT).
-2. Navigate to the CGDAT main folder and click the `install.bat` file.
-    - The program and its decencies are now installed.
+## Installation
 
-## Build and install the package yourself
-1. Open the command prompt at the main cgdat folder.
-2. Run the `python setup.py build` cmd.
-3. When the build is complete run the `python setup.py install` cmd.
+OS X & Linux:
 
-## Use as a tool
-To use the cgdat package as a GUI click the cgdat shortcut that was created in the repository folder or use the `cgdat-gui` console command. You can also create a desktop shortcut by running the `cgdat-shortcut` console command.
+⚠ This package was only tested on the windows operation system.
 
-## Use as a package
-Since the package was installed on your default python enviroment you can simply import it as `import cgdat`.
+```sh
+pip install cgdat
+```
 
-# License
-This tool is licensed under the GPL open source license. You are therefore free use the source code in any way provided that you the original copyright statements.
+Windows:
 
-# Contributors
-* [rickstaa](https://github.com/rickstaa)
+```sh
+pip install cgdat
+```
 
-# Credits
-* CDAT icon created by FreePis from [www.flaticon.com](https://www.flaticon.com)
+## Usage
+This package can both be imported as a python package or run as a stand alone gui. To import the python package use `import cgdat`. To use as a stand alone package run the `cgdat-gui` cmd.
+
+### Tool interface
+![GUI](https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/gui_overview.png)
+
+### Functions
+This repository can be used to perform a simple csv game data filtering. The tool can filter a input data file based on:
+
+* Conditions:
+    * Example: Speed > 10 & Acceleration < 5
+* A time section file:
+    * A file containing a `Start Time` and `End Time` column specifying the sections where you want to apply the condition filter.
+* Player name:
+    * In the gui you can specify for which players you want to conduct the analysis. For this option to work the `input_data.csv` file needs to contain a `Name` column.
+
+
+Further you can add also add a safety padding to the data filtering. Meaning that the program will also include a number of samples before and after the specified conditions are met.
+
+### Console commands
+This package also installs some additional console commands:
+
+* `cgdat-gui` - This will launch the CGDAT gui.
+* `cgdat-shortcut` - This will create a shortcut to launch the GUI on your desktop folder.
+
+## Further documentation
+Additional documentation can be loaded in the GUI by clicking the `documentation` option in the help menu or pressing the `F2` shortcut.
+
+## Development setup
+
+If you want to manually install the python package please fork from [github](https://github.com/rickstaa/CGDAT) and run the following commands:
+
+```sh
+python setup.py build
+python setup.py develop
+python setup.py install
+```
+
+## Release History
+* 2.0.2
+    * CHANGE: Updated the setup.py and the project Readme.md.
+* 2.0.1
+    * CHANGE(docs): Updated docs (module code remains unchanged)
+* 2.0.0
+    * First proper release on PiPy.
+
+
+## Meta
+
+Rick Staa – [@github](https://github.com/rickstaa) – rick.staa@outlook.com
+
+Distributed under the GNU General Public License v3 (GPLv3). See ``LICENSE`` for more information.
+
+[https://github.com/rickstaa/CGDAT](https://github.com/rickstaa/CGDAT)
+
+## Contributing
+
+1. Fork it (<https://github.com/rickstaa/CGDAT>)
+2. Create your feature branch (`git checkout -b feature/fooBar`)
+3. Commit your changes (`git commit -am 'Add some fooBar'`)
+4. Push to the branch (`git push origin feature/fooBar`)
+5. Create a new Pull Request
+

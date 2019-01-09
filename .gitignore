@@ -2,3 +2,4 @@
 cgdat.egg-info
 dist
 build
+.pypirc

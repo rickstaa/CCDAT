@@ -1,0 +1,16 @@
+Installation:
+-------------------------
+
+*OS X & Linux:*
+
+⚠ This package was only tested on the windows operation system.
+
+```sh
+pip install cgdat
+```
+
+Windows:
+
+```sh
+pip install cgdat
+```
