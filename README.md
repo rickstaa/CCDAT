@@ -14,6 +14,7 @@ This package contains a simple csv data analyse GUI which I created for a friend
 ```sh
 pip install cgdat
 ```
+
 ⚠ This package was only tested on the windows operation system. ⚠
 
 ### Windows:

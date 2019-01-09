@@ -31,7 +31,7 @@ Release History
 Meta
 -----------------------------------------------
 
-Rick Staa – `@github <https://github.com/rickstaa>`_
+Rick Staa – `github <https://github.com/rickstaa>`_
 
 Distributed under the GNU General Public License v3 (GPLv3). See `LICENSE <https://github.com/rickstaa/CGDAT/blob/master/LICENSE>`_ for more information.
 

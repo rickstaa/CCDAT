@@ -5,19 +5,19 @@ This package contains a simple csv data analyse GUI which I created for a friend
 [![Maintained](https://img.shields.io/badge/maintained%3F-yes!-brightgreen.svg?style=flat)](https://github.com/rickstaa/CGDAT)
 [![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
 
-![logo](https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/CGDAT.png)
+![logo](https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/CGDAT_small.png)
 
 ## Installation
 
-OS X & Linux:
-
-⚠ This package was only tested on the windows operation system.
+### OS X & Linux:
 
 ```sh
 pip install cgdat
 ```
 
-Windows:
+⚠ This package was only tested on the windows operation system. ⚠
+
+### Windows:
 
 ```sh
 pip install cgdat
