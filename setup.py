@@ -49,7 +49,7 @@ if __name__ == '__main__':
               'xlsxwriter',
               'PyQt5',
               'winshell',
-              'pypiwin32',
+              'pywin32',
         ],
         package_data = {
             'docs': ['docs/*'],
