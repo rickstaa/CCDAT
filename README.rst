@@ -59,14 +59,14 @@ A overview of the CGDAT GUI.
 
 Usage
 =====================================
-This package can both be imported as a python package or run as a stand alone gui (see :numref:`figure_1`). To import the python package use :samp:`import cgdat`. To use as a stand alone package run the :samp:`cgdat-gui` cmd.
+This package can both be imported as a python package or run as a stand alone gui (see `fig 1`_). To import the python package use :samp:`import cgdat`. To use as a stand alone package run the :samp:`cgdat-gui` cmd.
 
 Tool interface
 -------------------------
 
 .. figure:: https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/gui_overview.png
    :scale: 100 %
-   :alt: A overview of the CGDAT GUI window.
+   :alt: Fig 1: A overview of the CGDAT GUI window.
    :name: figure_1
 
    A overview of the CGDAT GUI.
