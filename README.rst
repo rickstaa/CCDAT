@@ -64,7 +64,7 @@ This package can both be imported as a python package or run as a stand alone gu
 Tool interface
 -------------------------
 
-.. figure:: https://github.com/rickstaa/CGDAT/tree/master/cgdat/static/media/gui_overview.png
+.. figure:: https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/gui_overview.png
    :scale: 100 %
    :alt: A overview of the CGDAT GUI window.
    :name: figure_1
