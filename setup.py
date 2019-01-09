@@ -33,7 +33,7 @@ if __name__ == '__main__':
         long_description=long_description,
         long_description_content_type="text/x-rst",
         url="https://github.com/rickstaa/CGDAT",
-        download_url = 'https://github.com/rickstaa/CGDAT/archive/v2.0.8.tar.gz',
+        download_url = 'https://github.com/rickstaa/CGDAT/archive/v2.0.9.tar.gz',
         packages=setuptools.find_packages(),
         entry_points = {
             'console_scripts': ['cgdat-gui=cgdat.start_cl:main','cgdat-shortcut=cgdat.create_shortcut_cl:main'],
