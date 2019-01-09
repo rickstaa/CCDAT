@@ -13,7 +13,7 @@ os.chdir(dirname)
 if __name__ == '__main__':
 
     ### Open Readme ###
-    with open("README.md", "r") as fh:
+    with open("README.rst", "r") as fh:
         long_description = fh.read()
 
     ### get git version ###
@@ -30,7 +30,7 @@ if __name__ == '__main__':
         author_email="rick.staa@outlook.com",
         description="A simple csv data analyse tool.",
         long_description=long_description,
-        long_description_content_type="text/markdown",
+        long_description_content_type="text/x-rst",
         url="https://github.com/rickstaa/CGDAT",
         download_url = 'https://github.com/rickstaa/CGDAT/archive/v2.0.1.tar.gz',    # I explain this later on
         packages=setuptools.find_packages(),
