@@ -20,6 +20,7 @@ if __name__ == '__main__':
     git_release = re.sub('^v', '', os.popen('git describe').read().strip())
     # The short X.Y version.
     git_version = git_release.split("-")[0]
+    print(git_version)
     # git_version = r"v1.5.3"
 
     # Run setup function #
@@ -48,6 +49,7 @@ if __name__ == '__main__':
               'xlsxwriter',
               'PyQt5',
               'winshell',
+              'pypiwin32',
         ],
         package_data = {
             'docs': ['docs/*'],
