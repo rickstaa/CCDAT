@@ -68,7 +68,7 @@ Tool interface
    :scale: 100 %
    :alt: A overview of the CGDAT GUI window.
 
-   fig 1: A overview of the CGDAT GUI.
+   Fig 1: A overview of the CGDAT GUI.
 
 Functions
 -----------------------
