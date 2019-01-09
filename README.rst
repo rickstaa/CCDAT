@@ -26,7 +26,11 @@ Installation
 Install using the python package index (PyPi)
 ---------------------------------------------------
 
-:underlined:`OS X & Linux:`::
+.. raw:: html
+   
+   <u>OS X & Linux<u\>
+   
+::
 
     pip install cgdat
 
