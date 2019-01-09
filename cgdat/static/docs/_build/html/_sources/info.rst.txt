@@ -7,6 +7,15 @@ This tool is licensed under the GPL open source license. You are therefore free 
 
 Release History
 --------------------------------
+
+* 2.0.4:
+
+    * FIX: Fixes README.rst pypi incompatibility problem.
+
+* 2.0.3:
+
+    * CHANGE: Updated the images in the READme.rst to raw github images.
+
 * 2.0.2:
 
     * CHANGE: Updated the setup.py and the project Readme.md.
