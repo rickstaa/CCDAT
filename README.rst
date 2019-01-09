@@ -66,7 +66,7 @@ Tool interface
 
 .. figure:: https://github.com/rickstaa/CGDAT/tree/master/cgdat/static/media/gui_overview.png
    :scale: 100 %
-   :alt: fig 1: A overview of the CGDAT GUI window.
+   :alt: fig 1': A overview of the CGDAT GUI window.
 
    A overview of the CGDAT GUI.
 
