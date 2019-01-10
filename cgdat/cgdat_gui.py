@@ -27,12 +27,12 @@ import math
 ### Get relative script path ###
 DIRNAME = os.path.dirname(os.path.abspath(__file__))
 
-### Create the needed python user interface classes out of the QT UI files ###
-subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\cgdat.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\cgdat_ui.py'))
-subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\output_settings.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\output_settings_ui.py'))
-subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\about.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\about_ui.py'))
-subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\progress_dialog.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\progress_dialog_ui.py'))
-subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\import_dialog.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\import_dialog_ui.py'))
+# ### Create the needed python user interface classes out of the QT UI files ###
+# subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\cgdat.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\cgdat_ui.py'))
+# subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\output_settings.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\output_settings_ui.py'))
+# subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\about.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\about_ui.py'))
+# subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\progress_dialog.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\progress_dialog_ui.py'))
+# subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\import_dialog.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\import_dialog_ui.py'))
 
 ### Test wheter the script is run as module or main script ###
 parent_module = sys.modules['.'.join(__name__.split('.')[:-1]) or '__main__']

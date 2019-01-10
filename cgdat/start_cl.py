@@ -5,7 +5,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 import os, sys
 
 ### Import package modules ###
-from cgdat.cgdat_gui import DataAnalyserGUI
+from cgdat import DataAnalyserGUI
 
 ### Get relative script path ###
 DIRNAME = os.path.dirname(os.path.abspath(__file__))
@@ -34,3 +34,5 @@ def main():
     ### Show main window ###
     MainWindow.showMaximized()
     sys.exit(app.exec_())
+
+main()
