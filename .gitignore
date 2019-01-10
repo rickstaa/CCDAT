@@ -4,3 +4,4 @@ dist
 build
 .pypirc
 input_data/*
+.lnk
