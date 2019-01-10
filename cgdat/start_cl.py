@@ -34,5 +34,3 @@ def main():
     ### Show main window ###
     MainWindow.showMaximized()
     sys.exit(app.exec_())
-
-main()
