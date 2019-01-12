@@ -915,10 +915,10 @@ class DataAnalyserGUI(Ui_MainWindow):
         #################################################
         self.response_given = []
         for condition_text in self.condition_line_edit:
-            self.response_given.append(not (len(condition_text.text()) == 0)) ## Set true if empty
+            self.response_given.append(len(condition_text.text()) == 0) ## Set true if empty
 
         ### Check if response list is empty ###
-        if not any(self.response_given) and not ((self.time_file_toggle.isChecked() and len(self.condition_line_edit) == 1) or (self.player_filter_toggle.isChecked() and len(self.player_filter_drop_down_menu.selectedItems()) >= 1 and len(self.condition_line_edit) <= 1)): # Throw error if empty unless time sections is enabled and only one condition row is present.
+        if any(self.response_given) and not ((self.time_file_toggle.isChecked() and len(self.condition_line_edit) == 1) or (self.player_filter_toggle.isChecked() and len(self.player_filter_drop_down_menu.selectedItems()) >= 1 and len(self.condition_line_edit) <= 1)): # Throw error if empty unless time sections is enabled and only one condition row is present.
 
             ### Check which conditions are empty ###
             empty_indexes =  [i+1 for i, x in enumerate(self.response_given) if x]
