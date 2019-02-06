@@ -9,9 +9,10 @@
 9. Run the ``python setup.py build_sphinx`` command from within the main folder.
 10. Run the ``python setup.py develop`` command.
 11. Run the ``python setup.py sdist`` command.
+12. Run the ``python setup.py bdist_wheel`` command.
 12. Check the dist rst ``twine check dist/*``
 13. git push
 14. git push --tags
-15. Upload dist to test pipy.
+15. Upload dist to test pipy ``twine upload --repository-url https://test.pypi.org/legacy/ dist/*``.
 16. Test in venv.
-17. If it works upload to real pypi.
+17. If it works upload to real pypi ``twine upload dist/*``.

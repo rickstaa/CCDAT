@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\users\ricks\onedrive\development\tools\cgdat\cgdat\..\qt\progress_dialog.ui'
+# Form implementation generated from reading ui file 'c:\Users\ricks\OneDrive\Development\Tools\cgdat\cgdat\..\qt\progress_dialog.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #

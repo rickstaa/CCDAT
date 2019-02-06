@@ -503,8 +503,8 @@ class DataAnalyserGUI(Ui_MainWindow):
             return (False, "timestamp_error", warning_str)
 
         ### Check if timestamp axis is evenly distributed ###
-        self.time_stamp_spacing = np.mean(np.diff(self.df['Timestamp']))  # Get the number of steps between each data row
-        if any(np.diff(self.df['Timestamp'])!=self.time_stamp_spacing):
+        self.time_stamp_spacing = np.mean(np.diff(self.df['Timestamp'][1:10]))  # Get the number of steps between each data row
+        if any(np.diff(self.df['Timestamp'][1:10])!=self.time_stamp_spacing):
 
             ### Return info message ###
             warning_str = """The file you imported doesn't contain a evenly spaced timestamp column. Please import a valid data file and try again."""
@@ -1370,7 +1370,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 self.data_analyse_worker[0].start()
                 self.active_workers += 1
 
-            else: # If more players are selected
+            else: # If players are selected
 
                 ### Create dialog header and display info message if needed ###
                 if len(filtered_players) > 1:
@@ -1410,7 +1410,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                         ### Start workers ###
                         self.data_analyse_worker[ii].start()
 
-                        ### Increment workers variables ###
+                        # ### Increment workers variables ###
                         self.active_workers += 1  # Increment active workers
                         self.started_workers += 1  # Increment started workers
                         ii += 1  # Increment worker list incrementer
@@ -1616,6 +1616,10 @@ class DataAnalyserGUI(Ui_MainWindow):
                     padding = math.floor(padding_time/(1/(freq/self.time_stamp_spacing)))  # Calculate number of rows we should pad the sections with
                     df_results_bool_padded = self.padBoolArray(df_results_bool, padding)  # Apply padding
 
+                    ### If player filter is enabled make sure only samples from current player is included ###
+                    if (not (player_name == None)):
+                        df_results_bool_padded = df_results_bool_padded & df_player_bool_array.values
+
                     #################################################
                     ### Get result data out of dataframe ############
                     #################################################
@@ -1637,8 +1641,8 @@ class DataAnalyserGUI(Ui_MainWindow):
 
                 ### Remove not specified vars (columns) out of dataframe ###
                 if self.output_columns_toggle:  # Use user settings
-                    keywords_tmp = ['Timestamp', self.time_column_name]+self.output_columns  # Append 'Timestamp' and 'Time columns to output columns
-                    df_result_tmp = df_result_tmp[self.output_columns]  # Use user defined columns
+                    keywords_tmp = ['Timestamp', self.time_column_name]+ keywords + self.output_columns  # Append 'Timestamp' and 'Time columns to output columns
+                    df_result_tmp = df_result_tmp[keywords_tmp]  # Use user defined columns
 
                 else:  # Use only columns specified in the conditions
                     keywords_tmp = ['Timestamp', self.time_column_name]+keywords  # Append 'Timestamp' and 'Time columns to output columns
@@ -1669,15 +1673,15 @@ class DataAnalyserGUI(Ui_MainWindow):
                     condition_text_str = sheet_name + " (freq = " + str(freq) + " Hz): " + condition_text.text()
                 worksheet.write(0, 0, condition_text_str, header_format) # Add condition as a header row
 
-                ### If padding is enabled add color the rows in which the condition was satisfied ###
-                if self.time_range_toggle.isChecked():
-                    df_color = pd.DataFrame(df_results_bool[df_results_bool_padded])
-                    df_color.to_excel(writer, sheet_name="condition_color_bool", index=False)
-                    end_row = df_result_tmp.shape[0]-1 + start_row
-                    end_col = df_result_tmp.shape[1]-1 + start_column
-                    worksheet.conditional_format(start_row, start_column, end_row, end_col, {'type': 'formula',
-                                       'criteria': '=condition_color_bool!$A1=TRUE',
-                                       'format': condition_format})
+                # ### If padding is enabled add color the rows in which the condition was satisfied ###
+                # if self.time_range_toggle.isChecked():
+                #     df_color = pd.DataFrame(df_results_bool[df_results_bool_padded])
+                #     df_color.to_excel(writer, sheet_name="condition_color_bool", index=False)
+                #     end_row = df_result_tmp.shape[0]-1 + start_row
+                #     end_col = df_result_tmp.shape[1]-1 + start_column
+                #     worksheet.conditional_format(start_row, start_column, end_row, end_col, {'type': 'formula',
+                #                        'criteria': '=condition_color_bool!$A1=TRUE',
+                #                        'format': condition_format})
 
                 ### Perform clean-up and increment actions ###
                 del df_copy_tmp    # Remove temporary datafile copy
@@ -1731,7 +1735,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         ### Otherwise save results to xlsx file ###
         else:
 
-            ### Send progress to dialog console ###
+            ## Send progress to dialog console ###
             if player_name:
                 ready_signal.emit("Saving results for player %s to a xlsx file..." % player_name) # When player filter is enabled
             else:

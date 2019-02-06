@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\users\ricks\onedrive\development\tools\cgdat\cgdat\..\qt\splash_screen.ui'
+# Form implementation generated from reading ui file 'c:\Users\ricks\OneDrive\Development\Tools\cgdat\cgdat\..\qt\splash_screen.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
@@ -88,8 +88,8 @@ class Ui_splash_screen(object):
         self.label.setText(_translate("splash_screen", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600;\">CGDat (V2.3.0)</span></p>\n"
+"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:4pt; font-weight:400; font-style:normal;\">\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600;\">CGDat (V2.3.1)</span></p>\n"
 "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">Welcome to the conditional game data analyse tool (CGDAT). Please wait as we load the application.</span></p></body></html>"))
 
 
