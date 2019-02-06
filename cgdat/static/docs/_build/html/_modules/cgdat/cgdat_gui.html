@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                2.3.0
+                2.3.1
               </div>
             
           
@@ -659,8 +659,8 @@
             <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;timestamp_error&quot;</span><span class="p">,</span> <span class="n">warning_str</span><span class="p">)</span>
 
         <span class="c1">### Check if timestamp axis is evenly distributed ###</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">time_stamp_spacing</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">]))</span>  <span class="c1"># Get the number of steps between each data row</span>
-        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">])</span><span class="o">!=</span><span class="bp">self</span><span class="o">.</span><span class="n">time_stamp_spacing</span><span class="p">):</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_stamp_spacing</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">]))</span>  <span class="c1"># Get the number of steps between each data row</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">][</span><span class="mi">1</span><span class="p">:</span><span class="mi">10</span><span class="p">])</span><span class="o">!=</span><span class="bp">self</span><span class="o">.</span><span class="n">time_stamp_spacing</span><span class="p">):</span>
 
             <span class="c1">### Return info message ###</span>
             <span class="n">warning_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;The file you imported doesn&#39;t contain a evenly spaced timestamp column. Please import a valid data file and try again.&quot;&quot;&quot;</span>
@@ -1526,7 +1526,7 @@
                 <span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_worker</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">active_workers</span> <span class="o">+=</span> <span class="mi">1</span>
 
-            <span class="k">else</span><span class="p">:</span> <span class="c1"># If more players are selected</span>
+            <span class="k">else</span><span class="p">:</span> <span class="c1"># If players are selected</span>
 
                 <span class="c1">### Create dialog header and display info message if needed ###</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_players</span><span class="p">)</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
@@ -1566,7 +1566,7 @@
                         <span class="c1">### Start workers ###</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">data_analyse_worker</span><span class="p">[</span><span class="n">ii</span><span class="p">]</span><span class="o">.</span><span class="n">start</span><span class="p">()</span>
 
-                        <span class="c1">### Increment workers variables ###</span>
+                        <span class="c1"># ### Increment workers variables ###</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">active_workers</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># Increment active workers</span>
                         <span class="bp">self</span><span class="o">.</span><span class="n">started_workers</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># Increment started workers</span>
                         <span class="n">ii</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># Increment worker list incrementer</span>
@@ -1772,6 +1772,10 @@
                     <span class="n">padding</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">padding_time</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">freq</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">time_stamp_spacing</span><span class="p">)))</span>  <span class="c1"># Calculate number of rows we should pad the sections with</span>
                     <span class="n">df_results_bool_padded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">padBoolArray</span><span class="p">(</span><span class="n">df_results_bool</span><span class="p">,</span> <span class="n">padding</span><span class="p">)</span>  <span class="c1"># Apply padding</span>
 
+                    <span class="c1">### If player filter is enabled make sure only samples from current player is included ###</span>
+                    <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">player_name</span> <span class="o">==</span> <span class="kc">None</span><span class="p">)):</span>
+                        <span class="n">df_results_bool_padded</span> <span class="o">=</span> <span class="n">df_results_bool_padded</span> <span class="o">&amp;</span> <span class="n">df_player_bool_array</span><span class="o">.</span><span class="n">values</span>
+
                     <span class="c1">#################################################</span>
                     <span class="c1">### Get result data out of dataframe ############</span>
                     <span class="c1">#################################################</span>
@@ -1793,8 +1797,8 @@
 
                 <span class="c1">### Remove not specified vars (columns) out of dataframe ###</span>
                 <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_columns_toggle</span><span class="p">:</span>  <span class="c1"># Use user settings</span>
-                    <span class="n">keywords_tmp</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_column_name</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">output_columns</span>  <span class="c1"># Append &#39;Timestamp&#39; and &#39;Time columns to output columns</span>
-                    <span class="n">df_result_tmp</span> <span class="o">=</span> <span class="n">df_result_tmp</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">output_columns</span><span class="p">]</span>  <span class="c1"># Use user defined columns</span>
+                    <span class="n">keywords_tmp</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_column_name</span><span class="p">]</span><span class="o">+</span> <span class="n">keywords</span> <span class="o">+</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_columns</span>  <span class="c1"># Append &#39;Timestamp&#39; and &#39;Time columns to output columns</span>
+                    <span class="n">df_result_tmp</span> <span class="o">=</span> <span class="n">df_result_tmp</span><span class="p">[</span><span class="n">keywords_tmp</span><span class="p">]</span>  <span class="c1"># Use user defined columns</span>
 
                 <span class="k">else</span><span class="p">:</span>  <span class="c1"># Use only columns specified in the conditions</span>
                     <span class="n">keywords_tmp</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_column_name</span><span class="p">]</span><span class="o">+</span><span class="n">keywords</span>  <span class="c1"># Append &#39;Timestamp&#39; and &#39;Time columns to output columns</span>
@@ -1825,15 +1829,15 @@
                     <span class="n">condition_text_str</span> <span class="o">=</span> <span class="n">sheet_name</span> <span class="o">+</span> <span class="s2">&quot; (freq = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; Hz): &quot;</span> <span class="o">+</span> <span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
                 <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">condition_text_str</span><span class="p">,</span> <span class="n">header_format</span><span class="p">)</span> <span class="c1"># Add condition as a header row</span>
 
-                <span class="c1">### If padding is enabled add color the rows in which the condition was satisfied ###</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_range_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
-                    <span class="n">df_color</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df_results_bool</span><span class="p">[</span><span class="n">df_results_bool_padded</span><span class="p">])</span>
-                    <span class="n">df_color</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;condition_color_bool&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
-                    <span class="n">end_row</span> <span class="o">=</span> <span class="n">df_result_tmp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">start_row</span>
-                    <span class="n">end_col</span> <span class="o">=</span> <span class="n">df_result_tmp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">start_column</span>
-                    <span class="n">worksheet</span><span class="o">.</span><span class="n">conditional_format</span><span class="p">(</span><span class="n">start_row</span><span class="p">,</span> <span class="n">start_column</span><span class="p">,</span> <span class="n">end_row</span><span class="p">,</span> <span class="n">end_col</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;formula&#39;</span><span class="p">,</span>
-                                       <span class="s1">&#39;criteria&#39;</span><span class="p">:</span> <span class="s1">&#39;=condition_color_bool!$A1=TRUE&#39;</span><span class="p">,</span>
-                                       <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="n">condition_format</span><span class="p">})</span>
+                <span class="c1"># ### If padding is enabled add color the rows in which the condition was satisfied ###</span>
+                <span class="c1"># if self.time_range_toggle.isChecked():</span>
+                <span class="c1">#     df_color = pd.DataFrame(df_results_bool[df_results_bool_padded])</span>
+                <span class="c1">#     df_color.to_excel(writer, sheet_name=&quot;condition_color_bool&quot;, index=False)</span>
+                <span class="c1">#     end_row = df_result_tmp.shape[0]-1 + start_row</span>
+                <span class="c1">#     end_col = df_result_tmp.shape[1]-1 + start_column</span>
+                <span class="c1">#     worksheet.conditional_format(start_row, start_column, end_row, end_col, {&#39;type&#39;: &#39;formula&#39;,</span>
+                <span class="c1">#                        &#39;criteria&#39;: &#39;=condition_color_bool!$A1=TRUE&#39;,</span>
+                <span class="c1">#                        &#39;format&#39;: condition_format})</span>
 
                 <span class="c1">### Perform clean-up and increment actions ###</span>
                 <span class="k">del</span> <span class="n">df_copy_tmp</span>    <span class="c1"># Remove temporary datafile copy</span>
@@ -1887,7 +1891,7 @@
         <span class="c1">### Otherwise save results to xlsx file ###</span>
         <span class="k">else</span><span class="p">:</span>
 
-            <span class="c1">### Send progress to dialog console ###</span>
+            <span class="c1">## Send progress to dialog console ###</span>
             <span class="k">if</span> <span class="n">player_name</span><span class="p">:</span>
                 <span class="n">ready_signal</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s2">&quot;Saving results for player </span><span class="si">%s</span><span class="s2"> to a xlsx file...&quot;</span> <span class="o">%</span> <span class="n">player_name</span><span class="p">)</span> <span class="c1"># When player filter is enabled</span>
             <span class="k">else</span><span class="p">:</span>

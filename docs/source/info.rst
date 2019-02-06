@@ -23,22 +23,18 @@ Contributing
 
 Contributors
 -----------------------------
-* Created by Rick Staa
-* Maintained by Wesley Bosman `(wesleybosmann@gmail.com <mailto:wesleybosmann@gmail.com>`_)
+- Created by Rick Staa
+- Maintained by Wesley Bosman `(wesleybosmann@gmail.com <mailto:wesleybosmann@gmail.com>`_)
 
 Credits
 -----------------------------
-* CDAT icon created by FreePis from `www.flaticon.com <https://www.flaticon.com>`_.
+- CDAT icon created by FreePis from `www.flaticon.com <https://www.flaticon.com>`_.
 
 Known Problems
 -------------------------------
-* When a csv file is given that contains the data of multiple players the time padding
-only works when the player filter is enabled. This is caused by the nature of the padding algorithm
-which adds a number of samples before and after the sample in which the condition was met without
-taking into account the file structure.
+- When a csv file is given that contains the data of multiple players the time padding only works when the player filter is enabled. This is caused by the nature of the padding algorithm which adds a number of samples before and after the sample in which the condition was met without taking into account the file structure.
 
-Todos:
+Todos
 --------------------------
-* Add the ability to add time border when the player filter is not enabled. To do this we need to
-scan the file for its structure and devide the file in sections based on the timestamps before
-applying the filters.
+- Add the ability to add time border when the player filter is not enabled. To do this we need to scan the file for its structure and divide the file into sections based on the timestamps before applying the filters.
+- Fix the padding colouring option that was included in version 2.3.0. In this version, the added padding was coloured white while the cells in which the condition was met was coloured green. Because xlsxwriter does not support sheet removal we need to switch to openpyxl.

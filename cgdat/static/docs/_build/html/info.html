@@ -62,7 +62,7 @@
             
             
               <div class="version">
-                2.3.0
+                2.3.1
               </div>
             
           
@@ -95,6 +95,8 @@
 <li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#contributors">Contributors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#credits">Credits</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#known-problems">Known Problems</a></li>
+<li class="toctree-l2"><a class="reference internal" href="#todos">Todos</a></li>
 </ul>
 </li>
 </ul>
@@ -196,6 +198,19 @@
 <h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
 <li>CDAT icon created by FreePis from <a class="reference external" href="https://www.flaticon.com">www.flaticon.com</a>.</li>
+</ul>
+</div>
+<div class="section" id="known-problems">
+<h2>Known Problems<a class="headerlink" href="#known-problems" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>When a csv file is given that contains the data of multiple players the time padding only works when the player filter is enabled. This is caused by the nature of the padding algorithm which adds a number of samples before and after the sample in which the condition was met without taking into account the file structure.</li>
+</ul>
+</div>
+<div class="section" id="todos">
+<h2>Todos<a class="headerlink" href="#todos" title="Permalink to this headline">¶</a></h2>
+<ul class="simple">
+<li>Add the ability to add time border when the player filter is not enabled. To do this we need to scan the file for its structure and divide the file into sections based on the timestamps before applying the filters.</li>
+<li>Fix the padding colouring option that was included in version 2.3.0. In this version, the added padding was coloured white while the cells in which the condition was met was coloured green. Because xlsxwriter does not support sheet removal we need to switch to openpyxl.</li>
 </ul>
 </div>
 </div>
