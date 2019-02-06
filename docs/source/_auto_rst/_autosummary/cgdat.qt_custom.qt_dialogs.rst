@@ -16,6 +16,7 @@ cgdat.qt\_custom.qt\_dialogs
       importDialog
       outputSettingsDialog
       progressDialog
+      splashDialog
    
    
 

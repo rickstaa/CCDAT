@@ -1,5 +1,5 @@
-scripts
-=======
+cgdat
+=====
 
 .. toctree::
    :maxdepth: 4

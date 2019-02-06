@@ -8,7 +8,7 @@
   
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>cgdat.qt_custom.qt_thread &mdash; CGDAT  documentation</title>
+  <title>cgdat.padding_test &mdash; CGDAT  documentation</title>
   
 
   
@@ -136,14 +136,12 @@
     
       <li><a href="../../index.html">Docs</a> &raquo;</li>
         
-      <li>cgdat.qt_custom.qt_thread</li>
+          <li><a href="../index.html">Module code</a> &raquo;</li>
+        
+      <li>cgdat.padding_test</li>
     
     
       <li class="wy-breadcrumbs-aside">
-        
-            
-            <a href="../../_sources/_auto_rst/_autosummary/cgdat.qt_custom.qt_thread.rst.txt" rel="nofollow"> View page source</a>
-          
         
       </li>
     
@@ -155,27 +153,29 @@
           <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
            <div itemprop="articleBody">
             
-  <div class="section" id="module-cgdat.qt_custom.qt_thread">
-<span id="cgdat-qt-custom-qt-thread"></span><h1>cgdat.qt_custom.qt_thread<a class="headerlink" href="#module-cgdat.qt_custom.qt_thread" title="Permalink to this headline">¶</a></h1>
-<p>This module contains the classes and functions that are used qt gui to enable multithreading. It contains the
-following components:</p>
-<p class="rubric">Classes</p>
-<table border="1" class="longtable docutils">
-<colgroup>
-<col width="10%" />
-<col width="90%" />
-</colgroup>
-<tbody valign="top">
-<tr class="row-odd"><td><a class="reference internal" href="../cgdat.qt_custom.html#cgdat.qt_custom.qt_thread.Worker" title="cgdat.qt_custom.qt_thread.Worker"><code class="xref py py-obj docutils literal notranslate"><span class="pre">Worker</span></code></a>(fn,&nbsp;*args,&nbsp;**kwargs)</td>
-<td>Worker thread</td>
-</tr>
-<tr class="row-even"><td><a class="reference internal" href="../cgdat.qt_custom.html#cgdat.qt_custom.qt_thread.WorkerSignals" title="cgdat.qt_custom.qt_thread.WorkerSignals"><code class="xref py py-obj docutils literal notranslate"><span class="pre">WorkerSignals</span></code></a></td>
-<td>Defines the signals available from a running worker thread.</td>
-</tr>
-</tbody>
-</table>
-</div>
+  <h1>Source code for cgdat.padding_test</h1><div class="highlight"><pre>
+<span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
 
+<span class="c1">#################################################</span>
+<span class="c1">#### Add padding to bool array function        ###</span>
+<span class="c1">#################################################</span>
+<div class="viewcode-block" id="padBoolArray"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.padding_test.padBoolArray">[docs]</a><span class="k">def</span> <span class="nf">padBoolArray</span><span class="p">(</span><span class="n">bool_array</span><span class="p">,</span> <span class="n">n</span><span class="p">):</span>
+
+
+    <span class="c1">### Perform padding operation ###</span>
+    <span class="n">bool_array_padded</span> <span class="o">=</span> <span class="n">bool_array</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>  <span class="c1"># Make hardcopy so that we don&#39;t change the original object</span>
+    <span class="k">for</span> <span class="n">index</span><span class="p">,</span> <span class="n">item</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">bool_array</span><span class="p">):</span>  <span class="c1"># Loop through the supplied bool array</span>
+        <span class="k">if</span> <span class="n">item</span><span class="p">:</span>  <span class="c1"># If bool == True</span>
+            <span class="n">bool_array_padded</span><span class="p">[(</span><span class="n">index</span><span class="o">-</span><span class="n">n</span><span class="p">):(</span><span class="n">index</span><span class="o">+</span><span class="n">n</span><span class="o">+</span><span class="mi">1</span><span class="p">)]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># Set n neighboors before and after also to true</span>
+
+    <span class="c1">### Return new padded list ###</span>
+    <span class="k">return</span> <span class="n">bool_array_padded</span></div>
+
+
+<span class="n">bool_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">True</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">,</span> <span class="kc">False</span><span class="p">])</span>
+<span class="n">test</span> <span class="o">=</span> <span class="n">padBoolArray</span><span class="p">(</span><span class="n">bool_test</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="n">test</span><span class="p">)</span>
+</pre></div>
 
            </div>
            

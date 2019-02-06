@@ -28,6 +28,14 @@ cgdat.create\_shortcut\_cl module
     :undoc-members:
     :show-inheritance:
 
+cgdat.padding\_test module
+--------------------------
+
+.. automodule:: cgdat.padding_test
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 cgdat.start\_cl module
 ----------------------
 

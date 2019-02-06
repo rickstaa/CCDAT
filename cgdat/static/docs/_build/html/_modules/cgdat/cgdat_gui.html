@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                2.2.3
+                2.3.0
               </div>
             
           
@@ -179,6 +179,7 @@
 <span class="kn">import</span> <span class="nn">webbrowser</span>  <span class="c1"># Used for displaying the documentation</span>
 <span class="kn">import</span> <span class="nn">traceback</span>
 <span class="kn">import</span> <span class="nn">math</span>
+<span class="kn">from</span> <span class="nn">configobj</span> <span class="k">import</span> <span class="n">ConfigObj</span>
 
 <span class="c1">### Get relative script path ###</span>
 <span class="n">DIRNAME</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
@@ -189,8 +190,9 @@
 <span class="c1"># subprocess.call(r&quot;python -m PyQt5.uic.pyuic -x &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;qt\about.ui&#39;) + &quot; -o &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;cgdat\qt_ui\about_ui.py&#39;))</span>
 <span class="c1"># subprocess.call(r&quot;python -m PyQt5.uic.pyuic -x &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;qt\progress_dialog.ui&#39;) + &quot; -o &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;cgdat\qt_ui\progress_dialog_ui.py&#39;))</span>
 <span class="c1"># subprocess.call(r&quot;python -m PyQt5.uic.pyuic -x &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;qt\import_dialog.ui&#39;) + &quot; -o &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;cgdat\qt_ui\import_dialog_ui.py&#39;))</span>
+<span class="c1"># subprocess.call(r&quot;python -m PyQt5.uic.pyuic -x &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;qt\splash_screen.ui&#39;) + &quot; -o &quot; + os.path.join(DIRNAME, &#39;..&#39;, r&#39;cgdat\qt_ui\splash_screen_ui.py&#39;))</span>
 
-<span class="c1">### Test wheter the script is run as module or main script ###</span>
+<span class="c1">### Test whether the script is run as module or main script ###</span>
 <span class="n">parent_module</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">modules</span><span class="p">[</span><span class="s1">&#39;.&#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="vm">__name__</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="s1">&#39;.&#39;</span><span class="p">)[:</span><span class="o">-</span><span class="mi">1</span><span class="p">])</span> <span class="ow">or</span> <span class="s1">&#39;__main__&#39;</span><span class="p">]</span>
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span> <span class="ow">or</span> <span class="n">parent_module</span><span class="o">.</span><span class="vm">__name__</span> <span class="o">==</span> <span class="s1">&#39;__main__&#39;</span><span class="p">:</span>  <span class="c1"># Run as main script</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="vm">__file__</span><span class="p">),</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">pardir</span><span class="p">)))</span>
@@ -213,7 +215,6 @@
 <span class="c1">#####################################################################</span>
 <span class="n">sections</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Speed&quot;</span><span class="p">,</span><span class="s2">&quot;Acceleration&quot;</span><span class="p">]</span>
 <span class="n">operators</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;&gt;&#39;</span><span class="p">,</span><span class="s1">&#39;&gt;=&#39;</span><span class="p">,</span><span class="s1">&#39;&lt;&#39;</span><span class="p">,</span><span class="s1">&#39;&lt;=&#39;</span><span class="p">,</span><span class="s1">&#39;==&#39;</span><span class="p">,</span><span class="s1">&#39;!=&#39;</span><span class="p">,</span><span class="s1">&#39;&amp;&#39;</span><span class="p">]</span>
-<span class="n">freq</span> <span class="o">=</span> <span class="p">(</span><span class="mf">1.0</span><span class="o">/</span><span class="p">(</span><span class="mf">0.166667</span><span class="o">/</span><span class="mf">100.0</span><span class="p">))</span>  <span class="c1"># Data recording frequency [Hz]</span>
 
 <span class="c1">#####################################################################</span>
 <span class="c1">#### Overload Qt DataAnalyserGUI class                           ####</span>
@@ -249,19 +250,28 @@
         <span class="nb">super</span><span class="p">(</span><span class="n">DataAnalyserGUI</span><span class="p">,</span> <span class="bp">self</span><span class="p">)</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="n">MainWindow</span><span class="p">)</span>  <span class="c1"># Run parent initializer function</span>
 
         <span class="c1">########################################</span>
+        <span class="c1">### Create splash screen ###############</span>
+        <span class="c1">########################################</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">splash_screen_dialog</span> <span class="o">=</span> <span class="n">qt_dialogs</span><span class="o">.</span><span class="n">splashDialog</span><span class="p">()</span>
+        <span class="n">cgdat_icon</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;static\media\CGDAT.png&#39;</span><span class="p">)</span>  <span class="c1"># Get CGDAT icon path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">splash_screen_dialog</span><span class="o">.</span><span class="n">icon_holder</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="n">cgdat_icon</span><span class="p">))</span>  <span class="c1"># Add cgdat icon to splash screen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">splash_screen_dialog</span><span class="o">.</span><span class="n">setModal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">splash_screen_dialog</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splash_screen_finished</span><span class="p">)</span>  <span class="c1"># Connect finished signal to function that checks if the used cancelled the analysis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">splash_screen_dialog</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="c1">########################################</span>
         <span class="c1">### Set main GUI menu items ############</span>
         <span class="c1">########################################</span>
 
         <span class="c1">### Create media paths ###</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">toggle_icon_on</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s2">&quot;static/media/toggle_on.png&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>    <span class="c1"># Toggle on icon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toggle_icon_on</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s2">&quot;static/media/toggle_on.png&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>                    <span class="c1"># Toggle on icon</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">toggle_icon_disabled</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s2">&quot;static/media/toggle_off_disabled.png&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>    <span class="c1"># Toggle on icon</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">toggle_icon_off</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s2">&quot;static/media/toggle_off.png&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>  <span class="c1"># Toggle off icon</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">loader_gif_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s2">&quot;static/media/loader.gif&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>  <span class="c1"># Toggle off icon</span>
-        <span class="n">about_icon_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;static\media\about_icon.svg&#39;</span><span class="p">)</span>                      <span class="c1"># About icon path</span>
-        <span class="n">docs_icon_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;static\media\docs_icon.png&#39;</span><span class="p">)</span>                      <span class="c1"># About icon path</span>
-
-        <span class="c1">### Create other paths ###</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">docs_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s2">&quot;static/docs/_build/html/index.html&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>    <span class="c1"># Toggle on icon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">toggle_icon_off</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s2">&quot;static/media/toggle_off.png&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>                  <span class="c1"># Toggle off icon</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">loader_gif_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s2">&quot;static/media/loader.gif&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>                      <span class="c1"># Toggle off icon</span>
+        <span class="n">about_icon_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;static\media\about_icon.svg&#39;</span><span class="p">)</span>                                                         <span class="c1"># About icon path</span>
+        <span class="n">docs_icon_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;static\media\docs_icon.png&#39;</span><span class="p">)</span>                                                           <span class="c1"># About icon path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">config_file_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;static\config\settings_save.ini&#39;</span><span class="p">)</span>                                             <span class="c1"># Settings save config file path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">docs_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s2">&quot;static/docs/_build/html/index.html&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>                 <span class="c1"># Toggle on icon</span>
 
         <span class="c1">### Setup about icon menu action ###</span>
         <span class="n">about_icon</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">()</span>
@@ -292,6 +302,7 @@
         <span class="c1">########################################</span>
         <span class="c1">### Add additional options #############</span>
         <span class="c1">########################################</span>
+
         <span class="c1">### Add response empty member list ###</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">response_given</span> <span class="o">=</span> <span class="p">[]</span>
 
@@ -380,17 +391,37 @@
         <span class="c1">########################################</span>
 
         <span class="c1">### Create helper Variables ###</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq</span> <span class="o">=</span> <span class="n">freq</span>  <span class="c1"># Create member variable holding input file frequency settings</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">output_columns</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Create member variables to save output collumns settings</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_columns</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Create member variables to save output columns settings</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq_toggle</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Create member variable to save old frame toggle state</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_columns_toggle</span> <span class="o">=</span> <span class="kc">False</span> <span class="c1"># Create member variable to save old output columns toggle</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_freq_warning</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Create member variable to save wheter a warning needs to be displayed</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_freq_warning</span> <span class="o">=</span> <span class="kc">True</span> <span class="c1"># Create member variable to save whether a warning needs to be displayed</span>
 
         <span class="c1">### Create dialog object ###</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span> <span class="o">=</span> <span class="n">qt_dialogs</span><span class="o">.</span><span class="n">outputSettingsDialog</span><span class="p">()</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span><span class="o">.</span><span class="n">setModal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog_finished</span><span class="p">)</span>  <span class="c1"># Connect finished signal to function that checks if the used cancelled the analysis</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span><span class="o">.</span><span class="n">frame_rate_value</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq</span><span class="p">)</span></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span><span class="o">.</span><span class="n">frame_rate_value</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>  <span class="c1"># Create member variable holding input file frequency settings</span>
+
+        <span class="c1">########################################</span>
+        <span class="c1">### Retrieve saved settings ############</span>
+        <span class="c1">########################################</span>
+
+        <span class="c1">### Create config object and set settings ###</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">splash_screen_dialog</span> <span class="o">=</span> <span class="n">qt_dialogs</span><span class="o">.</span><span class="n">splashDialog</span><span class="p">()</span>
+        <span class="n">cgdat_icon</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="sa">r</span><span class="s1">&#39;static\media\CGDAT.png&#39;</span><span class="p">)</span>  <span class="c1"># Get CGDAT icon path</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">splash_screen_dialog</span><span class="o">.</span><span class="n">icon_holder</span><span class="o">.</span><span class="n">setPixmap</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="n">cgdat_icon</span><span class="p">))</span>  <span class="c1"># Add cgdat icon to splash screen</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">splash_screen_dialog</span><span class="o">.</span><span class="n">setModal</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">splash_screen_dialog</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">splash_screen_finished</span><span class="p">)</span>  <span class="c1"># Connect finished signal to function that checks if the used cancelled the analysis</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">splash_screen_dialog</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+        <span class="c1">### Create worker that checks if the data file is valid ###</span>
+        <span class="c1"># self.load_settings()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings_load_worker</span> <span class="o">=</span> <span class="n">qt_thread</span><span class="o">.</span><span class="n">Worker</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">load_settings</span><span class="p">)</span>  <span class="c1"># Any other args, kwargs are passed to the run function</span>
+
+        <span class="c1">### Connect worker signals ###</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings_load_worker</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">finished</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">load_settings_finished</span><span class="p">)</span>  <span class="c1"># Checks the process result</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings_load_worker</span><span class="o">.</span><span class="n">signals</span><span class="o">.</span><span class="n">error</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">catch_thread_errors</span><span class="p">)</span>  <span class="c1"># Checks the process result</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings_load_worker</span><span class="o">.</span><span class="n">start</span><span class="p">()</span></div>
 
     <span class="c1">#########################################################</span>
     <span class="c1">#### GUI member functions                            ####</span>
@@ -419,6 +450,72 @@
 
         <span class="c1">## open documentation ##</span>
         <span class="n">webbrowser</span><span class="o">.</span><span class="n">open_new</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">docs_path</span><span class="p">)</span></div>
+
+    <span class="c1">#################################################</span>
+    <span class="c1">### Splash screen finished signal             ###</span>
+    <span class="c1">#################################################</span>
+<div class="viewcode-block" id="DataAnalyserGUI.splash_screen_finished"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.splash_screen_finished">[docs]</a>    <span class="k">def</span> <span class="nf">splash_screen_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39; This slot function is called when the splash screen emits a finished signal.&#39;&#39;&#39;</span>
+
+        <span class="c1">### Perform the right action ###</span>
+        <span class="k">if</span> <span class="ow">not</span> <span class="n">result</span><span class="p">:</span>  <span class="c1"># If dialog was cancelled stop CGDAT GUI</span>
+            <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">()</span></div>
+
+    <span class="c1">#################################################</span>
+    <span class="c1">### Load old settings                         ###</span>
+    <span class="c1">#################################################</span>
+<div class="viewcode-block" id="DataAnalyserGUI.load_settings"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.load_settings">[docs]</a>    <span class="k">def</span> <span class="nf">load_settings</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This function is used to load possible earlier specified settings out of the :samp:`settings_sav.ini` config file.</span>
+
+<span class="sd">        Returns:</span>
+<span class="sd">            [bool]: Bool specifying whether the config file could be loaded.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+        <span class="k">try</span><span class="p">:</span>  <span class="c1"># Try to load config file</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">settings_config</span> <span class="o">=</span> <span class="n">ConfigObj</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">config_file_path</span><span class="p">)</span>
+            <span class="k">return</span> <span class="kc">True</span>
+        <span class="k">except</span><span class="p">:</span>
+            <span class="k">return</span> <span class="kc">False</span></div>
+
+    <span class="c1">#################################################</span>
+    <span class="c1">### Apply old settings to GUI                 ###</span>
+    <span class="c1">#################################################</span>
+<div class="viewcode-block" id="DataAnalyserGUI.load_settings_finished"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.load_settings_finished">[docs]</a>    <span class="k">def</span> <span class="nf">load_settings_finished</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">result</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This function is called when the load settings worker is finished. It is used to apply the old settings onto the</span>
+<span class="sd">        GCDAT GUI.</span>
+
+<span class="sd">        Args:</span>
+<span class="sd">            result (bool): Boolean specifying whether the config file could be loaded successfully.</span>
+<span class="sd">        &#39;&#39;&#39;</span>
+
+        <span class="c1">### If config file was loaded successfully apply settings to GUI ###</span>
+        <span class="k">if</span> <span class="n">result</span><span class="p">:</span>
+
+            <span class="c1">### Set frequency ###</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq_start</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">settings_config</span><span class="p">[</span><span class="s1">&#39;SETTINGS&#39;</span><span class="p">][</span><span class="s1">&#39;freq&#39;</span><span class="p">])</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span><span class="o">.</span><span class="n">frame_rate_value</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq_start</span><span class="p">)</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq_start</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq_start</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span><span class="o">.</span><span class="n">frame_rate_value</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>  <span class="c1"># Get default value out of the gui</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span><span class="o">.</span><span class="n">frame_rate_value</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>
+
+            <span class="c1">### Set padding ###</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">input_file_padding</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_config</span><span class="p">[</span><span class="s1">&#39;SETTINGS&#39;</span><span class="p">][</span><span class="s1">&#39;padding&#39;</span><span class="p">]</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">time_range_value</span><span class="o">.</span><span class="n">setValue</span><span class="p">(</span><span class="nb">float</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_file_padding</span><span class="p">))</span>  <span class="c1"># Get default value out of the gui</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+            <span class="c1">### Set output file folder ###</span>
+            <span class="k">try</span><span class="p">:</span>
+                <span class="n">output_file_folder</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">settings_config</span><span class="p">[</span><span class="s1">&#39;SETTINGS&#39;</span><span class="p">][</span><span class="s1">&#39;output_folder_path&#39;</span><span class="p">]</span>
+                <span class="k">if</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">exists</span><span class="p">(</span><span class="n">output_file_folder</span><span class="p">)</span> <span class="ow">and</span> <span class="n">output_file_folder</span> <span class="o">!=</span> <span class="s2">&quot;&quot;</span><span class="p">:</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">output_file_path</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">output_file_folder</span><span class="p">)</span>
+            <span class="k">except</span> <span class="ne">KeyError</span><span class="p">:</span>
+                <span class="k">pass</span>
+
+        <span class="c1">### Accept dialog ###</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">splash_screen_dialog</span><span class="o">.</span><span class="n">accept</span><span class="p">()</span></div>
 
     <span class="c1">#################################################</span>
     <span class="c1">### Menu docs action function                 ###</span>
@@ -459,8 +556,8 @@
 
         <span class="k">else</span><span class="p">:</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span><span class="o">.</span><span class="n">frame_rate_value</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>  <span class="c1"># Save frame rate</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">output_columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span><span class="o">.</span><span class="n">column_choicer_drop_down_menu</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>  <span class="c1"># Save collumns</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">output_columns_toggle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span><span class="o">.</span><span class="n">columns_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>  <span class="c1"># Save collumns toggle</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_columns</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span><span class="o">.</span><span class="n">column_choicer_drop_down_menu</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>  <span class="c1"># Save columns</span>
+            <span class="bp">self</span><span class="o">.</span><span class="n">output_columns_toggle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span><span class="o">.</span><span class="n">columns_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>  <span class="c1"># Save columns toggle</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq_toggle</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span><span class="o">.</span><span class="n">frame_rate_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span>  <span class="c1"># Save freq toggle</span>
 
             <span class="c1">### If data file is already imported show dialog that states that file needs to be reimported before frame rate is effective ###</span>
@@ -508,7 +605,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">input_file_path</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">fileName</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">input_file_path</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-            <span class="c1">### Create worker that checks if the data file is vallid ###</span>
+            <span class="c1">### Create worker that checks if the data file is valid ###</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">data_input_worker</span> <span class="o">=</span> <span class="n">qt_thread</span><span class="o">.</span><span class="n">Worker</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analyse_input_data_file</span><span class="p">)</span>  <span class="c1"># Any other args, kwargs are passed to the run function</span>
 
             <span class="c1">### Connect worker signals ###</span>
@@ -533,7 +630,7 @@
     <span class="c1">### Get input file path function              ###</span>
     <span class="c1">#################################################</span>
 <div class="viewcode-block" id="DataAnalyserGUI.analyse_input_data_file"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.analyse_input_data_file">[docs]</a>    <span class="k">def</span> <span class="nf">analyse_input_data_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;Qt slot function that is used to check if the data file is vallid and following add the available players to the player filter comboBox. This slot function is</span>
+        <span class="sd">&#39;&#39;&#39;Qt slot function that is used to check if the data file is valid and following add the available players to the player filter comboBox. This slot function is</span>
 <span class="sd">        run in a worker thread so it does not freeze the GUI.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
 
@@ -544,7 +641,7 @@
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
 
             <span class="c1">### Return warning message ###</span>
-            <span class="n">warning_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Unfortunately something went wrong while importing the datafile. Please check if you supplied a vallid data file and try again.&quot;&quot;&quot;</span>
+            <span class="n">warning_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Unfortunately something went wrong while importing the datafile. Please check if you supplied a valid data file and try again.&quot;&quot;&quot;</span>
             <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;import_error&quot;</span><span class="p">,</span> <span class="n">warning_str</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
 
         <span class="c1">### Check whether a player column is present ###</span>
@@ -554,12 +651,20 @@
             <span class="n">warning_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;The file you imported doesn&#39;t contain a player column. As a result the player filter option has been disabled. Please specify another file if you want to filter you data by player name.&quot;&quot;&quot;</span>
             <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;player_filter_error&quot;</span><span class="p">,</span> <span class="n">warning_str</span><span class="p">)</span>
 
-        <span class="c1">### Check wheter file contains a time stamp collumn ###</span>
+        <span class="c1">### Check whether file contains a time stamp column ###</span>
         <span class="k">if</span> <span class="ow">not</span> <span class="p">(</span><span class="s2">&quot;Timestamp&quot;</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">columns</span><span class="p">):</span>
 
             <span class="c1">### Return info message ###</span>
-            <span class="n">warning_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;The file you imported doesn&#39;t contain a timestamp column. Please import a vallid data file and try again.&quot;&quot;&quot;</span>
+            <span class="n">warning_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;The file you imported doesn&#39;t contain a timestamp column. Please import a valid data file and try again.&quot;&quot;&quot;</span>
             <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;timestamp_error&quot;</span><span class="p">,</span> <span class="n">warning_str</span><span class="p">)</span>
+
+        <span class="c1">### Check if timestamp axis is evenly distributed ###</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_stamp_spacing</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">mean</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">]))</span>  <span class="c1"># Get the number of steps between each data row</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">diff</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">])</span><span class="o">!=</span><span class="bp">self</span><span class="o">.</span><span class="n">time_stamp_spacing</span><span class="p">):</span>
+
+            <span class="c1">### Return info message ###</span>
+            <span class="n">warning_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;The file you imported doesn&#39;t contain a evenly spaced timestamp column. Please import a valid data file and try again.&quot;&quot;&quot;</span>
+            <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;timestamp_distribution_error&quot;</span><span class="p">,</span> <span class="n">warning_str</span><span class="p">)</span>
 
         <span class="c1">### Add a time axis to the dataframe ###</span>
         <span class="k">try</span><span class="p">:</span>
@@ -567,11 +672,11 @@
                 <span class="n">date_time_list</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">timeDelta2DateTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq</span><span class="p">))))</span>  <span class="c1"># Create DateTimeIndex</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">date_time_list</span>  <span class="c1"># Set DateTimeIndex</span>
             <span class="k">else</span><span class="p">:</span>  <span class="c1"># Use default</span>
-                <span class="n">date_time_list</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">timeDelta2DateTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">freq</span><span class="p">))))</span>  <span class="c1"># Create DateTimeIndex</span>
+                <span class="n">date_time_list</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">to_datetime</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">timeDelta2DateTime</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">]</span><span class="o">*</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq_start</span><span class="p">))))</span>  <span class="c1"># Create DateTimeIndex</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">index</span> <span class="o">=</span> <span class="n">date_time_list</span>  <span class="c1"># Set DateTimeIndex</span>
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
             <span class="c1">### Return warning message ###</span>
-            <span class="n">warning_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Unfortunately something went wrong while creating a time axis. Please try againcontact the developer.&quot;&quot;&quot;</span>
+            <span class="n">warning_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Unfortunately something went wrong while creating a time axis. Please try again contact the developer.&quot;&quot;&quot;</span>
             <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;import_error&quot;</span><span class="p">,</span> <span class="n">warning_str</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
 
         <span class="c1">### If everything went correctly return True as a result ###</span>
@@ -626,6 +731,7 @@
                 <span class="c1">### Close wait dialog ###</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">import_dialog</span><span class="o">.</span><span class="n">reject</span><span class="p">()</span>
 
+            <span class="c1">### Display message if the timestamp column is not present ###</span>
             <span class="k">elif</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;timestamp_error&quot;</span><span class="p">):</span>
 
                 <span class="c1">### Close wait dialog ###</span>
@@ -639,6 +745,21 @@
                 <span class="n">msg</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
                 <span class="n">msg</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
 
+            <span class="c1">### Display message if the timestamp column is not evenly spaced ###</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;timestamp_distribution_error&quot;</span><span class="p">):</span>
+
+                <span class="c1">### Close wait dialog ###</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">import_dialog</span><span class="o">.</span><span class="n">reject</span><span class="p">()</span>
+
+                <span class="c1">### Display Info message ###</span>
+                <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Warning&quot;</span><span class="p">)</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+                <span class="n">msg</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+
+            <span class="c1">### Change display if player column is not present ###</span>
             <span class="k">elif</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;player_filter_error&quot;</span><span class="p">):</span>
 
                 <span class="c1">### Close wait dialog ###</span>
@@ -725,7 +846,7 @@
             <span class="bp">self</span><span class="o">.</span><span class="n">time_file_path</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">fileName</span><span class="p">)</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">time_file_path</span><span class="o">.</span><span class="n">setEnabled</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
 
-            <span class="c1">### Create worker that checks if the data file is vallid ###</span>
+            <span class="c1">### Create worker that checks if the data file is valid ###</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">time_input_worker</span> <span class="o">=</span> <span class="n">qt_thread</span><span class="o">.</span><span class="n">Worker</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">analyse_input_time_data_file</span><span class="p">)</span>  <span class="c1"># Any other args, kwargs are passed to the run function</span>
 
             <span class="c1">### Connect worker signals ###</span>
@@ -744,7 +865,7 @@
     <span class="c1">### Get input file path function              ###</span>
     <span class="c1">#################################################</span>
 <div class="viewcode-block" id="DataAnalyserGUI.analyse_input_time_data_file"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.analyse_input_time_data_file">[docs]</a>    <span class="k">def</span> <span class="nf">analyse_input_time_data_file</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="o">*</span><span class="n">args</span><span class="p">,</span> <span class="o">**</span><span class="n">kwargs</span><span class="p">):</span>
-        <span class="sd">&#39;&#39;&#39;Qt slot function that is used to check if the time sections data file is vallid. This slot function is</span>
+        <span class="sd">&#39;&#39;&#39;Qt slot function that is used to check if the time sections data file is valid. This slot function is</span>
 <span class="sd">        run in a worker thread so it does not freeze the GUI.</span>
 <span class="sd">        &#39;&#39;&#39;</span>
 
@@ -756,7 +877,7 @@
         <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
 
             <span class="c1">### Return warning message ###</span>
-            <span class="n">warning_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Unfortunately something went wrong while importing the datafile. Please check if you supplied a vallid data file and try again.&quot;&quot;&quot;</span>
+            <span class="n">warning_str</span> <span class="o">=</span> <span class="s2">&quot;&quot;&quot;Unfortunately something went wrong while importing the datafile. Please check if you supplied a valid data file and try again.&quot;&quot;&quot;</span>
             <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;import_error&quot;</span><span class="p">,</span> <span class="n">warning_str</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
 
         <span class="c1">### Begin and end time columns are present ###</span>
@@ -1098,12 +1219,12 @@
         <span class="c1">### Check validity of condition statement #######</span>
         <span class="c1">#################################################</span>
 
-        <span class="c1">### Create vallid operator list ###</span>
+        <span class="c1">### Create valid operator list ###</span>
         <span class="n">operator_escape_str</span> <span class="o">=</span> <span class="p">[(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="o">+</span> <span class="n">op</span><span class="p">)</span> <span class="k">for</span> <span class="n">op</span> <span class="ow">in</span> <span class="n">operators</span><span class="p">]</span>
         <span class="n">operator_str</span> <span class="o">=</span> <span class="s2">&quot;(&quot;</span> <span class="o">+</span> <span class="s2">&quot;|&quot;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">operator_escape_str</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;)&quot;</span>
 
         <span class="c1">### Split input command in list items ###</span>
-        <span class="n">result_invalid</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># True if conditional statement is vallid (Return variable)</span>
+        <span class="n">result_invalid</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># True if conditional statement is valid (Return variable)</span>
         <span class="n">conditions_split</span> <span class="o">=</span> <span class="p">[</span><span class="n">x</span><span class="o">.</span><span class="n">strip</span><span class="p">()</span> <span class="k">for</span> <span class="n">x</span> <span class="ow">in</span> <span class="n">re</span><span class="o">.</span><span class="n">split</span><span class="p">(</span><span class="n">operator_str</span><span class="p">,</span> <span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">())]</span>
 
         <span class="c1">### Check if delimiters were placed right ###</span>
@@ -1195,17 +1316,19 @@
 
         <span class="k">else</span><span class="p">:</span>  <span class="c1"># If data analysis failed</span>
 
-            <span class="c1">### Display warning message if no thread error occurred ###</span>
+            <span class="c1">### Display warning message if thread error occurred ###</span>
             <span class="k">if</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;thread_error&quot;</span><span class="p">):</span>
 
                 <span class="c1">### Close wait dialog ###</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">reject</span><span class="p">()</span>
 
+            <span class="c1">### Display warning message if data couldn&#39;t be saved ###</span>
             <span class="k">elif</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span> <span class="o">==</span> <span class="s2">&quot;save_error&quot;</span><span class="p">):</span>
 
                 <span class="c1">### Append red error message to console text edit ###</span>
                 <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">updateProgressConsole</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="s2">&quot;#ff0000&quot;</span><span class="p">)</span>
 
+            <span class="c1">### Display warning message if a condition key was invalid ###</span>
             <span class="k">elif</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">==</span><span class="s2">&quot;key_error&quot;</span><span class="p">):</span>
 
                 <span class="c1">### Close wait dialog ###</span>
@@ -1216,10 +1339,49 @@
                 <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
                 <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Warning&#39;</span><span class="p">)</span>
                 <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
-                    <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Unfortunately, some of your conditions contain invalid variables please check conditions &#39;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; again.&#39;</span><span class="p">)</span>
+                    <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Unfortunately, conditions &#39;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; contain invalid variables. Please check these conditions and try again.&#39;</span><span class="p">)</span>
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Unfortunately one of your conditions contains invalid variables please check condition &#39;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; again.&#39;</span><span class="p">)</span>
-                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setInformativeText</span><span class="p">(</span><span class="s2">&quot;&lt;b&gt;Vallid keys&lt;/b&gt;: &quot;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+                    <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Unfortunately condition &#39;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; seems to contain an invalid variable. Please check this condition and try again.&#39;</span><span class="p">)</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setInformativeText</span><span class="p">(</span><span class="s2">&quot;&lt;b&gt;Valid keys&lt;/b&gt;: &quot;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+
+            <span class="c1">### Display warning message if a condition syntax was invalid ###</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">==</span><span class="s2">&quot;syntax_error&quot;</span><span class="p">):</span>
+
+                <span class="c1">### Close wait dialog ###</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">reject</span><span class="p">()</span>
+
+                <span class="c1">### Create warning dialog ###</span>
+                <span class="n">warn_dialog</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Warning&#39;</span><span class="p">)</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setTextFormat</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">Qt</span><span class="o">.</span><span class="n">RichText</span><span class="p">)</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;There seems to be a syntax error in condition &#39;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39;. Please check this condition and try again. The accepted operators are (&amp;gt;, &amp;gt;=, &amp;lt;, &amp;lt;=, ==, &amp;amp;)&#39;</span><span class="p">)</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setInformativeText</span><span class="p">(</span><span class="s2">&quot;&lt;b&gt;Example&lt;/b&gt;: speed &gt; 10 &amp; speed &lt; 15 &amp; acceleration &gt; 5 &amp; acceleration &lt; 8&quot;</span><span class="p">)</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
+
+            <span class="k">elif</span> <span class="p">(</span><span class="nb">str</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span><span class="o">==</span><span class="s2">&quot;syntax_and_key_error&quot;</span><span class="p">):</span>
+
+                <span class="c1">### Close wait dialog ###</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">reject</span><span class="p">()</span>
+
+                <span class="c1">### Print warning message ###</span>
+                <span class="n">warn_dialog</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Warning</span><span class="p">)</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s1">&#39;Warning&#39;</span><span class="p">)</span>
+                <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">])</span> <span class="o">&gt;</span> <span class="mi">1</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Unfortunately, conditions &#39;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; contain invalid variables. Further also the syntax of condition &#39;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; seems to be incorrect. Please check your conditions and try again.&#39;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Unfortunately, conditions &#39;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; contains an invalid variables. Further also the syntax of conditions &#39;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; seems to be incorrect. Please check your conditions and try again.&#39;</span><span class="p">)</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="k">if</span> <span class="nb">len</span> <span class="p">(</span><span class="n">result</span><span class="p">[</span><span class="mi">4</span><span class="p">])</span> <span class="o">==</span> <span class="mi">1</span><span class="p">:</span>
+                        <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Unfortunately, condition &#39;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; contains an invalid variables. Further also the syntax of condition &#39;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; seems to be incorrect. Please check your conditions and try again.&#39;</span><span class="p">)</span>
+                    <span class="k">else</span><span class="p">:</span>
+                        <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="s1">&#39;Unfortunately, condition &#39;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">2</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; contains an invalid variables. Further also the syntax of conditions &#39;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">+</span> <span class="s1">&#39; seems to be incorrect. Please check your conditions and try again.&#39;</span><span class="p">)</span>
+                <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setInformativeText</span><span class="p">(</span><span class="s2">&quot;&lt;b&gt;Valid keys&lt;/b&gt;: &quot;</span> <span class="o">+</span> <span class="n">result</span><span class="p">[</span><span class="mi">3</span><span class="p">])</span>
                 <span class="n">warn_dialog</span><span class="o">.</span><span class="n">setStandardButtons</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Ok</span><span class="p">)</span>
                 <span class="n">warn_dialog</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
 
@@ -1256,18 +1418,18 @@
         <span class="n">filtered_players</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">player_filter_drop_down_menu</span><span class="o">.</span><span class="n">selectedItems</span><span class="p">()</span>
 
         <span class="c1">### Add info message dialogs ###</span>
-        <span class="k">if</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">response_given</span><span class="p">)</span> <span class="ow">and</span> <span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">or</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_filter_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_players</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">)):</span>  <span class="c1"># Display info message</span>
-            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_filter_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_players</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">):</span> <span class="c1"># Throw error if empty unless time sections is enabled and only one condition row is present.</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">response_given</span><span class="p">):</span>  <span class="c1"># Display info message</span>
+            <span class="k">if</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_filter_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_players</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span> <span class="c1"># Throw error if conditions were empty unless time filter is enabled and only one condition row was present.</span>
 
                 <span class="c1">### Display non-modal popup ###</span>
-                <span class="n">info_str</span> <span class="o">=</span> <span class="s2">&quot;You did not specify any conditions. As a result the data will be filtered based on the specified tiem section.&quot;</span>
+                <span class="n">info_str</span> <span class="o">=</span> <span class="s2">&quot;You did not specify any conditions. As a result the data will be filtered based on the specified time section.&quot;</span>
                 <span class="n">msg</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="p">()</span>
                 <span class="n">msg</span><span class="o">.</span><span class="n">setIcon</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QMessageBox</span><span class="o">.</span><span class="n">Information</span><span class="p">)</span>
                 <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">info_str</span><span class="p">)</span>
                 <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Info&quot;</span><span class="p">)</span>
                 <span class="n">msg</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
 
-            <span class="k">elif</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_filter_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_players</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">):</span> <span class="c1"># Throw error if empty unless time sections is enabled and only one condition row is present.</span>
+            <span class="k">elif</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_filter_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_players</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span> <span class="c1"># Throw error if conditions were empty unless player filter is enabled and only one condition row was present.</span>
 
                 <span class="c1">### Display non-modal popup ###</span>
                 <span class="n">info_str</span> <span class="o">=</span> <span class="s2">&quot;You did not specify any conditions. As a result the data will be filtered based on the specified players.&quot;</span>
@@ -1277,7 +1439,7 @@
                 <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Info&quot;</span><span class="p">)</span>
                 <span class="n">msg</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
 
-            <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_filter_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_players</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">&lt;=</span> <span class="mi">1</span><span class="p">):</span> <span class="c1"># Throw error if empty unless time sections is enabled and only one condition row is present.</span>
+            <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">)</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">player_filter_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="n">filtered_players</span><span class="p">)</span> <span class="o">&gt;=</span> <span class="mi">1</span> <span class="ow">and</span> <span class="nb">len</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">)</span> <span class="o">==</span> <span class="mi">1</span><span class="p">):</span> <span class="c1"># Throw error if conditions were empty unless time sections and player filter were enabled and only one condition row was present.</span>
 
                 <span class="c1">### Display non-modal popup ###</span>
                 <span class="n">info_str</span> <span class="o">=</span> <span class="s2">&quot;You did not specify any conditions. As a result the data will be filtered based on the specified players and time sections.&quot;</span>
@@ -1286,7 +1448,6 @@
                 <span class="n">msg</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">info_str</span><span class="p">)</span>
                 <span class="n">msg</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="s2">&quot;Info&quot;</span><span class="p">)</span>
                 <span class="n">msg</span><span class="o">.</span><span class="n">exec_</span><span class="p">()</span>
-
             <span class="k">else</span><span class="p">:</span>
                 <span class="k">pass</span>
 
@@ -1439,6 +1600,9 @@
             <span class="n">player_name</span> <span class="o">=</span> <span class="n">args</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
             <span class="n">ready_signal</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s2">&quot;Starting data analysis for </span><span class="si">%s</span><span class="s2">...&quot;</span><span class="o">%</span><span class="n">player_name</span><span class="p">)</span>
 
+        <span class="c1">### Get frequency ###</span>
+        <span class="n">freq</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq</span> <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq_toggle</span> <span class="k">else</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq_start</span>
+
         <span class="c1">#################################################</span>
         <span class="c1">### Perform data analysis #######################</span>
         <span class="c1">#################################################</span>
@@ -1467,7 +1631,8 @@
         <span class="n">writer</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">ExcelWriter</span><span class="p">(</span><span class="n">output_file_path</span><span class="p">,</span> <span class="n">engine</span><span class="o">=</span><span class="s1">&#39;xlsxwriter&#39;</span><span class="p">,</span> <span class="n">datetime_format</span><span class="o">=</span><span class="s1">&#39;hh:mm:ss.ms&#39;</span><span class="p">)</span>  <span class="c1"># Create data writer</span>
 
         <span class="c1">### Perform data analysis on each condition ###</span>
-        <span class="n">key_invalid</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Create list for key_vallid boolean test</span>
+        <span class="n">key_invalid</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Create list for key_valid boolean test</span>
+        <span class="n">syntax_invalid</span> <span class="o">=</span> <span class="p">[]</span> <span class="c1"># Create list for syntax_valid boolean test</span>
         <span class="n">counter</span> <span class="o">=</span> <span class="mi">1</span>  <span class="c1"># Condition counter used in print statement</span>
         <span class="n">conditions_str_list</span> <span class="o">=</span> <span class="p">[]</span>  <span class="c1"># Create a list to which we add the specified conditions</span>
         <span class="k">for</span> <span class="n">condition_text</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">condition_line_edit</span><span class="p">:</span>
@@ -1516,7 +1681,7 @@
                 <span class="c1">### Get data within specific time ranges ###</span>
                 <span class="n">df_sections</span> <span class="o">=</span> <span class="p">[</span><span class="n">df_tmp</span><span class="o">.</span><span class="n">between_time</span><span class="p">(</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">,</span> <span class="n">include_start</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">include_end</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span> <span class="k">for</span> <span class="p">(</span><span class="n">i</span><span class="p">,</span><span class="n">j</span><span class="p">)</span> <span class="ow">in</span> <span class="nb">zip</span><span class="p">(</span><span class="n">begin_times</span><span class="p">,</span> <span class="n">end_times</span><span class="p">)]</span>
                 <span class="n">df_result_tmp</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">(</span><span class="n">df_sections</span><span class="p">)</span> <span class="c1"># Add all the dataframes of the time_sections together again</span>
-                <span class="n">df_time_sections_bool_array</span> <span class="o">=</span> <span class="n">df_tmp</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">df_result_tmp</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>  <span class="c1"># Get a bool array of which elements we want to include based on the time sections</span>
+                <span class="n">df_time_sections_bool_array</span> <span class="o">=</span> <span class="n">df_tmp</span><span class="o">.</span><span class="n">index</span><span class="o">.</span><span class="n">isin</span><span class="p">(</span><span class="n">df_result_tmp</span><span class="o">.</span><span class="n">index</span><span class="p">)</span>  <span class="c1"># Get a bool array of which 5elements we want to include based on the time sections</span>
 
             <span class="c1">#################################################</span>
             <span class="c1">### Filter on player name is player name exists##</span>
@@ -1530,115 +1695,194 @@
             <span class="k">try</span><span class="p">:</span>
                 <span class="n">df_condition_bool_array</span> <span class="o">=</span> <span class="nb">eval</span><span class="p">(</span><span class="n">condition</span><span class="p">)</span>
 
-                <span class="c1">### If it doesn&#39;t throw an error set key as vallid ###</span>
+                <span class="c1">### If it doesn&#39;t throw an error set key as valid ###</span>
                 <span class="n">key_invalid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>  <span class="c1"># Save key value check result</span>
+                <span class="n">syntax_invalid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span> <span class="c1"># Save syntax check results</span>
 
-            <span class="c1">### If not vallid save what went wrong ###</span>
+            <span class="c1">### If Key not valid save what went wrong ###</span>
             <span class="k">except</span> <span class="ne">KeyError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
-                <span class="n">key_invalid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Save key value check result</span>
-                <span class="nb">print</span><span class="p">(</span><span class="n">e</span><span class="p">)</span>  <span class="c1"># Print error</span>
+                <span class="n">key_invalid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># Save key error value check result</span>
+                <span class="n">syntax_invalid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
-            <span class="c1">#################################################</span>
-            <span class="c1">### Change index to time index ##################</span>
-            <span class="c1">#################################################</span>
+            <span class="c1">### If condition not valid display dialog ##</span>
+            <span class="k">except</span> <span class="ne">SyntaxError</span> <span class="k">as</span> <span class="n">e</span><span class="p">:</span>
+                <span class="n">syntax_invalid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span> <span class="c1"># Save syntax error value check result</span>
+                <span class="n">key_invalid</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="kc">False</span><span class="p">)</span>
 
-            <span class="c1">### Change DateTime index to Time index (We don&#39;t need the date) ###</span>
-            <span class="c1"># df_result_tmp = df_tmp.copy() # Create hardcopy</span>
-            <span class="c1"># time_column = [val.time() for val in df_result_tmp.index]</span>
-            <span class="c1"># df_result_tmp[&#39;Time&#39;] = [val.time() for val in df_result_tmp.index]</span>
+            <span class="c1">### If no error was caught add result to array ###</span>
+            <span class="k">else</span><span class="p">:</span>
+                <span class="c1">#################################################</span>
+                <span class="c1">### Change index to time index ##################</span>
+                <span class="c1">#################################################</span>
 
-            <span class="n">df_result_tmp</span> <span class="o">=</span> <span class="n">df_tmp</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-            <span class="n">time_str_column</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M:%S.</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">))</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">]</span>
-            <span class="n">df_result_tmp</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="s1">&#39;Time&#39;</span><span class="p">,</span><span class="n">time_str_column</span><span class="p">)</span>
-            <span class="c1"># df_tmp[&#39;Time&#39;] = pd.Series([val.strftime(&#39;%H:%M:%S.%f&#39;) for val in self.df.index])</span>
+                <span class="c1">### Create a time column by using the set frequency ###</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">time_column_name</span> <span class="o">=</span> <span class="s1">&#39;Time&#39;</span>  <span class="c1"># Set name of the time column</span>
+                <span class="n">counter_tmp</span> <span class="o">=</span> <span class="mi">1</span> <span class="c1"># Time column counter this needs to be used to prohibit similar named columns</span>
+                <span class="n">df_copy_tmp</span> <span class="o">=</span> <span class="n">df_tmp</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span> <span class="c1"># Create hard copy of darta frame</span>
+                <span class="n">time_str_column</span> <span class="o">=</span> <span class="p">[</span><span class="nb">str</span><span class="p">(</span><span class="n">val</span><span class="o">.</span><span class="n">strftime</span><span class="p">(</span><span class="s1">&#39;%H:%M:%S.</span><span class="si">%f</span><span class="s1">&#39;</span><span class="p">))</span> <span class="k">for</span> <span class="n">val</span> <span class="ow">in</span> <span class="bp">self</span><span class="o">.</span><span class="n">df</span><span class="o">.</span><span class="n">index</span><span class="p">]</span> <span class="c1"># Generate a time column</span>
+                <span class="k">while</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_column_name</span> <span class="ow">in</span> <span class="n">df_copy_tmp</span><span class="o">.</span><span class="n">columns</span><span class="p">:</span> <span class="c1"># Make sure that a new name is used for the time column</span>
+                    <span class="bp">self</span><span class="o">.</span><span class="n">time_column_name</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_column_name</span> <span class="o">+</span> <span class="s2">&quot;_&quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">counter_tmp</span><span class="p">)</span>
+                    <span class="n">counter_tmp</span> <span class="o">+=</span> <span class="mi">1</span>
+                <span class="n">df_copy_tmp</span><span class="o">.</span><span class="n">insert</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span><span class="bp">self</span><span class="o">.</span><span class="n">time_column_name</span> <span class="p">,</span> <span class="n">time_str_column</span><span class="p">)</span>  <span class="c1"># Add a time column</span>
+                <span class="k">del</span> <span class="n">counter_tmp</span>
 
-            <span class="c1">#################################################</span>
-            <span class="c1">### Create boolean result array #################</span>
-            <span class="c1">#################################################</span>
-            <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">player_name</span> <span class="o">==</span> <span class="kc">None</span><span class="p">))</span> <span class="o">&amp;</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_file_path</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">)):</span>  <span class="c1"># All filters enabled</span>
-                <span class="n">df_results_bool</span> <span class="o">=</span> <span class="n">df_player_bool_array</span><span class="o">.</span><span class="n">values</span> <span class="o">&amp;</span> <span class="n">df_time_sections_bool_array</span> <span class="o">&amp;</span> <span class="n">df_condition_bool_array</span><span class="o">.</span><span class="n">values</span>
+                <span class="c1">#################################################</span>
+                <span class="c1">### Create boolean result array #################</span>
+                <span class="c1">#################################################</span>
 
-            <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">player_name</span> <span class="o">==</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
-                <span class="n">df_results_bool</span> <span class="o">=</span> <span class="n">df_player_bool_array</span><span class="o">.</span><span class="n">values</span> <span class="c1"># Only player as filter no conditions</span>
+                <span class="c1">### Both player filter and time filter enabled and condition empty == FALSE ###</span>
+                <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">player_name</span> <span class="o">==</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_file_path</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                    <span class="n">df_results_bool</span> <span class="o">=</span> <span class="n">df_player_bool_array</span><span class="o">.</span><span class="n">values</span> <span class="o">&amp;</span> <span class="n">df_time_sections_bool_array</span> <span class="o">&amp;</span> <span class="n">df_condition_bool_array</span><span class="o">.</span><span class="n">values</span>
 
-            <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">player_name</span> <span class="o">==</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>  <span class="c1"># If only player filter was enabled</span>
-                <span class="n">df_results_bool</span> <span class="o">=</span> <span class="n">df_player_bool_array</span><span class="o">.</span><span class="n">values</span> <span class="o">&amp;</span> <span class="n">df_condition_bool_array</span><span class="o">.</span><span class="n">values</span>
+                <span class="c1">### Both player filter and time filter enabled and condition empty == TRUE ###</span>
+                <span class="k">if</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">player_name</span> <span class="o">==</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_file_path</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">:</span>
+                    <span class="n">df_results_bool</span> <span class="o">=</span> <span class="n">df_player_bool_array</span><span class="o">.</span><span class="n">values</span> <span class="o">&amp;</span> <span class="n">df_time_sections_bool_array</span>
 
-            <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_file_path</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">)):</span>  <span class="c1"># If only time section filter was enabled</span>
-                <span class="n">df_results_bool</span> <span class="o">=</span> <span class="n">df_time_sections_bool_array</span> <span class="o">&amp;</span> <span class="n">df_condition_bool_array</span><span class="o">.</span><span class="n">values</span>
+                <span class="c1">### Only player filter enabled and condition empty == TRUE ###</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">player_name</span> <span class="o">==</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_file_path</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+                    <span class="n">df_results_bool</span> <span class="o">=</span> <span class="n">df_player_bool_array</span><span class="o">.</span><span class="n">values</span> <span class="c1"># Only player as filter no conditions</span>
 
-            <span class="k">else</span><span class="p">:</span>  <span class="c1"># If no filters were enabled</span>
-                <span class="n">df_results_bool</span> <span class="o">=</span> <span class="n">df_condition_bool_array</span><span class="o">.</span><span class="n">values</span>
+                <span class="c1">### Only player filter enabled and condition empty == FALSE ###</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="ow">not</span> <span class="p">(</span><span class="n">player_name</span> <span class="o">==</span> <span class="kc">None</span><span class="p">))</span> <span class="ow">and</span> <span class="ow">not</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">input_file_path</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">))</span> <span class="ow">and</span> <span class="p">(</span><span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>  <span class="c1"># If only player filter was enabled</span>
+                    <span class="n">df_results_bool</span> <span class="o">=</span> <span class="n">df_player_bool_array</span><span class="o">.</span><span class="n">values</span> <span class="o">&amp;</span> <span class="n">df_condition_bool_array</span><span class="o">.</span><span class="n">values</span>
 
-            <span class="c1">#################################################</span>
-            <span class="c1">### Add padding if this was specified ###########</span>
-            <span class="c1">#################################################</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_range_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                <span class="c1">### Only time filter enabled and condition empty == TRUE ###</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="p">(</span><span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">==</span> <span class="s1">&#39;&#39;</span><span class="p">)):</span>  <span class="c1"># If only time section filter was enabled</span>
+                    <span class="n">df_results_bool</span> <span class="o">=</span> <span class="n">df_time_sections_bool_array</span>
 
-                <span class="c1">### Calculate number of frames the padding should be ###</span>
-                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq_toggle</span><span class="p">:</span>  <span class="c1"># If user changed frame rate</span>
+                <span class="c1">### Only time filter enabled and condition empty == FALSE ###</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_file_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">()</span> <span class="ow">and</span> <span class="p">(</span><span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">)):</span>  <span class="c1"># If only time section filter was enabled</span>
+                    <span class="n">df_results_bool</span> <span class="o">=</span> <span class="n">df_time_sections_bool_array</span> <span class="o">&amp;</span> <span class="n">df_condition_bool_array</span><span class="o">.</span><span class="n">values</span>
+
+                <span class="c1">### No filters enabled and condition empty == False ###</span>
+                <span class="k">elif</span> <span class="p">(</span><span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">()</span> <span class="o">!=</span> <span class="s1">&#39;&#39;</span><span class="p">):</span>
+                    <span class="n">df_results_bool</span> <span class="o">=</span> <span class="n">df_condition_bool_array</span><span class="o">.</span><span class="n">values</span>
+
+                <span class="c1">### If no filters were enabled and condition empty == True ###</span>
+                <span class="k">else</span><span class="p">:</span>  <span class="c1"># The script is coded in such a way that this option does never occur but to check this a error is created if it does</span>
+                   <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;checker_error&quot;</span><span class="p">,</span> <span class="s2">&quot;The condition empty checker seems to malfunction please contact the developer if the problem exists&quot;</span><span class="p">)</span>
+
+                <span class="c1">#################################################</span>
+                <span class="c1">### Add padding if this was specified ###########</span>
+                <span class="c1">#################################################</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_range_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+
+                    <span class="c1">### Calculate number of frames the padding should be ###</span>
                     <span class="n">padding_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_range_value</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>  <span class="c1"># Get padding time</span>
-                    <span class="n">padding</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">padding_time</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">input_file_freq</span><span class="p">))</span>  <span class="c1"># Calculate number of samples we should pad the sections with</span>
-                    <span class="n">df_results_bool</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">padBoolArray</span><span class="p">(</span><span class="n">df_results_bool</span><span class="p">,</span> <span class="n">padding</span><span class="p">)</span>  <span class="c1"># Apply padding</span>
+                    <span class="n">padding</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">padding_time</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="p">(</span><span class="n">freq</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">time_stamp_spacing</span><span class="p">)))</span>  <span class="c1"># Calculate number of rows we should pad the sections with</span>
+                    <span class="n">df_results_bool_padded</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">padBoolArray</span><span class="p">(</span><span class="n">df_results_bool</span><span class="p">,</span> <span class="n">padding</span><span class="p">)</span>  <span class="c1"># Apply padding</span>
+
+                    <span class="c1">#################################################</span>
+                    <span class="c1">### Get result data out of dataframe ############</span>
+                    <span class="c1">#################################################</span>
+                    <span class="n">df_result_tmp</span> <span class="o">=</span> <span class="n">df_copy_tmp</span><span class="p">[</span><span class="n">df_results_bool_padded</span><span class="p">]</span>
+
                 <span class="k">else</span><span class="p">:</span>
-                    <span class="n">padding_time</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_range_value</span><span class="o">.</span><span class="n">value</span><span class="p">()</span>  <span class="c1"># Get padding time</span>
-                    <span class="n">padding</span> <span class="o">=</span> <span class="n">math</span><span class="o">.</span><span class="n">floor</span><span class="p">(</span><span class="n">padding_time</span><span class="o">/</span><span class="p">(</span><span class="mi">1</span><span class="o">/</span><span class="n">freq</span><span class="p">))</span>  <span class="c1"># Calculate number of samples we should pad the sections with</span>
-                    <span class="n">df_results_bool</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">padBoolArray</span><span class="p">(</span><span class="n">df_results_bool</span><span class="p">,</span> <span class="n">padding</span><span class="p">)</span>  <span class="c1"># Apply padding</span>
 
-            <span class="c1">#################################################</span>
-            <span class="c1">### Get result data out of dataframe ############</span>
-            <span class="c1">#################################################</span>
-            <span class="n">df_result_tmp</span> <span class="o">=</span> <span class="n">df_result_tmp</span><span class="p">[</span><span class="n">df_results_bool</span><span class="p">]</span>
+                    <span class="c1">#################################################</span>
+                    <span class="c1">### Get result data out of dataframe ############</span>
+                    <span class="c1">#################################################</span>
+                    <span class="n">df_result_tmp</span> <span class="o">=</span> <span class="n">df_copy_tmp</span><span class="p">[</span><span class="n">df_results_bool</span><span class="p">]</span>
 
-            <span class="c1">#################################################</span>
-            <span class="c1">### Remove not specified columns ################</span>
-            <span class="c1">#################################################</span>
+                <span class="c1">#################################################</span>
+                <span class="c1">### Remove not specified columns ################</span>
+                <span class="c1">#################################################</span>
 
-            <span class="c1">### Get keywords that are used in the condition ###</span>
-            <span class="n">keywords</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">condition_tmp_1</span> <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()]</span>
+                <span class="c1">### Get keywords that are used in the condition ###</span>
+                <span class="n">keywords</span> <span class="o">=</span> <span class="p">[</span><span class="n">w</span><span class="o">.</span><span class="n">capitalize</span><span class="p">()</span> <span class="k">for</span> <span class="n">w</span> <span class="ow">in</span> <span class="n">condition_tmp_1</span> <span class="k">if</span> <span class="n">w</span><span class="o">.</span><span class="n">isalpha</span><span class="p">()]</span>
 
-            <span class="c1">### Remove not specified vars (columns) out of dataframe ###</span>
-            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_columns_toggle</span><span class="p">:</span>  <span class="c1"># Use user settings</span>
-                <span class="n">keywords_tmp</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">output_columns</span>  <span class="c1"># Append &#39;Timestamp&#39; and &#39;Time columns to output columns</span>
-                <span class="n">df_result_tmp</span> <span class="o">=</span> <span class="n">df_result_tmp</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">output_columns</span><span class="p">]</span>  <span class="c1"># Use user defined columns</span>
+                <span class="c1">### Remove not specified vars (columns) out of dataframe ###</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_columns_toggle</span><span class="p">:</span>  <span class="c1"># Use user settings</span>
+                    <span class="n">keywords_tmp</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_column_name</span><span class="p">]</span><span class="o">+</span><span class="bp">self</span><span class="o">.</span><span class="n">output_columns</span>  <span class="c1"># Append &#39;Timestamp&#39; and &#39;Time columns to output columns</span>
+                    <span class="n">df_result_tmp</span> <span class="o">=</span> <span class="n">df_result_tmp</span><span class="p">[</span><span class="bp">self</span><span class="o">.</span><span class="n">output_columns</span><span class="p">]</span>  <span class="c1"># Use user defined columns</span>
 
-            <span class="k">else</span><span class="p">:</span>  <span class="c1"># Use only columns specified in the conditions</span>
-                <span class="n">keywords_tmp</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span><span class="s1">&#39;Time&#39;</span><span class="p">]</span><span class="o">+</span><span class="n">keywords</span>  <span class="c1"># Append &#39;Timestamp&#39; and &#39;Time columns to output columns</span>
-                <span class="n">df_result_tmp</span> <span class="o">=</span> <span class="n">df_result_tmp</span><span class="p">[</span><span class="n">keywords_tmp</span><span class="p">]</span>
+                <span class="k">else</span><span class="p">:</span>  <span class="c1"># Use only columns specified in the conditions</span>
+                    <span class="n">keywords_tmp</span> <span class="o">=</span> <span class="p">[</span><span class="s1">&#39;Timestamp&#39;</span><span class="p">,</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_column_name</span><span class="p">]</span><span class="o">+</span><span class="n">keywords</span>  <span class="c1"># Append &#39;Timestamp&#39; and &#39;Time columns to output columns</span>
+                    <span class="n">df_result_tmp</span> <span class="o">=</span> <span class="n">df_result_tmp</span><span class="p">[</span><span class="n">keywords_tmp</span><span class="p">]</span>
 
-            <span class="c1">#################################################</span>
-            <span class="c1">### Save condition result to xlsx file object ###</span>
-            <span class="c1">#################################################</span>
-            <span class="n">df_result_tmp</span> <span class="o">=</span> <span class="n">df_result_tmp</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
-            <span class="n">df_result_tmp</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheet_name</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">startrow</span> <span class="o">=</span> <span class="mi">2</span><span class="p">,</span> <span class="n">startcol</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
+                <span class="c1">#################################################</span>
+                <span class="c1">### Save condition result to xlsx file object ###</span>
+                <span class="c1">#################################################</span>
+                <span class="n">start_row</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># Row on which we start displaying the data analysis</span>
+                <span class="n">start_column</span> <span class="o">=</span> <span class="mi">0</span>  <span class="c1"># Column on which we start displaying the data analysis</span>
+                <span class="n">df_result_tmp</span> <span class="o">=</span> <span class="n">df_result_tmp</span><span class="o">.</span><span class="n">sort_index</span><span class="p">()</span>
+                <span class="n">df_result_tmp</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="n">sheet_name</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">startrow</span> <span class="o">=</span> <span class="n">start_row</span><span class="p">,</span> <span class="n">startcol</span><span class="o">=</span><span class="n">start_column</span><span class="p">)</span>
 
-            <span class="c1">### Add condition header ###</span>
-            <span class="n">workbook</span>  <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">book</span>  <span class="c1"># Get workbook object</span>
-            <span class="n">worksheet</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="n">sheet_name</span><span class="p">]</span>
-            <span class="n">header_format</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span>
-                <span class="s1">&#39;bold&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="s1">&#39;underline&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
-                <span class="s1">&#39;text_wrap&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
-                <span class="s1">&#39;valign&#39;</span><span class="p">:</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span>
-                <span class="s1">&#39;border&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
-            <span class="n">condition_text_str</span> <span class="o">=</span> <span class="n">sheet_name</span> <span class="o">+</span> <span class="s2">&quot;: &quot;</span> <span class="o">+</span> <span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
-            <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">condition_text_str</span><span class="p">,</span> <span class="n">header_format</span><span class="p">)</span> <span class="c1"># Add condition as a header row</span>
+                <span class="c1">### Add condition header ###</span>
+                <span class="n">workbook</span>  <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">book</span>  <span class="c1"># Get workbook object</span>
+                <span class="n">worksheet</span> <span class="o">=</span> <span class="n">writer</span><span class="o">.</span><span class="n">sheets</span><span class="p">[</span><span class="n">sheet_name</span><span class="p">]</span>
+                <span class="n">condition_format</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span><span class="s1">&#39;bg_color&#39;</span><span class="p">:</span> <span class="s1">&#39;#ebf1de&#39;</span><span class="p">,</span>
+                                        <span class="s1">&#39;font_color&#39;</span><span class="p">:</span> <span class="s1">&#39;#000000&#39;</span><span class="p">})</span>
+                <span class="n">header_format</span> <span class="o">=</span> <span class="n">workbook</span><span class="o">.</span><span class="n">add_format</span><span class="p">({</span>
+                    <span class="s1">&#39;bold&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                    <span class="s1">&#39;underline&#39;</span><span class="p">:</span> <span class="kc">True</span><span class="p">,</span>
+                    <span class="s1">&#39;text_wrap&#39;</span><span class="p">:</span> <span class="kc">False</span><span class="p">,</span>
+                    <span class="s1">&#39;valign&#39;</span><span class="p">:</span> <span class="s1">&#39;top&#39;</span><span class="p">,</span>
+                    <span class="s1">&#39;border&#39;</span><span class="p">:</span> <span class="mi">1</span><span class="p">})</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_range_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                    <span class="n">condition_text_str</span> <span class="o">=</span> <span class="n">sheet_name</span> <span class="o">+</span> <span class="s2">&quot; (freq = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot;Hz, padding = &quot;</span><span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_range_value</span><span class="o">.</span><span class="n">value</span><span class="p">())</span> <span class="o">+</span> <span class="s2">&quot; s): &quot;</span> <span class="o">+</span> <span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+                <span class="k">else</span><span class="p">:</span>
+                    <span class="n">condition_text_str</span> <span class="o">=</span> <span class="n">sheet_name</span> <span class="o">+</span> <span class="s2">&quot; (freq = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">freq</span><span class="p">)</span> <span class="o">+</span> <span class="s2">&quot; Hz): &quot;</span> <span class="o">+</span> <span class="n">condition_text</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+                <span class="n">worksheet</span><span class="o">.</span><span class="n">write</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="n">condition_text_str</span><span class="p">,</span> <span class="n">header_format</span><span class="p">)</span> <span class="c1"># Add condition as a header row</span>
 
-            <span class="c1">### Perform clean-up and increment actions ###</span>
-            <span class="k">del</span> <span class="n">df_result_tmp</span>  <span class="c1"># Remove temporary results dataframe</span>
-            <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>  <span class="c1"># Increment condition counter</span>
+                <span class="c1">### If padding is enabled add color the rows in which the condition was satisfied ###</span>
+                <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">time_range_toggle</span><span class="o">.</span><span class="n">isChecked</span><span class="p">():</span>
+                    <span class="n">df_color</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">df_results_bool</span><span class="p">[</span><span class="n">df_results_bool_padded</span><span class="p">])</span>
+                    <span class="n">df_color</span><span class="o">.</span><span class="n">to_excel</span><span class="p">(</span><span class="n">writer</span><span class="p">,</span> <span class="n">sheet_name</span><span class="o">=</span><span class="s2">&quot;condition_color_bool&quot;</span><span class="p">,</span> <span class="n">index</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span>
+                    <span class="n">end_row</span> <span class="o">=</span> <span class="n">df_result_tmp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">start_row</span>
+                    <span class="n">end_col</span> <span class="o">=</span> <span class="n">df_result_tmp</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">-</span><span class="mi">1</span> <span class="o">+</span> <span class="n">start_column</span>
+                    <span class="n">worksheet</span><span class="o">.</span><span class="n">conditional_format</span><span class="p">(</span><span class="n">start_row</span><span class="p">,</span> <span class="n">start_column</span><span class="p">,</span> <span class="n">end_row</span><span class="p">,</span> <span class="n">end_col</span><span class="p">,</span> <span class="p">{</span><span class="s1">&#39;type&#39;</span><span class="p">:</span> <span class="s1">&#39;formula&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;criteria&#39;</span><span class="p">:</span> <span class="s1">&#39;=condition_color_bool!$A1=TRUE&#39;</span><span class="p">,</span>
+                                       <span class="s1">&#39;format&#39;</span><span class="p">:</span> <span class="n">condition_format</span><span class="p">})</span>
 
-        <span class="c1">### If keys were not vallid display error message ###</span>
-        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">key_invalid</span><span class="p">):</span>
+                <span class="c1">### Perform clean-up and increment actions ###</span>
+                <span class="k">del</span> <span class="n">df_copy_tmp</span>    <span class="c1"># Remove temporary datafile copy</span>
+                <span class="k">del</span> <span class="n">df_result_tmp</span>  <span class="c1"># Remove temporary results dataframe</span>
 
-                <span class="c1">### Make key condition index error display string ###</span>
-                <span class="n">key_invalid_idx_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key_invalid</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
-                <span class="n">key_condition_error_str</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">key_invalid_idx_list</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key_invalid_idx_list</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39; &amp; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">key_invalid_idx_list</span><span class="p">))</span>
-                <span class="n">key_vallid_list</span> <span class="o">=</span> <span class="n">df_tmp</span><span class="o">.</span><span class="n">columns</span>
-                <span class="n">key_vallid_list_error_str</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">key_vallid_list</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key_vallid_list</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39; &amp; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">key_vallid_list</span><span class="p">))</span>
+            <span class="c1">### In all cases increment condition counter ###</span>
+            <span class="k">finally</span><span class="p">:</span>
+                <span class="n">counter</span> <span class="o">+=</span> <span class="mi">1</span>
 
-                <span class="c1">### Send feedback that data analysis has not been performed successfully ###</span>
-                <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;key_error&quot;</span><span class="p">,</span> <span class="n">key_condition_error_str</span><span class="p">,</span> <span class="n">key_vallid_list_error_str</span><span class="p">)</span> <span class="c1"># (Data analysis result, return message)</span>
+        <span class="c1">### If keys were not valid display error message ###</span>
+        <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">key_invalid</span><span class="p">)</span> <span class="ow">or</span> <span class="nb">any</span><span class="p">(</span><span class="n">syntax_invalid</span><span class="p">):</span>
+
+                <span class="c1">### If both a key and syntax error is present ###</span>
+                <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">key_invalid</span><span class="p">)</span> <span class="ow">and</span> <span class="nb">any</span><span class="p">(</span><span class="n">syntax_invalid</span><span class="p">):</span>
+
+                    <span class="c1">### Make key condition index error display string ###</span>
+                    <span class="n">key_invalid_idx_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key_invalid</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
+                    <span class="n">key_condition_error_str</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">key_invalid_idx_list</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key_invalid_idx_list</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39; &amp; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">key_invalid_idx_list</span><span class="p">))</span>
+                    <span class="n">key_valid_list</span> <span class="o">=</span> <span class="n">df_tmp</span><span class="o">.</span><span class="n">columns</span>
+                    <span class="n">key_valid_list_error_str</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">key_valid_list</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key_valid_list</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39; &amp; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">key_valid_list</span><span class="p">))</span>
+
+                    <span class="c1">### Make syntax condition index error display string ###</span>
+                    <span class="n">syntax_invalid_idx_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">syntax_invalid</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
+                    <span class="n">syntax_condition_error_str</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">syntax_invalid_idx_list</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">syntax_invalid_idx_list</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39; &amp; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">syntax_invalid_idx_list</span><span class="p">))</span>
+
+                    <span class="c1">### Send feedback that data analysis has not been performed successfully ###</span>
+                    <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;syntax_and_key_error&quot;</span><span class="p">,</span> <span class="n">key_condition_error_str</span><span class="p">,</span> <span class="n">key_valid_list_error_str</span><span class="p">,</span> <span class="n">syntax_condition_error_str</span><span class="p">)</span> <span class="c1"># (Data analysis result, return message)</span>
+
+                <span class="c1">### If only a key error is present ###</span>
+                <span class="k">if</span> <span class="nb">any</span><span class="p">(</span><span class="n">key_invalid</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">syntax_invalid</span><span class="p">):</span>
+
+                    <span class="c1">### Make key condition index error display string ###</span>
+                    <span class="n">key_invalid_idx_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">key_invalid</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
+                    <span class="n">key_condition_error_str</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">key_invalid_idx_list</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key_invalid_idx_list</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39; &amp; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">key_invalid_idx_list</span><span class="p">))</span>
+                    <span class="n">key_valid_list</span> <span class="o">=</span> <span class="n">df_tmp</span><span class="o">.</span><span class="n">columns</span>
+                    <span class="n">key_valid_list_error_str</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">key_valid_list</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">key_valid_list</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39; &amp; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">key_valid_list</span><span class="p">))</span>
+
+                    <span class="c1">### Send feedback that data analysis has not been performed successfully ###</span>
+                    <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;key_error&quot;</span><span class="p">,</span> <span class="n">key_condition_error_str</span><span class="p">,</span> <span class="n">key_valid_list_error_str</span><span class="p">)</span> <span class="c1"># (Data analysis result, return message)</span>
+
+                <span class="c1">### If only syntax error is present ###</span>
+                <span class="k">elif</span> <span class="nb">any</span><span class="p">(</span><span class="n">syntax_invalid</span><span class="p">)</span> <span class="ow">and</span> <span class="ow">not</span> <span class="nb">any</span><span class="p">(</span><span class="n">key_invalid</span><span class="p">):</span>
+
+                    <span class="c1">### Make syntax condition index error display string ###</span>
+                    <span class="n">syntax_invalid_idx_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">ii</span><span class="o">+</span><span class="mi">1</span> <span class="k">for</span> <span class="n">ii</span><span class="p">,</span> <span class="n">x</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">syntax_invalid</span><span class="p">)</span> <span class="k">if</span> <span class="n">x</span> <span class="o">==</span> <span class="kc">True</span><span class="p">]</span>
+                    <span class="n">syntax_condition_error_str</span> <span class="o">=</span> <span class="s1">&#39;, &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">syntax_invalid_idx_list</span><span class="p">))</span> <span class="k">if</span> <span class="nb">len</span><span class="p">(</span><span class="n">syntax_invalid_idx_list</span><span class="p">)</span> <span class="o">!=</span> <span class="mi">2</span> <span class="k">else</span> <span class="s1">&#39; &amp; &#39;</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="nb">map</span><span class="p">(</span><span class="nb">str</span><span class="p">,</span> <span class="n">syntax_invalid_idx_list</span><span class="p">))</span>
+
+                    <span class="c1">### Send feedback that data analysis has not been performed successfully ###</span>
+                    <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span> <span class="s2">&quot;syntax_error&quot;</span><span class="p">,</span> <span class="n">syntax_condition_error_str</span><span class="p">)</span> <span class="c1"># (Data analysis result, return message)</span>
 
         <span class="c1">### Otherwise save results to xlsx file ###</span>
         <span class="k">else</span><span class="p">:</span>
@@ -1658,7 +1902,7 @@
 <span class="s2">                persist please contact the developer.&quot;&quot;&quot;</span>
                 <span class="k">return</span> <span class="p">(</span><span class="kc">False</span><span class="p">,</span><span class="s2">&quot;save_error&quot;</span><span class="p">,</span> <span class="n">save_error_str</span><span class="p">,</span> <span class="n">e</span><span class="p">)</span>
 
-            <span class="c1">## Display save successful message ##</span>
+            <span class="c1">### Display save successful message ###</span>
             <span class="k">if</span> <span class="n">player_name</span><span class="p">:</span>
                 <span class="n">ready_signal</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s2">&quot;Results for player </span><span class="si">%s</span><span class="s2"> successfully save to a xlsx file!&quot;</span> <span class="o">%</span> <span class="n">player_name</span><span class="p">)</span> <span class="c1"># When player filter is enabled</span>
             <span class="k">else</span><span class="p">:</span>
@@ -1671,7 +1915,20 @@
                 <span class="n">ready_signal</span><span class="o">.</span><span class="n">emit</span><span class="p">(</span><span class="s2">&quot;Data analysis completed!&quot;</span><span class="p">)</span>
 
             <span class="c1">### Send feedback that data analysis was successfull ###</span>
-            <span class="k">return</span> <span class="p">(</span><span class="kc">True</span><span class="p">,)</span></div></div>
+            <span class="k">return</span> <span class="p">(</span><span class="kc">True</span><span class="p">,)</span></div>
+
+    <span class="c1">#################################################</span>
+    <span class="c1">#### Data analyse function                   ####</span>
+    <span class="c1">#################################################</span>
+<div class="viewcode-block" id="DataAnalyserGUI.closeEvent"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.cgdat_gui.DataAnalyserGUI.closeEvent">[docs]</a>    <span class="k">def</span> <span class="nf">closeEvent</span><span class="p">(</span><span class="bp">self</span><span class="p">):</span>
+        <span class="sd">&#39;&#39;&#39;This function is run when the GUI interface is closed. It saves the current settings so that they can be loaded</span>
+<span class="sd">        the next time the GUI is opened.&#39;&#39;&#39;</span>
+
+        <span class="c1">### Save settings to config file ###</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings_config</span><span class="p">[</span><span class="s2">&quot;SETTINGS&quot;</span><span class="p">][</span><span class="s2">&quot;freq&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">output_settings_dialog</span><span class="o">.</span><span class="n">frame_rate_value</span><span class="o">.</span><span class="n">value</span><span class="p">()))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings_config</span><span class="p">[</span><span class="s2">&quot;SETTINGS&quot;</span><span class="p">][</span><span class="s2">&quot;padding&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="nb">str</span><span class="p">(</span><span class="nb">round</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_range_value</span><span class="o">.</span><span class="n">value</span><span class="p">(),</span> <span class="mi">1</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings_config</span><span class="p">[</span><span class="s2">&quot;SETTINGS&quot;</span><span class="p">][</span><span class="s2">&quot;output_folder_path&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="bp">self</span><span class="o">.</span><span class="n">output_file_path</span><span class="o">.</span><span class="n">text</span><span class="p">()</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">settings_config</span><span class="o">.</span><span class="n">write</span><span class="p">()</span></div></div>
 
 <span class="c1">##############################################################</span>
 <span class="c1">#### Main execution code                                  ####</span>
@@ -1691,6 +1948,7 @@
     <span class="n">icon</span> <span class="o">=</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="p">()</span>
     <span class="n">icon</span><span class="o">.</span><span class="n">addPixmap</span><span class="p">(</span><span class="n">QtGui</span><span class="o">.</span><span class="n">QPixmap</span><span class="p">(</span><span class="n">CGDAT_icon</span><span class="p">),</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="o">.</span><span class="n">Normal</span><span class="p">,</span> <span class="n">QtGui</span><span class="o">.</span><span class="n">QIcon</span><span class="o">.</span><span class="n">Off</span><span class="p">)</span>
     <span class="n">MainWindow</span><span class="o">.</span><span class="n">setWindowIcon</span><span class="p">(</span><span class="n">icon</span><span class="p">)</span>
+    <span class="n">app</span><span class="o">.</span><span class="n">aboutToQuit</span><span class="o">.</span><span class="n">connect</span><span class="p">(</span><span class="n">ui</span><span class="o">.</span><span class="n">closeEvent</span><span class="p">)</span>  <span class="c1"># Connect a close event to the app so that we can perform some operations when the window is closed</span>
 
     <span class="c1">### Show main window ###</span>
     <span class="n">MainWindow</span><span class="o">.</span><span class="n">showMaximized</span><span class="p">()</span>

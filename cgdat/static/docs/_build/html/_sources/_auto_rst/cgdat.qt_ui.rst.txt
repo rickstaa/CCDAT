@@ -44,6 +44,14 @@ cgdat.qt\_ui.progress\_dialog\_ui module
     :undoc-members:
     :show-inheritance:
 
+cgdat.qt\_ui.splash\_screen\_ui module
+--------------------------------------
+
+.. automodule:: cgdat.qt_ui.splash_screen_ui
+    :members:
+    :undoc-members:
+    :show-inheritance:
+
 
 Module contents
 ---------------

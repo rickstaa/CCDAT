@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                2.2.3
+                2.3.0
               </div>
             
           
@@ -156,7 +156,7 @@
   <h1>Source code for cgdat.qt_ui.cgdat_ui</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># Form implementation generated from reading ui file &#39;C:\Users\ricks\OneDrive\Development\Tools\cgdat\cgdat\..\qt\cgdat.ui&#39;</span>
+<span class="c1"># Form implementation generated from reading ui file &#39;c:\users\ricks\onedrive\development\tools\cgdat\cgdat\..\qt\cgdat.ui&#39;</span>
 <span class="c1">#</span>
 <span class="c1"># Created by: PyQt5 UI code generator 5.11.3</span>
 <span class="c1">#</span>
@@ -212,8 +212,10 @@
         <span class="n">font</span><span class="o">.</span><span class="n">setPointSize</span><span class="p">(</span><span class="mi">10</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">time_range_value</span><span class="o">.</span><span class="n">setFont</span><span class="p">(</span><span class="n">font</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">time_range_value</span><span class="o">.</span><span class="n">setPrefix</span><span class="p">(</span><span class="s2">&quot;&quot;</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_range_value</span><span class="o">.</span><span class="n">setDecimals</span><span class="p">(</span><span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">time_range_value</span><span class="o">.</span><span class="n">setMaximum</span><span class="p">(</span><span class="mf">1000.0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">time_range_value</span><span class="o">.</span><span class="n">setSingleStep</span><span class="p">(</span><span class="mf">0.1</span><span class="p">)</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">time_range_value</span><span class="o">.</span><span class="n">setProperty</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="mf">5.0</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">time_range_value</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;time_range_value&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">additional_options_layout</span><span class="o">.</span><span class="n">addWidget</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">time_range_value</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">player_filter_toggle</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QCheckBox</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">additional_options_groupbox</span><span class="p">)</span>
@@ -324,7 +326,7 @@
         <span class="bp">self</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">setWidgetResizable</span><span class="p">(</span><span class="kc">True</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scrollArea</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;scrollArea&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scrollAreaContent</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QWidget</span><span class="p">()</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">scrollAreaContent</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">750</span><span class="p">,</span> <span class="mi">221</span><span class="p">))</span>
+        <span class="bp">self</span><span class="o">.</span><span class="n">scrollAreaContent</span><span class="o">.</span><span class="n">setGeometry</span><span class="p">(</span><span class="n">QtCore</span><span class="o">.</span><span class="n">QRect</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">746</span><span class="p">,</span> <span class="mi">189</span><span class="p">))</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">scrollAreaContent</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;scrollAreaContent&quot;</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayout</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QVBoxLayout</span><span class="p">(</span><span class="bp">self</span><span class="o">.</span><span class="n">scrollAreaContent</span><span class="p">)</span>
         <span class="bp">self</span><span class="o">.</span><span class="n">verticalLayout</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;verticalLayout&quot;</span><span class="p">)</span>
