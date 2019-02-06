@@ -22,3 +22,4 @@ from .cgdat_ui import Ui_MainWindow
 from .import_dialog_ui import Ui_ImportDialog
 from .output_settings_ui import Ui_OutputSettings
 from .progress_dialog_ui import Ui_ProgressDialog
+from .splash_screen_ui import Ui_splash_screen

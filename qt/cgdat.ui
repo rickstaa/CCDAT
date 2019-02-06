@@ -105,11 +105,17 @@
            <property name="suffix">
             <string> [s]</string>
            </property>
+           <property name="decimals">
+            <number>1</number>
+           </property>
            <property name="maximum">
             <double>1000.000000000000000</double>
            </property>
            <property name="singleStep">
             <double>0.100000000000000</double>
+           </property>
+           <property name="value">
+            <double>5.000000000000000</double>
            </property>
           </widget>
          </item>
@@ -336,8 +342,8 @@
            <rect>
             <x>0</x>
             <y>0</y>
-            <width>750</width>
-            <height>221</height>
+            <width>746</width>
+            <height>189</height>
            </rect>
           </property>
           <layout class="QVBoxLayout" name="verticalLayout">

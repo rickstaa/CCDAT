@@ -17,7 +17,7 @@ DIRNAME = os.path.dirname(os.path.abspath(__file__))
 desktop = winshell.desktop()
 path = os.path.join(desktop, "CGDAT.lnk")
 target = python_path
-arguments = cgdat_gui_path + "\\cgdat_gui.py"
+arguments = '"'+ cgdat_gui_path + "\\cgdat_gui.py" + '"'
 icon_path = os.path.abspath(os.path.join(DIRNAME, "static/media/CGDAT.ico")).replace('\\','/')    # Toggle on icon
 
 ##############################################################

@@ -23,6 +23,7 @@ from datetime import datetime
 import webbrowser  # Used for displaying the documentation
 import traceback
 import math
+from configobj import ConfigObj
 
 ### Get relative script path ###
 DIRNAME = os.path.dirname(os.path.abspath(__file__))
@@ -33,8 +34,9 @@ DIRNAME = os.path.dirname(os.path.abspath(__file__))
 # subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\about.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\about_ui.py'))
 # subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\progress_dialog.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\progress_dialog_ui.py'))
 # subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\import_dialog.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\import_dialog_ui.py'))
+# subprocess.call(r"python -m PyQt5.uic.pyuic -x " + os.path.join(DIRNAME, '..', r'qt\splash_screen.ui') + " -o " + os.path.join(DIRNAME, '..', r'cgdat\qt_ui\splash_screen_ui.py'))
 
-### Test wheter the script is run as module or main script ###
+### Test whether the script is run as module or main script ###
 parent_module = sys.modules['.'.join(__name__.split('.')[:-1]) or '__main__']
 if __name__ == '__main__' or parent_module.__name__ == '__main__':  # Run as main script
     sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
@@ -57,7 +59,6 @@ if hasattr(QtCore.Qt, 'AA_UseHighDpiPixmaps'):
 #####################################################################
 sections = ["Speed","Acceleration"]
 operators = ['>','>=','<','<=','==','!=','&']
-freq = (1.0/(0.166667/100.0))  # Data recording frequency [Hz]
 
 #####################################################################
 #### Overload Qt DataAnalyserGUI class                           ####
@@ -93,19 +94,28 @@ class DataAnalyserGUI(Ui_MainWindow):
         super(DataAnalyserGUI, self).setupUi(MainWindow)  # Run parent initializer function
 
         ########################################
+        ### Create splash screen ###############
+        ########################################
+        self.splash_screen_dialog = qt_dialogs.splashDialog()
+        cgdat_icon = os.path.join(DIRNAME, r'static\media\CGDAT.png')  # Get CGDAT icon path
+        self.splash_screen_dialog.icon_holder.setPixmap(QtGui.QPixmap(cgdat_icon))  # Add cgdat icon to splash screen
+        self.splash_screen_dialog.setModal(True)
+        self.splash_screen_dialog.finished.connect(self.splash_screen_finished)  # Connect finished signal to function that checks if the used cancelled the analysis
+        self.splash_screen_dialog.show()
+
+        ########################################
         ### Set main GUI menu items ############
         ########################################
 
         ### Create media paths ###
-        self.toggle_icon_on = os.path.abspath(os.path.join(DIRNAME, "static/media/toggle_on.png")).replace('\\','/')    # Toggle on icon
+        self.toggle_icon_on = os.path.abspath(os.path.join(DIRNAME, "static/media/toggle_on.png")).replace('\\','/')                    # Toggle on icon
         self.toggle_icon_disabled = os.path.abspath(os.path.join(DIRNAME, "static/media/toggle_off_disabled.png")).replace('\\','/')    # Toggle on icon
-        self.toggle_icon_off = os.path.abspath(os.path.join(DIRNAME, "static/media/toggle_off.png")).replace('\\','/')  # Toggle off icon
-        self.loader_gif_path = os.path.abspath(os.path.join(DIRNAME, "static/media/loader.gif")).replace('\\','/')  # Toggle off icon
-        about_icon_path = os.path.join(DIRNAME, r'static\media\about_icon.svg')                      # About icon path
-        docs_icon_path = os.path.join(DIRNAME, r'static\media\docs_icon.png')                      # About icon path
-
-        ### Create other paths ###
-        self.docs_path = os.path.abspath(os.path.join(DIRNAME, "static/docs/_build/html/index.html")).replace('\\','/')    # Toggle on icon
+        self.toggle_icon_off = os.path.abspath(os.path.join(DIRNAME, "static/media/toggle_off.png")).replace('\\','/')                  # Toggle off icon
+        self.loader_gif_path = os.path.abspath(os.path.join(DIRNAME, "static/media/loader.gif")).replace('\\','/')                      # Toggle off icon
+        about_icon_path = os.path.join(DIRNAME, r'static\media\about_icon.svg')                                                         # About icon path
+        docs_icon_path = os.path.join(DIRNAME, r'static\media\docs_icon.png')                                                           # About icon path
+        self.config_file_path = os.path.join(DIRNAME, r'static\config\settings_save.ini')                                             # Settings save config file path
+        self.docs_path = os.path.abspath(os.path.join(DIRNAME, "static/docs/_build/html/index.html")).replace('\\','/')                 # Toggle on icon
 
         ### Setup about icon menu action ###
         about_icon = QtGui.QIcon()
@@ -136,6 +146,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         ########################################
         ### Add additional options #############
         ########################################
+
         ### Add response empty member list ###
         self.response_given = []
 
@@ -224,17 +235,37 @@ class DataAnalyserGUI(Ui_MainWindow):
         ########################################
 
         ### Create helper Variables ###
-        self.input_file_freq = freq  # Create member variable holding input file frequency settings
-        self.output_columns = [] # Create member variables to save output collumns settings
+        self.output_columns = [] # Create member variables to save output columns settings
         self.input_file_freq_toggle = False # Create member variable to save old frame toggle state
         self.output_columns_toggle = False # Create member variable to save old output columns toggle
-        self.output_settings_freq_warning = True # Create member variable to save wheter a warning needs to be displayed
+        self.output_settings_freq_warning = True # Create member variable to save whether a warning needs to be displayed
 
         ### Create dialog object ###
         self.output_settings_dialog = qt_dialogs.outputSettingsDialog()
         self.output_settings_dialog.setModal(True)
         self.output_settings_dialog.finished.connect(self.output_settings_dialog_finished)  # Connect finished signal to function that checks if the used cancelled the analysis
-        self.output_settings_dialog.frame_rate_value.setValue(self.input_file_freq)
+        self.input_file_freq_start = self.output_settings_dialog.frame_rate_value.value()  # Create member variable holding input file frequency settings
+
+        ########################################
+        ### Retrieve saved settings ############
+        ########################################
+
+        ### Create config object and set settings ###
+        self.splash_screen_dialog = qt_dialogs.splashDialog()
+        cgdat_icon = os.path.join(DIRNAME, r'static\media\CGDAT.png')  # Get CGDAT icon path
+        self.splash_screen_dialog.icon_holder.setPixmap(QtGui.QPixmap(cgdat_icon))  # Add cgdat icon to splash screen
+        self.splash_screen_dialog.setModal(True)
+        self.splash_screen_dialog.finished.connect(self.splash_screen_finished)  # Connect finished signal to function that checks if the used cancelled the analysis
+        self.splash_screen_dialog.show()
+
+        ### Create worker that checks if the data file is valid ###
+        # self.load_settings()
+        self.settings_load_worker = qt_thread.Worker(self.load_settings)  # Any other args, kwargs are passed to the run function
+
+        ### Connect worker signals ###
+        self.settings_load_worker.signals.finished.connect(self.load_settings_finished)  # Checks the process result
+        self.settings_load_worker.signals.error.connect(self.catch_thread_errors)  # Checks the process result
+        self.settings_load_worker.start()
 
     #########################################################
     #### GUI member functions                            ####
@@ -263,6 +294,72 @@ class DataAnalyserGUI(Ui_MainWindow):
 
         ## open documentation ##
         webbrowser.open_new(self.docs_path)
+
+    #################################################
+    ### Splash screen finished signal             ###
+    #################################################
+    def splash_screen_finished(self, result):
+        ''' This slot function is called when the splash screen emits a finished signal.'''
+
+        ### Perform the right action ###
+        if not result:  # If dialog was cancelled stop CGDAT GUI
+            sys.exit()
+
+    #################################################
+    ### Load old settings                         ###
+    #################################################
+    def load_settings(self, *args, **kwargs):
+        '''This function is used to load possible earlier specified settings out of the :samp:`settings_sav.ini` config file.
+
+        Returns:
+            [bool]: Bool specifying whether the config file could be loaded.
+        '''
+        try:  # Try to load config file
+            self.settings_config = ConfigObj(self.config_file_path)
+            return True
+        except:
+            return False
+
+    #################################################
+    ### Apply old settings to GUI                 ###
+    #################################################
+    def load_settings_finished(self, result):
+        '''This function is called when the load settings worker is finished. It is used to apply the old settings onto the
+        GCDAT GUI.
+
+        Args:
+            result (bool): Boolean specifying whether the config file could be loaded successfully.
+        '''
+
+        ### If config file was loaded successfully apply settings to GUI ###
+        if result:
+
+            ### Set frequency ###
+            try:
+                self.input_file_freq_start = float(self.settings_config['SETTINGS']['freq'])
+                self.output_settings_dialog.frame_rate_value.setValue(self.input_file_freq_start)
+                self.input_file_freq = self.input_file_freq_start
+            except KeyError:
+                self.input_file_freq_start = self.output_settings_dialog.frame_rate_value.value()  # Get default value out of the gui
+                self.input_file_freq = self.output_settings_dialog.frame_rate_value.value()
+
+            ### Set padding ###
+            try:
+                self.input_file_padding = self.settings_config['SETTINGS']['padding']
+                self.time_range_value.setValue(float(self.input_file_padding))  # Get default value out of the gui
+            except KeyError:
+                pass
+
+            ### Set output file folder ###
+            try:
+                output_file_folder = self.settings_config['SETTINGS']['output_folder_path']
+                if os.path.exists(output_file_folder) and output_file_folder != "":
+                    self.output_file_path.setText(output_file_folder)
+            except KeyError:
+                pass
+
+        ### Accept dialog ###
+        self.splash_screen_dialog.accept()
 
     #################################################
     ### Menu docs action function                 ###
@@ -303,8 +400,8 @@ class DataAnalyserGUI(Ui_MainWindow):
 
         else:
             self.input_file_freq = self.output_settings_dialog.frame_rate_value.value()  # Save frame rate
-            self.output_columns = self.output_settings_dialog.column_choicer_drop_down_menu.selectedItems()  # Save collumns
-            self.output_columns_toggle = self.output_settings_dialog.columns_toggle.isChecked()  # Save collumns toggle
+            self.output_columns = self.output_settings_dialog.column_choicer_drop_down_menu.selectedItems()  # Save columns
+            self.output_columns_toggle = self.output_settings_dialog.columns_toggle.isChecked()  # Save columns toggle
             self.input_file_freq_toggle = self.output_settings_dialog.frame_rate_toggle.isChecked()  # Save freq toggle
 
             ### If data file is already imported show dialog that states that file needs to be reimported before frame rate is effective ###
@@ -352,7 +449,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             self.input_file_path.setText(fileName)
             self.input_file_path.setEnabled(1)
 
-            ### Create worker that checks if the data file is vallid ###
+            ### Create worker that checks if the data file is valid ###
             self.data_input_worker = qt_thread.Worker(self.analyse_input_data_file)  # Any other args, kwargs are passed to the run function
 
             ### Connect worker signals ###
@@ -377,7 +474,7 @@ class DataAnalyserGUI(Ui_MainWindow):
     ### Get input file path function              ###
     #################################################
     def analyse_input_data_file(self, *args, **kwargs):
-        '''Qt slot function that is used to check if the data file is vallid and following add the available players to the player filter comboBox. This slot function is
+        '''Qt slot function that is used to check if the data file is valid and following add the available players to the player filter comboBox. This slot function is
         run in a worker thread so it does not freeze the GUI.
         '''
 
@@ -388,7 +485,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         except Exception as e:
 
             ### Return warning message ###
-            warning_str = """Unfortunately something went wrong while importing the datafile. Please check if you supplied a vallid data file and try again."""
+            warning_str = """Unfortunately something went wrong while importing the datafile. Please check if you supplied a valid data file and try again."""
             return (False, "import_error", warning_str, e)
 
         ### Check whether a player column is present ###
@@ -398,12 +495,20 @@ class DataAnalyserGUI(Ui_MainWindow):
             warning_str = """The file you imported doesn't contain a player column. As a result the player filter option has been disabled. Please specify another file if you want to filter you data by player name."""
             return (False, "player_filter_error", warning_str)
 
-        ### Check wheter file contains a time stamp collumn ###
+        ### Check whether file contains a time stamp column ###
         if not ("Timestamp" in self.df.columns):
 
             ### Return info message ###
-            warning_str = """The file you imported doesn't contain a timestamp column. Please import a vallid data file and try again."""
+            warning_str = """The file you imported doesn't contain a timestamp column. Please import a valid data file and try again."""
             return (False, "timestamp_error", warning_str)
+
+        ### Check if timestamp axis is evenly distributed ###
+        self.time_stamp_spacing = np.mean(np.diff(self.df['Timestamp']))  # Get the number of steps between each data row
+        if any(np.diff(self.df['Timestamp'])!=self.time_stamp_spacing):
+
+            ### Return info message ###
+            warning_str = """The file you imported doesn't contain a evenly spaced timestamp column. Please import a valid data file and try again."""
+            return (False, "timestamp_distribution_error", warning_str)
 
         ### Add a time axis to the dataframe ###
         try:
@@ -411,11 +516,11 @@ class DataAnalyserGUI(Ui_MainWindow):
                 date_time_list = pd.to_datetime((self.timeDelta2DateTime(self.df['Timestamp']*(1/self.input_file_freq))))  # Create DateTimeIndex
                 self.df.index = date_time_list  # Set DateTimeIndex
             else:  # Use default
-                date_time_list = pd.to_datetime((self.timeDelta2DateTime(self.df['Timestamp']*(1/freq))))  # Create DateTimeIndex
+                date_time_list = pd.to_datetime((self.timeDelta2DateTime(self.df['Timestamp']*(1/self.input_file_freq_start))))  # Create DateTimeIndex
                 self.df.index = date_time_list  # Set DateTimeIndex
         except Exception as e:
             ### Return warning message ###
-            warning_str = """Unfortunately something went wrong while creating a time axis. Please try againcontact the developer."""
+            warning_str = """Unfortunately something went wrong while creating a time axis. Please try again contact the developer."""
             return (False, "import_error", warning_str, e)
 
         ### If everything went correctly return True as a result ###
@@ -470,6 +575,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 ### Close wait dialog ###
                 self.import_dialog.reject()
 
+            ### Display message if the timestamp column is not present ###
             elif (str(result[1]) == "timestamp_error"):
 
                 ### Close wait dialog ###
@@ -483,6 +589,21 @@ class DataAnalyserGUI(Ui_MainWindow):
                 msg.show()
                 msg.exec_()
 
+            ### Display message if the timestamp column is not evenly spaced ###
+            elif (str(result[1]) == "timestamp_distribution_error"):
+
+                ### Close wait dialog ###
+                self.import_dialog.reject()
+
+                ### Display Info message ###
+                msg = QtWidgets.QMessageBox()
+                msg.setIcon(QtWidgets.QMessageBox.Warning)
+                msg.setText(result[2])
+                msg.setWindowTitle("Warning")
+                msg.show()
+                msg.exec_()
+
+            ### Change display if player column is not present ###
             elif (str(result[1]) == "player_filter_error"):
 
                 ### Close wait dialog ###
@@ -569,7 +690,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             self.time_file_path.setText(fileName)
             self.time_file_path.setEnabled(1)
 
-            ### Create worker that checks if the data file is vallid ###
+            ### Create worker that checks if the data file is valid ###
             self.time_input_worker = qt_thread.Worker(self.analyse_input_time_data_file)  # Any other args, kwargs are passed to the run function
 
             ### Connect worker signals ###
@@ -588,7 +709,7 @@ class DataAnalyserGUI(Ui_MainWindow):
     ### Get input file path function              ###
     #################################################
     def analyse_input_time_data_file(self, *args, **kwargs):
-        '''Qt slot function that is used to check if the time sections data file is vallid. This slot function is
+        '''Qt slot function that is used to check if the time sections data file is valid. This slot function is
         run in a worker thread so it does not freeze the GUI.
         '''
 
@@ -600,7 +721,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         except Exception as e:
 
             ### Return warning message ###
-            warning_str = """Unfortunately something went wrong while importing the datafile. Please check if you supplied a vallid data file and try again."""
+            warning_str = """Unfortunately something went wrong while importing the datafile. Please check if you supplied a valid data file and try again."""
             return (False, "import_error", warning_str, e)
 
         ### Begin and end time columns are present ###
@@ -942,12 +1063,12 @@ class DataAnalyserGUI(Ui_MainWindow):
         ### Check validity of condition statement #######
         #################################################
 
-        ### Create vallid operator list ###
+        ### Create valid operator list ###
         operator_escape_str = [("\\"+ op) for op in operators]
         operator_str = "(" + "|".join(operator_escape_str) + ")"
 
         ### Split input command in list items ###
-        result_invalid = []  # True if conditional statement is vallid (Return variable)
+        result_invalid = []  # True if conditional statement is valid (Return variable)
         conditions_split = [x.strip() for x in re.split(operator_str, condition_text.text())]
 
         ### Check if delimiters were placed right ###
@@ -1039,17 +1160,19 @@ class DataAnalyserGUI(Ui_MainWindow):
 
         else:  # If data analysis failed
 
-            ### Display warning message if no thread error occurred ###
+            ### Display warning message if thread error occurred ###
             if (str(result[1]) == "thread_error"):
 
                 ### Close wait dialog ###
                 self.progress_dialog.reject()
 
+            ### Display warning message if data couldn't be saved ###
             elif (str(result[1]) == "save_error"):
 
                 ### Append red error message to console text edit ###
                 self.progress_dialog.updateProgressConsole(result[2], "#ff0000")
 
+            ### Display warning message if a condition key was invalid ###
             elif (str(result[1])=="key_error"):
 
                 ### Close wait dialog ###
@@ -1060,10 +1183,49 @@ class DataAnalyserGUI(Ui_MainWindow):
                 warn_dialog.setIcon(QtWidgets.QMessageBox.Warning)
                 warn_dialog.setWindowTitle('Warning')
                 if len(result[2]) > 1:
-                    warn_dialog.setText('Unfortunately, some of your conditions contain invalid variables please check conditions ' + result[2] + ' again.')
+                    warn_dialog.setText('Unfortunately, conditions ' + result[2] + ' contain invalid variables. Please check these conditions and try again.')
                 else:
-                    warn_dialog.setText('Unfortunately one of your conditions contains invalid variables please check condition ' + result[2] + ' again.')
-                warn_dialog.setInformativeText("<b>Vallid keys</b>: " + result[3])
+                    warn_dialog.setText('Unfortunately condition ' + result[2] + ' seems to contain an invalid variable. Please check this condition and try again.')
+                warn_dialog.setInformativeText("<b>Valid keys</b>: " + result[3])
+                warn_dialog.setStandardButtons(QtWidgets.QMessageBox.Ok)
+                warn_dialog.exec_()
+
+            ### Display warning message if a condition syntax was invalid ###
+            elif (str(result[1])=="syntax_error"):
+
+                ### Close wait dialog ###
+                self.progress_dialog.reject()
+
+                ### Create warning dialog ###
+                warn_dialog = QtWidgets.QMessageBox()
+                warn_dialog.setIcon(QtWidgets.QMessageBox.Warning)
+                warn_dialog.setWindowTitle('Warning')
+                warn_dialog.setTextFormat(QtCore.Qt.RichText)
+                warn_dialog.setText('There seems to be a syntax error in condition ' + result[2] + '. Please check this condition and try again. The accepted operators are (&gt;, &gt;=, &lt;, &lt;=, ==, &amp;)')
+                warn_dialog.setInformativeText("<b>Example</b>: speed > 10 & speed < 15 & acceleration > 5 & acceleration < 8")
+                warn_dialog.setStandardButtons(QtWidgets.QMessageBox.Ok)
+                warn_dialog.exec_()
+
+            elif (str(result[1])=="syntax_and_key_error"):
+
+                ### Close wait dialog ###
+                self.progress_dialog.reject()
+
+                ### Print warning message ###
+                warn_dialog = QtWidgets.QMessageBox()
+                warn_dialog.setIcon(QtWidgets.QMessageBox.Warning)
+                warn_dialog.setWindowTitle('Warning')
+                if len(result[2]) > 1:
+                    if len(result[4]) == 1:
+                        warn_dialog.setText('Unfortunately, conditions ' + result[2] + ' contain invalid variables. Further also the syntax of condition ' + result[4] + ' seems to be incorrect. Please check your conditions and try again.')
+                    else:
+                        warn_dialog.setText('Unfortunately, conditions ' + result[2] + ' contains an invalid variables. Further also the syntax of conditions ' + result[4] + ' seems to be incorrect. Please check your conditions and try again.')
+                else:
+                    if len (result[4]) == 1:
+                        warn_dialog.setText('Unfortunately, condition ' + result[2] + ' contains an invalid variables. Further also the syntax of condition ' + result[4] + ' seems to be incorrect. Please check your conditions and try again.')
+                    else:
+                        warn_dialog.setText('Unfortunately, condition ' + result[2] + ' contains an invalid variables. Further also the syntax of conditions ' + result[4] + ' seems to be incorrect. Please check your conditions and try again.')
+                warn_dialog.setInformativeText("<b>Valid keys</b>: " + result[3])
                 warn_dialog.setStandardButtons(QtWidgets.QMessageBox.Ok)
                 warn_dialog.exec_()
 
@@ -1100,18 +1262,18 @@ class DataAnalyserGUI(Ui_MainWindow):
         filtered_players = self.player_filter_drop_down_menu.selectedItems()
 
         ### Add info message dialogs ###
-        if not any(self.response_given) and ((self.time_file_toggle.isChecked() and len(self.condition_line_edit) == 1) or (self.player_filter_toggle.isChecked() and len(filtered_players) >= 1 and len(self.condition_line_edit) <= 1)):  # Display info message
-            if (self.time_file_toggle.isChecked() and len(self.condition_line_edit) == 1) and not (self.player_filter_toggle.isChecked() and len(filtered_players) >= 1 and len(self.condition_line_edit) <= 1): # Throw error if empty unless time sections is enabled and only one condition row is present.
+        if any(self.response_given):  # Display info message
+            if (self.time_file_toggle.isChecked() and len(self.condition_line_edit) == 1) and not (self.player_filter_toggle.isChecked() and len(filtered_players) >= 1 and len(self.condition_line_edit) == 1): # Throw error if conditions were empty unless time filter is enabled and only one condition row was present.
 
                 ### Display non-modal popup ###
-                info_str = "You did not specify any conditions. As a result the data will be filtered based on the specified tiem section."
+                info_str = "You did not specify any conditions. As a result the data will be filtered based on the specified time section."
                 msg = QtWidgets.QMessageBox()
                 msg.setIcon(QtWidgets.QMessageBox.Information)
                 msg.setText(info_str)
                 msg.setWindowTitle("Info")
                 msg.exec_()
 
-            elif not (self.time_file_toggle.isChecked() and len(self.condition_line_edit) == 1) and (self.player_filter_toggle.isChecked() and len(filtered_players) >= 1 and len(self.condition_line_edit) <= 1): # Throw error if empty unless time sections is enabled and only one condition row is present.
+            elif not (self.time_file_toggle.isChecked() and len(self.condition_line_edit) == 1) and (self.player_filter_toggle.isChecked() and len(filtered_players) >= 1 and len(self.condition_line_edit) == 1): # Throw error if conditions were empty unless player filter is enabled and only one condition row was present.
 
                 ### Display non-modal popup ###
                 info_str = "You did not specify any conditions. As a result the data will be filtered based on the specified players."
@@ -1121,7 +1283,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 msg.setWindowTitle("Info")
                 msg.exec_()
 
-            elif (self.time_file_toggle.isChecked() and len(self.condition_line_edit) == 1) and (self.player_filter_toggle.isChecked() and len(filtered_players) >= 1 and len(self.condition_line_edit) <= 1): # Throw error if empty unless time sections is enabled and only one condition row is present.
+            elif (self.time_file_toggle.isChecked() and len(self.condition_line_edit) == 1) and (self.player_filter_toggle.isChecked() and len(filtered_players) >= 1 and len(self.condition_line_edit) == 1): # Throw error if conditions were empty unless time sections and player filter were enabled and only one condition row was present.
 
                 ### Display non-modal popup ###
                 info_str = "You did not specify any conditions. As a result the data will be filtered based on the specified players and time sections."
@@ -1130,7 +1292,6 @@ class DataAnalyserGUI(Ui_MainWindow):
                 msg.setText(info_str)
                 msg.setWindowTitle("Info")
                 msg.exec_()
-
             else:
                 pass
 
@@ -1283,6 +1444,9 @@ class DataAnalyserGUI(Ui_MainWindow):
             player_name = args[0]
             ready_signal.emit("Starting data analysis for %s..."%player_name)
 
+        ### Get frequency ###
+        freq = self.input_file_freq if self.input_file_freq_toggle else self.input_file_freq_start
+
         #################################################
         ### Perform data analysis #######################
         #################################################
@@ -1311,7 +1475,8 @@ class DataAnalyserGUI(Ui_MainWindow):
         writer = pd.ExcelWriter(output_file_path, engine='xlsxwriter', datetime_format='hh:mm:ss.ms')  # Create data writer
 
         ### Perform data analysis on each condition ###
-        key_invalid = []  # Create list for key_vallid boolean test
+        key_invalid = []  # Create list for key_valid boolean test
+        syntax_invalid = [] # Create list for syntax_valid boolean test
         counter = 1  # Condition counter used in print statement
         conditions_str_list = []  # Create a list to which we add the specified conditions
         for condition_text in self.condition_line_edit:
@@ -1360,7 +1525,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 ### Get data within specific time ranges ###
                 df_sections = [df_tmp.between_time(i, j, include_start=True, include_end=True) for (i,j) in zip(begin_times, end_times)]
                 df_result_tmp = pd.concat(df_sections) # Add all the dataframes of the time_sections together again
-                df_time_sections_bool_array = df_tmp.index.isin(df_result_tmp.index)  # Get a bool array of which elements we want to include based on the time sections
+                df_time_sections_bool_array = df_tmp.index.isin(df_result_tmp.index)  # Get a bool array of which 5elements we want to include based on the time sections
 
             #################################################
             ### Filter on player name is player name exists##
@@ -1374,115 +1539,194 @@ class DataAnalyserGUI(Ui_MainWindow):
             try:
                 df_condition_bool_array = eval(condition)
 
-                ### If it doesn't throw an error set key as vallid ###
+                ### If it doesn't throw an error set key as valid ###
                 key_invalid.append(False)  # Save key value check result
+                syntax_invalid.append(False) # Save syntax check results
 
-            ### If not vallid save what went wrong ###
+            ### If Key not valid save what went wrong ###
             except KeyError as e:
-                key_invalid.append(True)  # Save key value check result
-                print(e)  # Print error
+                key_invalid.append(True)  # Save key error value check result
+                syntax_invalid.append(False)
 
-            #################################################
-            ### Change index to time index ##################
-            #################################################
+            ### If condition not valid display dialog ##
+            except SyntaxError as e:
+                syntax_invalid.append(True) # Save syntax error value check result
+                key_invalid.append(False)
 
-            ### Change DateTime index to Time index (We don't need the date) ###
-            # df_result_tmp = df_tmp.copy() # Create hardcopy
-            # time_column = [val.time() for val in df_result_tmp.index]
-            # df_result_tmp['Time'] = [val.time() for val in df_result_tmp.index]
+            ### If no error was caught add result to array ###
+            else:
+                #################################################
+                ### Change index to time index ##################
+                #################################################
 
-            df_result_tmp = df_tmp.copy()
-            time_str_column = [str(val.strftime('%H:%M:%S.%f')) for val in self.df.index]
-            df_result_tmp.insert(0,'Time',time_str_column)
-            # df_tmp['Time'] = pd.Series([val.strftime('%H:%M:%S.%f') for val in self.df.index])
+                ### Create a time column by using the set frequency ###
+                self.time_column_name = 'Time'  # Set name of the time column
+                counter_tmp = 1 # Time column counter this needs to be used to prohibit similar named columns
+                df_copy_tmp = df_tmp.copy() # Create hard copy of darta frame
+                time_str_column = [str(val.strftime('%H:%M:%S.%f')) for val in self.df.index] # Generate a time column
+                while self.time_column_name in df_copy_tmp.columns: # Make sure that a new name is used for the time column
+                    self.time_column_name = self.time_column_name + "_" + str(counter_tmp)
+                    counter_tmp += 1
+                df_copy_tmp.insert(0,self.time_column_name , time_str_column)  # Add a time column
+                del counter_tmp
 
-            #################################################
-            ### Create boolean result array #################
-            #################################################
-            if (not (player_name == None)) & (self.time_file_toggle.isChecked() and not (self.input_file_path.text() == '')):  # All filters enabled
-                df_results_bool = df_player_bool_array.values & df_time_sections_bool_array & df_condition_bool_array.values
+                #################################################
+                ### Create boolean result array #################
+                #################################################
 
-            elif (not (player_name == None)) and (condition_text.text() == ''):
-                df_results_bool = df_player_bool_array.values # Only player as filter no conditions
+                ### Both player filter and time filter enabled and condition empty == FALSE ###
+                if (not (player_name == None)) and (self.time_file_toggle.isChecked() and (self.input_file_path.text() != '')) and condition_text.text() != '':
+                    df_results_bool = df_player_bool_array.values & df_time_sections_bool_array & df_condition_bool_array.values
 
-            elif (not (player_name == None)) and (condition_text.text() != ''):  # If only player filter was enabled
-                df_results_bool = df_player_bool_array.values & df_condition_bool_array.values
+                ### Both player filter and time filter enabled and condition empty == TRUE ###
+                if (not (player_name == None)) and (self.time_file_toggle.isChecked() and (self.input_file_path.text() != '')) and condition_text.text() == '':
+                    df_results_bool = df_player_bool_array.values & df_time_sections_bool_array
 
-            elif (self.time_file_toggle.isChecked() and not (self.input_file_path.text() == '')):  # If only time section filter was enabled
-                df_results_bool = df_time_sections_bool_array & df_condition_bool_array.values
+                ### Only player filter enabled and condition empty == TRUE ###
+                elif (not (player_name == None)) and not (self.time_file_toggle.isChecked() and (self.input_file_path.text() != '')) and (condition_text.text() == ''):
+                    df_results_bool = df_player_bool_array.values # Only player as filter no conditions
 
-            else:  # If no filters were enabled
-                df_results_bool = df_condition_bool_array.values
+                ### Only player filter enabled and condition empty == FALSE ###
+                elif (not (player_name == None)) and not (self.time_file_toggle.isChecked() and (self.input_file_path.text() != '')) and (condition_text.text() != ''):  # If only player filter was enabled
+                    df_results_bool = df_player_bool_array.values & df_condition_bool_array.values
 
-            #################################################
-            ### Add padding if this was specified ###########
-            #################################################
-            if self.time_range_toggle.isChecked():
+                ### Only time filter enabled and condition empty == TRUE ###
+                elif (self.time_file_toggle.isChecked() and (condition_text.text() == '')):  # If only time section filter was enabled
+                    df_results_bool = df_time_sections_bool_array
 
-                ### Calculate number of frames the padding should be ###
-                if self.input_file_freq_toggle:  # If user changed frame rate
+                ### Only time filter enabled and condition empty == FALSE ###
+                elif (self.time_file_toggle.isChecked() and (condition_text.text() != '')):  # If only time section filter was enabled
+                    df_results_bool = df_time_sections_bool_array & df_condition_bool_array.values
+
+                ### No filters enabled and condition empty == False ###
+                elif (condition_text.text() != ''):
+                    df_results_bool = df_condition_bool_array.values
+
+                ### If no filters were enabled and condition empty == True ###
+                else:  # The script is coded in such a way that this option does never occur but to check this a error is created if it does
+                   return (False, "checker_error", "The condition empty checker seems to malfunction please contact the developer if the problem exists")
+
+                #################################################
+                ### Add padding if this was specified ###########
+                #################################################
+                if self.time_range_toggle.isChecked():
+
+                    ### Calculate number of frames the padding should be ###
                     padding_time = self.time_range_value.value()  # Get padding time
-                    padding = math.floor(padding_time/(1/self.input_file_freq))  # Calculate number of samples we should pad the sections with
-                    df_results_bool = self.padBoolArray(df_results_bool, padding)  # Apply padding
+                    padding = math.floor(padding_time/(1/(freq/self.time_stamp_spacing)))  # Calculate number of rows we should pad the sections with
+                    df_results_bool_padded = self.padBoolArray(df_results_bool, padding)  # Apply padding
+
+                    #################################################
+                    ### Get result data out of dataframe ############
+                    #################################################
+                    df_result_tmp = df_copy_tmp[df_results_bool_padded]
+
                 else:
-                    padding_time = self.time_range_value.value()  # Get padding time
-                    padding = math.floor(padding_time/(1/freq))  # Calculate number of samples we should pad the sections with
-                    df_results_bool = self.padBoolArray(df_results_bool, padding)  # Apply padding
 
-            #################################################
-            ### Get result data out of dataframe ############
-            #################################################
-            df_result_tmp = df_result_tmp[df_results_bool]
+                    #################################################
+                    ### Get result data out of dataframe ############
+                    #################################################
+                    df_result_tmp = df_copy_tmp[df_results_bool]
 
-            #################################################
-            ### Remove not specified columns ################
-            #################################################
+                #################################################
+                ### Remove not specified columns ################
+                #################################################
 
-            ### Get keywords that are used in the condition ###
-            keywords = [w.capitalize() for w in condition_tmp_1 if w.isalpha()]
+                ### Get keywords that are used in the condition ###
+                keywords = [w.capitalize() for w in condition_tmp_1 if w.isalpha()]
 
-            ### Remove not specified vars (columns) out of dataframe ###
-            if self.output_columns_toggle:  # Use user settings
-                keywords_tmp = ['Timestamp','Time']+self.output_columns  # Append 'Timestamp' and 'Time columns to output columns
-                df_result_tmp = df_result_tmp[self.output_columns]  # Use user defined columns
+                ### Remove not specified vars (columns) out of dataframe ###
+                if self.output_columns_toggle:  # Use user settings
+                    keywords_tmp = ['Timestamp', self.time_column_name]+self.output_columns  # Append 'Timestamp' and 'Time columns to output columns
+                    df_result_tmp = df_result_tmp[self.output_columns]  # Use user defined columns
 
-            else:  # Use only columns specified in the conditions
-                keywords_tmp = ['Timestamp','Time']+keywords  # Append 'Timestamp' and 'Time columns to output columns
-                df_result_tmp = df_result_tmp[keywords_tmp]
+                else:  # Use only columns specified in the conditions
+                    keywords_tmp = ['Timestamp', self.time_column_name]+keywords  # Append 'Timestamp' and 'Time columns to output columns
+                    df_result_tmp = df_result_tmp[keywords_tmp]
 
-            #################################################
-            ### Save condition result to xlsx file object ###
-            #################################################
-            df_result_tmp = df_result_tmp.sort_index()
-            df_result_tmp.to_excel(writer, sheet_name=sheet_name, index=False, startrow = 2, startcol=0)
+                #################################################
+                ### Save condition result to xlsx file object ###
+                #################################################
+                start_row = 2  # Row on which we start displaying the data analysis
+                start_column = 0  # Column on which we start displaying the data analysis
+                df_result_tmp = df_result_tmp.sort_index()
+                df_result_tmp.to_excel(writer, sheet_name=sheet_name, index=False, startrow = start_row, startcol=start_column)
 
-            ### Add condition header ###
-            workbook  = writer.book  # Get workbook object
-            worksheet = writer.sheets[sheet_name]
-            header_format = workbook.add_format({
-                'bold': True,
-                'underline': True,
-                'text_wrap': False,
-                'valign': 'top',
-                'border': 1})
-            condition_text_str = sheet_name + ": " + condition_text.text()
-            worksheet.write(0, 0, condition_text_str, header_format) # Add condition as a header row
+                ### Add condition header ###
+                workbook  = writer.book  # Get workbook object
+                worksheet = writer.sheets[sheet_name]
+                condition_format = workbook.add_format({'bg_color': '#ebf1de',
+                                        'font_color': '#000000'})
+                header_format = workbook.add_format({
+                    'bold': True,
+                    'underline': True,
+                    'text_wrap': False,
+                    'valign': 'top',
+                    'border': 1})
+                if self.time_range_toggle.isChecked():
+                    condition_text_str = sheet_name + " (freq = " + str(freq) + "Hz, padding = "+ str(self.time_range_value.value()) + " s): " + condition_text.text()
+                else:
+                    condition_text_str = sheet_name + " (freq = " + str(freq) + " Hz): " + condition_text.text()
+                worksheet.write(0, 0, condition_text_str, header_format) # Add condition as a header row
 
-            ### Perform clean-up and increment actions ###
-            del df_result_tmp  # Remove temporary results dataframe
-            counter += 1  # Increment condition counter
+                ### If padding is enabled add color the rows in which the condition was satisfied ###
+                if self.time_range_toggle.isChecked():
+                    df_color = pd.DataFrame(df_results_bool[df_results_bool_padded])
+                    df_color.to_excel(writer, sheet_name="condition_color_bool", index=False)
+                    end_row = df_result_tmp.shape[0]-1 + start_row
+                    end_col = df_result_tmp.shape[1]-1 + start_column
+                    worksheet.conditional_format(start_row, start_column, end_row, end_col, {'type': 'formula',
+                                       'criteria': '=condition_color_bool!$A1=TRUE',
+                                       'format': condition_format})
 
-        ### If keys were not vallid display error message ###
-        if any(key_invalid):
+                ### Perform clean-up and increment actions ###
+                del df_copy_tmp    # Remove temporary datafile copy
+                del df_result_tmp  # Remove temporary results dataframe
 
-                ### Make key condition index error display string ###
-                key_invalid_idx_list = [ii+1 for ii, x in enumerate(key_invalid) if x == True]
-                key_condition_error_str = ', '.join(map(str, key_invalid_idx_list)) if len(key_invalid_idx_list) != 2 else ' & '.join(map(str, key_invalid_idx_list))
-                key_vallid_list = df_tmp.columns
-                key_vallid_list_error_str = ', '.join(map(str, key_vallid_list)) if len(key_vallid_list) != 2 else ' & '.join(map(str, key_vallid_list))
+            ### In all cases increment condition counter ###
+            finally:
+                counter += 1
 
-                ### Send feedback that data analysis has not been performed successfully ###
-                return (False, "key_error", key_condition_error_str, key_vallid_list_error_str) # (Data analysis result, return message)
+        ### If keys were not valid display error message ###
+        if any(key_invalid) or any(syntax_invalid):
+
+                ### If both a key and syntax error is present ###
+                if any(key_invalid) and any(syntax_invalid):
+
+                    ### Make key condition index error display string ###
+                    key_invalid_idx_list = [ii+1 for ii, x in enumerate(key_invalid) if x == True]
+                    key_condition_error_str = ', '.join(map(str, key_invalid_idx_list)) if len(key_invalid_idx_list) != 2 else ' & '.join(map(str, key_invalid_idx_list))
+                    key_valid_list = df_tmp.columns
+                    key_valid_list_error_str = ', '.join(map(str, key_valid_list)) if len(key_valid_list) != 2 else ' & '.join(map(str, key_valid_list))
+
+                    ### Make syntax condition index error display string ###
+                    syntax_invalid_idx_list = [ii+1 for ii, x in enumerate(syntax_invalid) if x == True]
+                    syntax_condition_error_str = ', '.join(map(str, syntax_invalid_idx_list)) if len(syntax_invalid_idx_list) != 2 else ' & '.join(map(str, syntax_invalid_idx_list))
+
+                    ### Send feedback that data analysis has not been performed successfully ###
+                    return (False, "syntax_and_key_error", key_condition_error_str, key_valid_list_error_str, syntax_condition_error_str) # (Data analysis result, return message)
+
+                ### If only a key error is present ###
+                if any(key_invalid) and not any(syntax_invalid):
+
+                    ### Make key condition index error display string ###
+                    key_invalid_idx_list = [ii+1 for ii, x in enumerate(key_invalid) if x == True]
+                    key_condition_error_str = ', '.join(map(str, key_invalid_idx_list)) if len(key_invalid_idx_list) != 2 else ' & '.join(map(str, key_invalid_idx_list))
+                    key_valid_list = df_tmp.columns
+                    key_valid_list_error_str = ', '.join(map(str, key_valid_list)) if len(key_valid_list) != 2 else ' & '.join(map(str, key_valid_list))
+
+                    ### Send feedback that data analysis has not been performed successfully ###
+                    return (False, "key_error", key_condition_error_str, key_valid_list_error_str) # (Data analysis result, return message)
+
+                ### If only syntax error is present ###
+                elif any(syntax_invalid) and not any(key_invalid):
+
+                    ### Make syntax condition index error display string ###
+                    syntax_invalid_idx_list = [ii+1 for ii, x in enumerate(syntax_invalid) if x == True]
+                    syntax_condition_error_str = ', '.join(map(str, syntax_invalid_idx_list)) if len(syntax_invalid_idx_list) != 2 else ' & '.join(map(str, syntax_invalid_idx_list))
+
+                    ### Send feedback that data analysis has not been performed successfully ###
+                    return (False, "syntax_error", syntax_condition_error_str) # (Data analysis result, return message)
 
         ### Otherwise save results to xlsx file ###
         else:
@@ -1502,7 +1746,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 persist please contact the developer."""
                 return (False,"save_error", save_error_str, e)
 
-            ## Display save successful message ##
+            ### Display save successful message ###
             if player_name:
                 ready_signal.emit("Results for player %s successfully save to a xlsx file!" % player_name) # When player filter is enabled
             else:
@@ -1516,6 +1760,19 @@ class DataAnalyserGUI(Ui_MainWindow):
 
             ### Send feedback that data analysis was successfull ###
             return (True,)
+
+    #################################################
+    #### Data analyse function                   ####
+    #################################################
+    def closeEvent(self):
+        '''This function is run when the GUI interface is closed. It saves the current settings so that they can be loaded
+        the next time the GUI is opened.'''
+
+        ### Save settings to config file ###
+        self.settings_config["SETTINGS"]["freq"] = str(round(self.output_settings_dialog.frame_rate_value.value()))
+        self.settings_config["SETTINGS"]["padding"] = str(round(self.time_range_value.value(), 1))
+        self.settings_config["SETTINGS"]["output_folder_path"] = self.output_file_path.text()
+        self.settings_config.write()
 
 ##############################################################
 #### Main execution code                                  ####
@@ -1535,6 +1792,7 @@ if __name__ == '__main__':
     icon = QtGui.QIcon()
     icon.addPixmap(QtGui.QPixmap(CGDAT_icon), QtGui.QIcon.Normal, QtGui.QIcon.Off)
     MainWindow.setWindowIcon(icon)
+    app.aboutToQuit.connect(ui.closeEvent)  # Connect a close event to the app so that we can perform some operations when the window is closed
 
     ### Show main window ###
     MainWindow.showMaximized()

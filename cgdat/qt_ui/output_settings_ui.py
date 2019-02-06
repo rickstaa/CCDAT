@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\ricks\OneDrive\Development\Tools\cgdat\cgdat\..\qt\output_settings.ui'
+# Form implementation generated from reading ui file 'c:\users\ricks\onedrive\development\tools\cgdat\cgdat\..\qt\output_settings.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
@@ -67,9 +67,11 @@ class Ui_OutputSettings(object):
         font = QtGui.QFont()
         font.setPointSize(10)
         self.frame_rate_value.setFont(font)
+        self.frame_rate_value.setDecimals(0)
         self.frame_rate_value.setMinimum(100.0)
-        self.frame_rate_value.setMaximum(1000.0)
-        self.frame_rate_value.setSingleStep(0.1)
+        self.frame_rate_value.setMaximum(1500.0)
+        self.frame_rate_value.setSingleStep(1.0)
+        self.frame_rate_value.setProperty("value", 1000.0)
         self.frame_rate_value.setObjectName("frame_rate_value")
         self.additional_input_file_settings_grid.addWidget(self.frame_rate_value, 0, 2, 1, 1)
         self.verticalLayout.addLayout(self.additional_input_file_settings_grid)
@@ -114,6 +116,7 @@ class Ui_OutputSettings(object):
         OutputSettings.setWindowTitle(_translate("OutputSettings", "Dialog"))
         self.iput_settings_label.setText(_translate("OutputSettings", "<html><head/><body><p><span style=\" text-decoration: underline;\">Additional input file settings</span></p></body></html>"))
         self.label.setText(_translate("OutputSettings", "Input measurement freq"))
+        self.frame_rate_value.setSuffix(_translate("OutputSettings", " [Hz]"))
         self.output_settings_label.setText(_translate("OutputSettings", "<html><head/><body><p><span style=\" text-decoration: underline;\">Change output variables</span></p></body></html>"))
         self.columns_toggle.setToolTip(_translate("OutputSettings", "By default the CGDAT tool only keeps the variables (csv columns) that are specified\n"
 ". Use this option to specify the collumns you want to include in the output file."))

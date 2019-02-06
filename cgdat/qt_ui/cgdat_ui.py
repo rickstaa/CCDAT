@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\ricks\OneDrive\Development\Tools\cgdat\cgdat\..\qt\cgdat.ui'
+# Form implementation generated from reading ui file 'c:\users\ricks\onedrive\development\tools\cgdat\cgdat\..\qt\cgdat.ui'
 #
 # Created by: PyQt5 UI code generator 5.11.3
 #
@@ -56,8 +56,10 @@ class Ui_MainWindow(object):
         font.setPointSize(10)
         self.time_range_value.setFont(font)
         self.time_range_value.setPrefix("")
+        self.time_range_value.setDecimals(1)
         self.time_range_value.setMaximum(1000.0)
         self.time_range_value.setSingleStep(0.1)
+        self.time_range_value.setProperty("value", 5.0)
         self.time_range_value.setObjectName("time_range_value")
         self.additional_options_layout.addWidget(self.time_range_value, 1, 2, 1, 1)
         self.player_filter_toggle = QtWidgets.QCheckBox(self.additional_options_groupbox)
@@ -168,7 +170,7 @@ class Ui_MainWindow(object):
         self.scrollArea.setWidgetResizable(True)
         self.scrollArea.setObjectName("scrollArea")
         self.scrollAreaContent = QtWidgets.QWidget()
-        self.scrollAreaContent.setGeometry(QtCore.QRect(0, 0, 750, 221))
+        self.scrollAreaContent.setGeometry(QtCore.QRect(0, 0, 746, 189))
         self.scrollAreaContent.setObjectName("scrollAreaContent")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.scrollAreaContent)
         self.verticalLayout.setObjectName("verticalLayout")
