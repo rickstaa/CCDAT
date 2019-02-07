@@ -19,14 +19,14 @@ if __name__ == '__main__':
     # Run setup function #
     setuptools.setup(
         name="cgdat",
-        version="v2.3.3",
+        version="v2.3.4",
         author="Rick Staa",
         author_email="rick.staa@outlook.com",
         description="A simple csv data analyse tool.",
         long_description=long_description,
         long_description_content_type="text/x-rst",
         url="https://github.com/rickstaa/CGDAT",
-        download_url = 'https://github.com/rickstaa/CGDAT/archive/v2.3.3.tar.gz',
+        download_url = 'https://github.com/rickstaa/CGDAT/archive/v2.3.4.tar.gz',
         packages=setuptools.find_packages(),
         entry_points = {
             'console_scripts': ['cgdat-gui=cgdat.start_cl:main','cgdat-shortcut=cgdat.create_shortcut_cl:main'],
