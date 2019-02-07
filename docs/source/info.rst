@@ -37,4 +37,3 @@ Known Problems
 Todos
 --------------------------
 - Add the ability to add time border when the player filter is not enabled. To do this we need to scan the file for its structure and divide the file into sections based on the timestamps before applying the filters.
-- Fix the padding colouring option that was included in version 2.3.0. In this version, the added padding was coloured white while the cells in which the condition was met was coloured green. Because xlsxwriter does not support sheet removal we need to switch to openpyxl.
