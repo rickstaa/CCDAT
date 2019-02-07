@@ -1709,8 +1709,9 @@ class DataAnalyserGUI(Ui_MainWindow):
 
             ### In all cases increment condition counter ###
             finally:
-                worksheet_color = writer.sheets['condition_color_bool']
-                worksheet_color.hide()
+                if self.time_range_toggle.isChecked():  # Hide condition bool sheet
+                    worksheet_color = writer.sheets['condition_color_bool']
+                    worksheet_color.hide()
                 counter += 1
 
         ### If keys were not valid display error message ###
