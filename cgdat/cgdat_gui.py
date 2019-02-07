@@ -985,7 +985,26 @@ class DataAnalyserGUI(Ui_MainWindow):
         return [datetime(2018,1,1,item[0],item[1],item[2],item[3]) for item in time_list_int]
 
     #################################################
-    #### Add padding to bool array function        ###
+    #### Convert number to alphabetic letter      ###
+    #################################################
+    def num2alphabet(self, number):
+        '''This function converts a number into its corresponding alphabetic letter. Meaning 1 gives a A while 2 gives a B.
+        Since i use it to access the excel columns I convert the numbers to uppercase chars. When a number is higher than 26
+        the remainder gets appended to the A such that 27 gives AA.'''
+
+        ### Translate number to letter ###
+        if number <= 26: # If number is lower or equal to 26 translate to alphabetic letter
+            letter_code = chr(number + 64)
+            return letter_code
+        else:   # If number is higher than 26 append the remainder as a alphabetic letter. Example: AB
+            n, r = divmod(number, 26)
+            letter_code = "".join(n*[chr(1+64)]+[chr(r+64)])
+
+        ### Return alphabet char ###
+        return letter_code
+
+    #################################################
+    #### Add padding to bool array function       ###
     #################################################
     def padBoolArray(self, bool_array, n):
 
@@ -1673,15 +1692,16 @@ class DataAnalyserGUI(Ui_MainWindow):
                     condition_text_str = sheet_name + " (freq = " + str(freq) + " Hz): " + condition_text.text()
                 worksheet.write(0, 0, condition_text_str, header_format) # Add condition as a header row
 
-                # ### If padding is enabled add color the rows in which the condition was satisfied ###
-                # if self.time_range_toggle.isChecked():
-                #     df_color = pd.DataFrame(df_results_bool[df_results_bool_padded])
-                #     df_color.to_excel(writer, sheet_name="condition_color_bool", index=False)
-                #     end_row = df_result_tmp.shape[0]-1 + start_row
-                #     end_col = df_result_tmp.shape[1]-1 + start_column
-                #     worksheet.conditional_format(start_row, start_column, end_row, end_col, {'type': 'formula',
-                #                        'criteria': '=condition_color_bool!$A1=TRUE',
-                #                        'format': condition_format})
+                ### If padding is enabled add color the rows in which the condition was satisfied ###
+                if self.time_range_toggle.isChecked():
+                    df_color = pd.DataFrame(df_results_bool[df_results_bool_padded])
+                    df_color.to_excel(writer, sheet_name="condition_color_bool", header=False, index=False, startcol=counter-1)
+                    end_row = df_result_tmp.shape[0] + start_row
+                    end_col = df_result_tmp.shape[1]-1 + start_column
+                    condition_format_str = '=condition_color_bool!$'+ self.num2alphabet(counter)+'1=TRUE'
+                    worksheet.conditional_format(start_row+1, start_column, end_row, end_col, {'type': 'formula',
+                                       'criteria': condition_format_str,
+                                       'format': condition_format})
 
                 ### Perform clean-up and increment actions ###
                 del df_copy_tmp    # Remove temporary datafile copy
@@ -1689,6 +1709,8 @@ class DataAnalyserGUI(Ui_MainWindow):
 
             ### In all cases increment condition counter ###
             finally:
+                worksheet_color = writer.sheets['condition_color_bool']
+                worksheet_color.hide()
                 counter += 1
 
         ### If keys were not valid display error message ###
