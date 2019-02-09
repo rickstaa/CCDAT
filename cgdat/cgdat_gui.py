@@ -1175,7 +1175,9 @@ class DataAnalyserGUI(Ui_MainWindow):
 
             ### Update progress bar ###
             self.progress_dialog.updateProgressBar((self.finished_workers/self.worker_size)*100)
-            self.load_movie.stop()  # stop loader object
+
+            if self.finished_workers == self.worker_size:
+                self.load_movie.stop()  # stop loader object
 
         else:  # If data analysis failed
 
