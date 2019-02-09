@@ -1600,7 +1600,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                     df_results_bool = df_player_bool_array.values & df_time_sections_bool_array & df_condition_bool_array.values
 
                 ### Both player filter and time filter enabled and condition empty == TRUE ###
-                if (not (player_name == None)) and (self.time_file_toggle.isChecked() and (self.input_file_path.text() != '')) and condition_text.text() == '':
+                elif (not (player_name == None)) and (self.time_file_toggle.isChecked() and (self.input_file_path.text() != '')) and condition_text.text() == '':
                     df_results_bool = df_player_bool_array.values & df_time_sections_bool_array
 
                 ### Only player filter enabled and condition empty == TRUE ###

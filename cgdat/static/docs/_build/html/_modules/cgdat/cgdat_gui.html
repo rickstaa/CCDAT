@@ -60,7 +60,7 @@
             
             
               <div class="version">
-                2.3.7
+                2.3.8
               </div>
             
           
@@ -1331,7 +1331,9 @@
 
             <span class="c1">### Update progress bar ###</span>
             <span class="bp">self</span><span class="o">.</span><span class="n">progress_dialog</span><span class="o">.</span><span class="n">updateProgressBar</span><span class="p">((</span><span class="bp">self</span><span class="o">.</span><span class="n">finished_workers</span><span class="o">/</span><span class="bp">self</span><span class="o">.</span><span class="n">worker_size</span><span class="p">)</span><span class="o">*</span><span class="mi">100</span><span class="p">)</span>
-            <span class="bp">self</span><span class="o">.</span><span class="n">load_movie</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>  <span class="c1"># stop loader object</span>
+
+            <span class="k">if</span> <span class="bp">self</span><span class="o">.</span><span class="n">finished_workers</span> <span class="o">==</span> <span class="bp">self</span><span class="o">.</span><span class="n">worker_size</span><span class="p">:</span>
+                <span class="bp">self</span><span class="o">.</span><span class="n">load_movie</span><span class="o">.</span><span class="n">stop</span><span class="p">()</span>  <span class="c1"># stop loader object</span>
 
         <span class="k">else</span><span class="p">:</span>  <span class="c1"># If data analysis failed</span>
 
