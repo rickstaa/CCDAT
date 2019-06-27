@@ -1,4 +1,6 @@
 # Conditional Game Data Analyse Tool (CGAT)
+:warning: **NOTE:** This repository is mirrored on gitlab if you want to contribute to this repository make sure you are on the [github](https://github.com/rickstaa/CGDAT) repository. :warning:
+
 This package contains a simple csv data analyse GUI which I created for a friend of mine to help him with his data analysis.
 
 [![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
