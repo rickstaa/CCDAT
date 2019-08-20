@@ -21,9 +21,9 @@ import os
 from PyQt5 import QtCore, QtGui, QtWidgets
 from datetime import datetime
 import webbrowser  # Used for displaying the documentation
-import traceback
 import math
 from configobj import ConfigObj
+import ast
 
 ### Get relative script path ###
 DIRNAME = os.path.dirname(os.path.abspath(__file__))
@@ -1499,7 +1499,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         key_invalid = []  # Create list for key_valid boolean test
         syntax_invalid = [] # Create list for syntax_valid boolean test
         counter = 1  # Condition counter used in print statement
-        conditions_str_list = []  # Create a list to which we add the specified conditions
         for condition_text in self.condition_line_edit:
 
             ### Create condition sheet label ###
@@ -1554,25 +1553,25 @@ class DataAnalyserGUI(Ui_MainWindow):
             if not (player_name == None):
                 df_player_bool_array = df_tmp["Name"]==player_name  # Only keep data belonging to the player specified in player_name
 
-            #################################################
-            ### Check data against conditions ###############
-            #################################################
-            try:
-                df_condition_bool_array = eval(condition)
+                #################################################
+                ### Check data against conditions ###############
+                #################################################
+                try:
+                    df_condition_bool_array = ast.literal_eval(condition)
 
-                ### If it doesn't throw an error set key as valid ###
-                key_invalid.append(False)  # Save key value check result
-                syntax_invalid.append(False) # Save syntax check results
+                    ### If it doesn't throw an error set key as valid ###
+                    key_invalid.append(False)  # Save key value check result
+                    syntax_invalid.append(False) # Save syntax check results
 
-            ### If Key not valid save what went wrong ###
-            except KeyError as e:
-                key_invalid.append(True)  # Save key error value check result
-                syntax_invalid.append(False)
+                ### If Key not valid save what went wrong ###
+                except KeyError as e:
+                    key_invalid.append(True)  # Save key error value check result
+                    syntax_invalid.append(False)
 
-            ### If condition not valid display dialog ##
-            except SyntaxError as e:
-                syntax_invalid.append(True) # Save syntax error value check result
-                key_invalid.append(False)
+                ### If condition not valid display dialog ##
+                except SyntaxError as e:
+                    syntax_invalid.append(True) # Save syntax error value check result
+                    key_invalid.append(False)
 
             ### If no error was caught add result to array ###
             else:

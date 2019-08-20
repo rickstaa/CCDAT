@@ -1,7 +1,7 @@
 '''This script is used to starts the cgdat gui out of the command line'''
 
 ### Import modules ###
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtGui, QtWidgets
 import os, sys
 
 ### Import package modules ###

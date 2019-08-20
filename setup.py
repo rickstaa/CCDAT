@@ -2,12 +2,14 @@
 
 # import modules #
 import setuptools
-import re
 import os
 
 ### Change current working directory to file directory ###
 dirname = os.path.dirname(os.path.abspath(__file__))
 os.chdir(dirname)
+
+## Package requirements ##
+requirements =['pandas', 'numpy', 'xlsxwriter', 'PyQt5', 'winshell', 'pypiwin32', 'configobj']
 
 ### Only run if run as main script ###
 if __name__ == '__main__':
@@ -36,15 +38,7 @@ if __name__ == '__main__':
             "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
             "Operating System :: OS Independent",
         ],
-        install_requires=[
-              'pandas',
-              'numpy',
-              'xlsxwriter',
-              'PyQt5',
-              'winshell',
-              'pywin32',
-              'configobj',
-        ],
+        install_requires=requirements,
         package_data = {
             'docs': ['docs/*'],
         },

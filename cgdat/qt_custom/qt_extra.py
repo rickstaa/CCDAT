@@ -7,8 +7,8 @@ following components:
 __all__ = ['MultiSelectMenu']
 
 ### Import needed modules ###
-from PyQt5 import QtGui, QtCore, QtWidgets
-import sys, os
+from PyQt5 import QtCore, QtWidgets
+import sys
 
 ###################################################################
 ### CheckableComboBox Class                                     ###

@@ -4,7 +4,6 @@
 import win32com.client
 import sys
 import re
-import re
 import os
 
 ### Get python executable path and script path ###

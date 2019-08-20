@@ -1,9 +1,9 @@
-'''This script is used to strat the cgdat gui out of the command line'''
+'''This script is used to start the cgdat gui out of the command line'''
 
 ### Import modules ###
 import os, sys
 import os.path
-from PyQt5 import QtCore, QtGui, QtWidgets
+from PyQt5 import QtGui, QtWidgets
 
 ### Import package modules ###
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), os.path.pardir)))
