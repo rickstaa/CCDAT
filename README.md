@@ -1,13 +1,11 @@
 # Conditional Game Data Analyse Tool (CGAT)
-*:warning: NOTE: This repository is mirrored on gitlab if you want to contribute to this repository make sure you are on the [github](https://github.com/rickstaa/CGDAT) repository.*
-
-This package contains a simple csv data analyse GUI which I created for a friend of mine to help him with his data analysis.
-
-[![Python 3.6](https://img.shields.io/badge/python-3.6-blue.svg)](https://www.python.org/downloads/release/python-360/)
 [![Maintained](https://img.shields.io/badge/maintained%3F-yes!-brightgreen.svg?style=flat)](https://github.com/rickstaa/CGDAT)
-[![License: GPL v3](https://img.shields.io/badge/License-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0)
+[![Contributions](https://img.shields.io/badge/contributions-welcome-orange.svg)](contributing.md)
+[![Python 3](https://img.shields.io/badge/python%203-3.7%20%7C%203.6%20%7C%203.5-green.svg)](https://www.python.org/)
 
 ![logo](https://github.com/rickstaa/CGDAT/blob/master/cgdat/static/media/CGDAT_small.png)
+
+This package contains a simple csv data analyse GUI which I created for a friend of mine to help him with his data analysis.
 
 ## Installation
 
@@ -63,19 +61,10 @@ python setup.py develop
 python setup.py install
 ```
 
-## Meta
-
-Rick Staa – [@github](https://github.com/rickstaa) – rick.staa@outlook.com
-
-Distributed under the GNU General Public License v3 (GPLv3). See ``LICENSE`` for more information.
-
-[https://github.com/rickstaa/CGDAT](https://github.com/rickstaa/CGDAT)
-
 ## Contributing
 
-1. Fork it (<https://github.com/rickstaa/CGDAT>)
-2. Create your feature branch (`git checkout -b feature/fooBar`)
-3. Commit your changes (`git commit -am 'Add some fooBar'`)
-4. Push to the branch (`git push origin feature/fooBar`)
-5. Create a new Pull Request
+Contributions to this repository are welcome. See the [contribution guidelines](contributing.md) for more information.
 
+## License
+
+[MIT](LICENSE)
