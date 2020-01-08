@@ -29,7 +29,7 @@ Installation
 Install using the python package index (PyPi)
 ---------------------------------------------------
 
-OS X & Linux:
+OS X & Linux
 ^^^^^^^^^^^^^^^^^^^^^^^^^
 
 ::
@@ -39,7 +39,7 @@ OS X & Linux:
 .. Warning::
     This package was only tested on the windows operation system.
 
-Windows:
+Windows
 ^^^^^^^^^^^^^^^^^^^
 
 ::

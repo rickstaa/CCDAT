@@ -8,11 +8,14 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_ImportDialog(object):
     def setupUi(self, ImportDialog):
         ImportDialog.setObjectName("ImportDialog")
         ImportDialog.resize(350, 150)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(ImportDialog.sizePolicy().hasHeightForWidth())
@@ -52,11 +55,17 @@ class Ui_ImportDialog(object):
     def retranslateUi(self, ImportDialog):
         _translate = QtCore.QCoreApplication.translate
         ImportDialog.setWindowTitle(_translate("ImportDialog", "Please wait"))
-        self.progress_header.setText(_translate("ImportDialog", "<html><head/><body><p><span style=\" font-size:12pt;\">The data file is being imported. Please wait until the import is ready or cancel the import by using the cancel button below.</span></p></body></html>"))
+        self.progress_header.setText(
+            _translate(
+                "ImportDialog",
+                '<html><head/><body><p><span style=" font-size:12pt;">The data file is being imported. Please wait until the import is ready or cancel the import by using the cancel button below.</span></p></body></html>',
+            )
+        )
 
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     ImportDialog = QtWidgets.QDialog()
     ui = Ui_ImportDialog()

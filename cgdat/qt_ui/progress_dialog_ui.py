@@ -8,11 +8,14 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_ProgressDialog(object):
     def setupUi(self, ProgressDialog):
         ProgressDialog.setObjectName("ProgressDialog")
         ProgressDialog.resize(475, 338)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(ProgressDialog.sizePolicy().hasHeightForWidth())
@@ -48,10 +51,14 @@ class Ui_ProgressDialog(object):
         self.header_layout = QtWidgets.QHBoxLayout()
         self.header_layout.setObjectName("header_layout")
         self.progress_header = QtWidgets.QLabel(ProgressDialog)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(self.progress_header.sizePolicy().hasHeightForWidth())
+        sizePolicy.setHeightForWidth(
+            self.progress_header.sizePolicy().hasHeightForWidth()
+        )
         self.progress_header.setSizePolicy(sizePolicy)
         font = QtGui.QFont()
         font.setPointSize(10)
@@ -60,7 +67,9 @@ class Ui_ProgressDialog(object):
         self.progress_header.setObjectName("progress_header")
         self.header_layout.addWidget(self.progress_header)
         self.loader_gif = QtWidgets.QLabel(ProgressDialog)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Fixed, QtWidgets.QSizePolicy.Fixed
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.loader_gif.sizePolicy().hasHeightForWidth())
@@ -80,17 +89,30 @@ class Ui_ProgressDialog(object):
 
     def retranslateUi(self, ProgressDialog):
         _translate = QtCore.QCoreApplication.translate
-        ProgressDialog.setWindowTitle(_translate("ProgressDialog", "Data analysis progress dialog"))
-        self.progress_console.setHtml(_translate("ProgressDialog", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\"-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;\"><br /></p></body></html>"))
-        self.progress_header.setText(_translate("ProgressDialog", "<html><head/><body><p>Performing data analysis...</p></body></html>"))
+        ProgressDialog.setWindowTitle(
+            _translate("ProgressDialog", "Data analysis progress dialog")
+        )
+        self.progress_console.setHtml(
+            _translate(
+                "ProgressDialog",
+                '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">\n'
+                '<html><head><meta name="qrichtext" content="1" /><style type="text/css">\n'
+                "p, li { white-space: pre-wrap; }\n"
+                "</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:10pt; font-weight:400; font-style:normal;\">\n"
+                '<p style="-qt-paragraph-type:empty; margin-top:0px; margin-bottom:0px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px; font-size:8.25pt;"><br /></p></body></html>',
+            )
+        )
+        self.progress_header.setText(
+            _translate(
+                "ProgressDialog",
+                "<html><head/><body><p>Performing data analysis...</p></body></html>",
+            )
+        )
 
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     ProgressDialog = QtWidgets.QDialog()
     ui = Ui_ProgressDialog()

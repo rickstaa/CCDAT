@@ -1,3 +1,4 @@
+# This Matlab script can be used to calculate the frequency
 axis = 0:100:2850000;
 freq = 2850000/(47*57+30);
 axis_sec = axis*freq;

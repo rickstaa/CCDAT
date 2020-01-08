@@ -8,11 +8,14 @@
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
+
 class Ui_splash_screen(object):
     def setupUi(self, splash_screen):
         splash_screen.setObjectName("splash_screen")
         splash_screen.resize(377, 211)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Preferred
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(splash_screen.sizePolicy().hasHeightForWidth())
@@ -27,12 +30,17 @@ class Ui_splash_screen(object):
         self.text_layout = QtWidgets.QVBoxLayout()
         self.text_layout.setObjectName("text_layout")
         self.label = QtWidgets.QLabel(splash_screen)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.MinimumExpanding,
+            QtWidgets.QSizePolicy.MinimumExpanding,
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.label.sizePolicy().hasHeightForWidth())
         self.label.setSizePolicy(sizePolicy)
-        self.label.setAlignment(QtCore.Qt.AlignLeading|QtCore.Qt.AlignLeft|QtCore.Qt.AlignTop)
+        self.label.setAlignment(
+            QtCore.Qt.AlignLeading | QtCore.Qt.AlignLeft | QtCore.Qt.AlignTop
+        )
         self.label.setWordWrap(True)
         self.label.setObjectName("label")
         self.text_layout.addWidget(self.label)
@@ -41,7 +49,10 @@ class Ui_splash_screen(object):
         self.icon_layout.setContentsMargins(-1, 15, -1, -1)
         self.icon_layout.setObjectName("icon_layout")
         self.icon_holder = QtWidgets.QLabel(splash_screen)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.MinimumExpanding)
+        sizePolicy = QtWidgets.QSizePolicy(
+            QtWidgets.QSizePolicy.MinimumExpanding,
+            QtWidgets.QSizePolicy.MinimumExpanding,
+        )
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.icon_holder.sizePolicy().hasHeightForWidth())
@@ -57,7 +68,9 @@ class Ui_splash_screen(object):
         self.icon_holder.setWordWrap(True)
         self.icon_holder.setObjectName("icon_holder")
         self.icon_layout.addWidget(self.icon_holder)
-        spacerItem = QtWidgets.QSpacerItem(20, 0, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding)
+        spacerItem = QtWidgets.QSpacerItem(
+            20, 0, QtWidgets.QSizePolicy.Minimum, QtWidgets.QSizePolicy.Expanding
+        )
         self.icon_layout.addItem(spacerItem)
         self.main_layout.addLayout(self.icon_layout)
         self.verticalLayout.addLayout(self.main_layout)
@@ -85,16 +98,22 @@ class Ui_splash_screen(object):
     def retranslateUi(self, splash_screen):
         _translate = QtCore.QCoreApplication.translate
         splash_screen.setWindowTitle(_translate("splash_screen", "Please wait"))
-        self.label.setText(_translate("splash_screen", "<!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 4.0//EN\" \"http://www.w3.org/TR/REC-html40/strict.dtd\">\n"
-"<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
-"p, li { white-space: pre-wrap; }\n"
-"</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:4pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt; font-weight:600;\">CGDat (V2.3.9)</span></p>\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-size:12pt;\">Welcome to the conditional game data analyse tool (CGDAT). Please wait as we load the application.</span></p></body></html>"))
+        self.label.setText(
+            _translate(
+                "splash_screen",
+                '<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.0//EN" "http://www.w3.org/TR/REC-html40/strict.dtd">\n'
+                '<html><head><meta name="qrichtext" content="1" /><style type="text/css">\n'
+                "p, li { white-space: pre-wrap; }\n"
+                "</style></head><body style=\" font-family:'MS Shell Dlg 2'; font-size:4pt; font-weight:400; font-style:normal;\">\n"
+                '<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:12pt; font-weight:600;">CGDat (V2.3.9)</span></p>\n'
+                '<p style=" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;"><span style=" font-size:12pt;">Welcome to the conditional game data analyse tool (CGDAT). Please wait as we load the application.</span></p></body></html>',
+            )
+        )
 
 
 if __name__ == "__main__":
     import sys
+
     app = QtWidgets.QApplication(sys.argv)
     splash_screen = QtWidgets.QDialog()
     ui = Ui_splash_screen()

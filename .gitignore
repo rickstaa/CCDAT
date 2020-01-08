@@ -1,7 +1,11 @@
+# Ignore folders
 .vscode
 cgdat.egg-info
 dist
 build
-.pypirc
 input_data/*
+__pycache__
+
+# Ignore files
+.pypirc
 .lnk
