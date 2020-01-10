@@ -1,20 +1,23 @@
 .. role:: underline
     :class: underline
 
+Requirements
+=================
+
+For the program to run the following packages and software needs to be installed on the computer. 
+When using the :samp:`installer` these are automatically installed:
+
+:underline:`Windows programs`:
+
+    * `python 3 <https://www.python.org/>`_
+
 Installation
 =====================
 
 Install using the python package index (PyPi)
 ---------------------------------------------------
 
-:underline:`OS X & Linux:`::
-
-    pip install cgdat
-
-.. Warning::
-    This package was only tested on the windows operation system.
-
-:underline:`Windows:`::
+:underline:`Windows`:
 
     pip install cgdat
 
