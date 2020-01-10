@@ -1,7 +1,7 @@
 # PIP package release checklist
 
 1.  Run the `Bumpversion minor` command from within the main folder.
-2.  Update the version specified in the text_tag of the `qt/splash_screen.ui` interface.
+2.  Update the version specified in the text_tag of the `qt/splash_screen.ui` and `qt/about` interfaces.
 3.  Run lines `31:37` of the `cgdat_gui.py` script to recreate the splash screen.
 4.  Run the `make clean` from within docs folder.
 5.  Run the `sphinx-apidoc -o source/_auto_rst ../cgdat` from within docs folder.

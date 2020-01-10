@@ -8,7 +8,8 @@ __all__ = ["WorkerSignals", "Worker"]
 # Import qt modules
 from PyQt5.QtGui import *
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
+
+from PyQt5.QtCore import QObject, QThread, pyqtSignal, pyqtSlot
 
 # Import other modules
 import traceback

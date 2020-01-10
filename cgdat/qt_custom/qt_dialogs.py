@@ -70,7 +70,7 @@ class progressDialog(QtWidgets.QDialog, qt_ui.Ui_ProgressDialog):
         """
 
         # Add normal text when no color was given
-        if color == None:
+        if not color:
             self.progress_console.append(text)
         else:
             color_txt = '<span style=" color:' + color + ';" >' + text + "</span>"
@@ -207,4 +207,3 @@ class outputSettingsDialog(QtWidgets.QDialog, qt_ui.Ui_OutputSettings):
         )
         self.column_choicer_drop_down_menu.setEnabled(0)
         self.columns_toggle.setEnabled(0)
-

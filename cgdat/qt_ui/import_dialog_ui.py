@@ -1,10 +1,11 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\Users\ricks\OneDrive\Development\Tools\cgdat\cgdat\..\qt\import_dialog.ui'
+# Form implementation generated from reading ui file 'c:\users\user\development\cgdat\cgdat\..\qt\import_dialog.ui'
 #
-# Created by: PyQt5 UI code generator 5.11.3
+# Created by: PyQt5 UI code generator 5.14.1
 #
 # WARNING! All changes made in this file will be lost!
+
 
 from PyQt5 import QtCore, QtGui, QtWidgets
 
@@ -13,9 +14,7 @@ class Ui_ImportDialog(object):
     def setupUi(self, ImportDialog):
         ImportDialog.setObjectName("ImportDialog")
         ImportDialog.resize(350, 150)
-        sizePolicy = QtWidgets.QSizePolicy(
-            QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed
-        )
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(ImportDialog.sizePolicy().hasHeightForWidth())
@@ -55,21 +54,14 @@ class Ui_ImportDialog(object):
     def retranslateUi(self, ImportDialog):
         _translate = QtCore.QCoreApplication.translate
         ImportDialog.setWindowTitle(_translate("ImportDialog", "Please wait"))
-        self.progress_header.setText(
-            _translate(
-                "ImportDialog",
-                '<html><head/><body><p><span style=" font-size:12pt;">The data file is being imported. Please wait until the import is ready or cancel the import by using the cancel button below.</span></p></body></html>',
-            )
-        )
+        self.progress_header.setText(_translate("ImportDialog", "<html><head/><body><p><span style=\" font-size:12pt;\">The data file is being imported. Please wait until the import is ready or cancel the import by using the cancel button below.</span></p></body></html>"))
 
 
 if __name__ == "__main__":
     import sys
-
     app = QtWidgets.QApplication(sys.argv)
     ImportDialog = QtWidgets.QDialog()
     ui = Ui_ImportDialog()
     ui.setupUi(ImportDialog)
     ImportDialog.show()
     sys.exit(app.exec_())
-

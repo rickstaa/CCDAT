@@ -50,8 +50,10 @@ class MultiSelectMenu(QtWidgets.QToolButton):
         """Method used to add additional actions to the toolbar menu."""
 
         # Add item to menu
-        action = self.toolmenu.addAction(item)
+        action = QtWidgets.QAction(self)
+        action.setText(item)
         action.setCheckable(True)
+        self.toolmenu.addAction(action)
 
         # Connect to selection function when All option exists
         if self.all_text_enabled:
