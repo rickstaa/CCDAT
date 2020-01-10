@@ -19,13 +19,11 @@ import xlsxwriter
 import subprocess
 import re
 import time
-import os
 from PyQt5 import QtCore, QtGui, QtWidgets
 from datetime import datetime
 import webbrowser  # Used for displaying the documentation
 import math
 from configobj import ConfigObj, ConfigObjError
-import ast
 import logging
 
 #   Get relative script path
@@ -404,7 +402,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         self.splash_screen_dialog.show()
 
         # Create worker that checks if the data file is valid
-        # self.load_settings()
         self.settings_load_worker = qt_thread.Worker(
             self.load_settings
         )  # Any other args, kwargs are passed to the run function
@@ -476,16 +473,16 @@ class DataAnalyserGUI(Ui_MainWindow):
         try:  # Try to load config file
             self.settings_config = ConfigObj(self.config_file_path)
             return True
-        except (IOError, TypeError) as e:
-            return False
+        except (IOError, TypeError):
             script_logger.warn(
                 "Settings could not be loaded as configuration file does not exist."
             )
-        except (ConfigObjError) as e:
             return False
+        except (ConfigObjError):
             script_logger.warn(
                 "An error occurred while parsing the settings_sav.ini configuration file."
             )
+            return False
 
     #################################################
     # Apply old settings to GUI #####################
@@ -2321,7 +2318,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                     )  # Apply padding
 
                     ### If player filter is enabled make sure only samples from current player is included
-                    if not (player_name == None):
+                    if player_name:
                         df_results_bool_padded = (
                             df_results_bool_padded & df_player_bool_array.values
                         )
@@ -2507,9 +2504,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             if any(key_invalid) and not any(syntax_invalid):
 
                 # Make key condition index error display string
-                key_invalid_idx_list = [
-                    ii + 1 for ii, x in enumerate(key_invalid) if x == True
-                ]
+                key_invalid_idx_list = [ii + 1 for ii, x in enumerate(key_invalid) if x]
                 key_condition_error_str = (
                     ", ".join(map(str, key_invalid_idx_list))
                     if len(key_invalid_idx_list) != 2
@@ -2535,7 +2530,7 @@ class DataAnalyserGUI(Ui_MainWindow):
 
                 # Make syntax condition index error display string
                 syntax_invalid_idx_list = [
-                    ii + 1 for ii, x in enumerate(syntax_invalid) if x == True
+                    ii + 1 for ii, x in enumerate(syntax_invalid) if x
                 ]
                 syntax_condition_error_str = (
                     ", ".join(map(str, syntax_invalid_idx_list))
