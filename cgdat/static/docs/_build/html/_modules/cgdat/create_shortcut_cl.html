@@ -17,33 +17,35 @@
   
 
   
+  <script type="text/javascript" src="../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../" src="../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../_static/theme_overrides.css" type="text/css" />
     <link rel="index" title="Index" href="../../genindex.html" />
     <link rel="search" title="Search" href="../../search.html" /> 
-
-  
-  <script src="../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                2.3.8
+                2.4.0
               </div>
             
           
@@ -85,6 +87,7 @@
             
             
               <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../requirements.html">Requirements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../use.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../info.html">Additional information</a></li>
@@ -154,36 +157,39 @@
            <div itemprop="articleBody">
             
   <h1>Source code for cgdat.create_shortcut_cl</h1><div class="highlight"><pre>
-<span></span><span class="sd">&#39;&#39;&#39;This function creates a shortcut which can be used to run the CGDAT tool&#39;&#39;&#39;</span>
+<span></span><span class="sd">&quot;&quot;&quot;This function creates a shortcut which can be used to run the CGDAT tool&quot;&quot;&quot;</span>
 
-<span class="c1">### Import needed modules ###</span>
+<span class="c1"># Import needed modules</span>
 <span class="kn">import</span> <span class="nn">os</span><span class="o">,</span> <span class="nn">winshell</span>
-<span class="kn">from</span> <span class="nn">win32com.client</span> <span class="k">import</span> <span class="n">Dispatch</span>
+<span class="kn">from</span> <span class="nn">win32com.client</span> <span class="kn">import</span> <span class="n">Dispatch</span>
 <span class="kn">import</span> <span class="nn">sys</span>
 
-<span class="c1">### Import package modules ###</span>
+<span class="c1"># Import package modules</span>
 <span class="kn">import</span> <span class="nn">cgdat</span>
-<span class="n">cgdat_gui_path</span> <span class="o">=</span> <span class="n">cgdat</span><span class="o">.</span><span class="vm">__file__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">__init__.py&#39;</span><span class="p">,</span><span class="s1">&#39;&#39;</span><span class="p">)</span>
-<span class="n">python_path</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">python.exe&#39;</span><span class="p">,</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">pythonw.exe&#39;</span><span class="p">)</span>
 
-<span class="c1">### Get relative script path ###</span>
+<span class="n">cgdat_gui_path</span> <span class="o">=</span> <span class="n">cgdat</span><span class="o">.</span><span class="vm">__file__</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">__init__.py&quot;</span><span class="p">,</span> <span class="s2">&quot;&quot;</span><span class="p">)</span>
+<span class="n">python_path</span> <span class="o">=</span> <span class="n">sys</span><span class="o">.</span><span class="n">executable</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s2">&quot;</span><span class="se">\\</span><span class="s2">python.exe&quot;</span><span class="p">,</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">pythonw.exe&quot;</span><span class="p">)</span>
+
+<span class="c1"># Get relative script path</span>
 <span class="n">DIRNAME</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">dirname</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="vm">__file__</span><span class="p">))</span>
 
-<span class="c1">### Set paths ###</span>
+<span class="c1"># Set paths</span>
 <span class="n">desktop</span> <span class="o">=</span> <span class="n">winshell</span><span class="o">.</span><span class="n">desktop</span><span class="p">()</span>
 <span class="n">path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">desktop</span><span class="p">,</span> <span class="s2">&quot;CGDAT.lnk&quot;</span><span class="p">)</span>
 <span class="n">target</span> <span class="o">=</span> <span class="n">python_path</span>
-<span class="n">arguments</span> <span class="o">=</span> <span class="s1">&#39;&quot;&#39;</span><span class="o">+</span> <span class="n">cgdat_gui_path</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">cgdat_gui.py&quot;</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
-<span class="n">icon_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s2">&quot;static/media/CGDAT.ico&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span><span class="s1">&#39;</span><span class="se">\\</span><span class="s1">&#39;</span><span class="p">,</span><span class="s1">&#39;/&#39;</span><span class="p">)</span>    <span class="c1"># Toggle on icon</span>
+<span class="n">arguments</span> <span class="o">=</span> <span class="s1">&#39;&quot;&#39;</span> <span class="o">+</span> <span class="n">cgdat_gui_path</span> <span class="o">+</span> <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">cgdat_gui.py&quot;</span> <span class="o">+</span> <span class="s1">&#39;&quot;&#39;</span>
+<span class="n">icon_path</span> <span class="o">=</span> <span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">abspath</span><span class="p">(</span><span class="n">os</span><span class="o">.</span><span class="n">path</span><span class="o">.</span><span class="n">join</span><span class="p">(</span><span class="n">DIRNAME</span><span class="p">,</span> <span class="s2">&quot;static/media/CGDAT.ico&quot;</span><span class="p">))</span><span class="o">.</span><span class="n">replace</span><span class="p">(</span>
+    <span class="s2">&quot;</span><span class="se">\\</span><span class="s2">&quot;</span><span class="p">,</span> <span class="s2">&quot;/&quot;</span>
+<span class="p">)</span>  <span class="c1"># Toggle on icon</span>
 
 <span class="c1">##############################################################</span>
 <span class="c1">#### Create shortuct function                             ####</span>
 <span class="c1">##############################################################</span>
 <div class="viewcode-block" id="main"><a class="viewcode-back" href="../../_auto_rst/cgdat.html#cgdat.create_shortcut_cl.main">[docs]</a><span class="k">def</span> <span class="nf">main</span><span class="p">():</span>
-    <span class="sd">&#39;&#39;&#39;Main function that is executed when we use the :samp:`cgdat-shortcut` command. This function creates a</span>
-<span class="sd">    shortcut for the gui on the desktop.&#39;&#39;&#39;</span>
+    <span class="sd">&quot;&quot;&quot;Main function that is executed when we use the :samp:`cgdat-shortcut` command. This function creates a</span>
+<span class="sd">    shortcut for the gui on the desktop.&quot;&quot;&quot;</span>
 
-    <span class="n">shell</span> <span class="o">=</span> <span class="n">Dispatch</span><span class="p">(</span><span class="s1">&#39;WScript.Shell&#39;</span><span class="p">)</span>
+    <span class="n">shell</span> <span class="o">=</span> <span class="n">Dispatch</span><span class="p">(</span><span class="s2">&quot;WScript.Shell&quot;</span><span class="p">)</span>
     <span class="n">shortcut</span> <span class="o">=</span> <span class="n">shell</span><span class="o">.</span><span class="n">CreateShortCut</span><span class="p">(</span><span class="n">path</span><span class="p">)</span>
     <span class="n">shortcut</span><span class="o">.</span><span class="n">Targetpath</span> <span class="o">=</span> <span class="n">target</span>
     <span class="n">shortcut</span><span class="o">.</span><span class="n">Arguments</span> <span class="o">=</span> <span class="n">arguments</span>
@@ -218,35 +224,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../../',
-              VERSION:'',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

@@ -17,33 +17,35 @@
   
 
   
+  <script type="text/javascript" src="../../../_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="../../../" src="../../../_static/documentation_options.js"></script>
+        <script type="text/javascript" src="../../../_static/jquery.js"></script>
+        <script type="text/javascript" src="../../../_static/underscore.js"></script>
+        <script type="text/javascript" src="../../../_static/doctools.js"></script>
+        <script type="text/javascript" src="../../../_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="../../../_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="../../../_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="../../../_static/theme_overrides.css" type="text/css" />
     <link rel="index" title="Index" href="../../../genindex.html" />
     <link rel="search" title="Search" href="../../../search.html" /> 
-
-  
-  <script src="../../../_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -60,7 +62,7 @@
             
             
               <div class="version">
-                2.3.8
+                2.4.0
               </div>
             
           
@@ -85,6 +87,7 @@
             
             
               <ul>
+<li class="toctree-l1"><a class="reference internal" href="../../../requirements.html">Requirements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../use.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="../../../info.html">Additional information</a></li>
@@ -156,18 +159,20 @@
   <h1>Source code for cgdat.qt_ui.about_ui</h1><div class="highlight"><pre>
 <span></span><span class="c1"># -*- coding: utf-8 -*-</span>
 
-<span class="c1"># Form implementation generated from reading ui file &#39;c:\Users\ricks\OneDrive\Development\Tools\cgdat\cgdat\..\qt\about.ui&#39;</span>
+<span class="c1"># Form implementation generated from reading ui file &#39;c:\users\user\development\cgdat\cgdat\..\qt\about.ui&#39;</span>
 <span class="c1">#</span>
-<span class="c1"># Created by: PyQt5 UI code generator 5.11.3</span>
+<span class="c1"># Created by: PyQt5 UI code generator 5.14.1</span>
 <span class="c1">#</span>
 <span class="c1"># WARNING! All changes made in this file will be lost!</span>
 
-<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="k">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtWidgets</span>
+
+<span class="kn">from</span> <span class="nn">PyQt5</span> <span class="kn">import</span> <span class="n">QtCore</span><span class="p">,</span> <span class="n">QtGui</span><span class="p">,</span> <span class="n">QtWidgets</span>
+
 
 <div class="viewcode-block" id="Ui_About"><a class="viewcode-back" href="../../../_auto_rst/cgdat.qt_ui.html#cgdat.qt_ui.about_ui.Ui_About">[docs]</a><span class="k">class</span> <span class="nc">Ui_About</span><span class="p">(</span><span class="nb">object</span><span class="p">):</span>
 <div class="viewcode-block" id="Ui_About.setupUi"><a class="viewcode-back" href="../../../_auto_rst/cgdat.qt_ui.html#cgdat.qt_ui.about_ui.Ui_About.setupUi">[docs]</a>    <span class="k">def</span> <span class="nf">setupUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">About</span><span class="p">):</span>
         <span class="n">About</span><span class="o">.</span><span class="n">setObjectName</span><span class="p">(</span><span class="s2">&quot;About&quot;</span><span class="p">)</span>
-        <span class="n">About</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">464</span><span class="p">,</span> <span class="mi">266</span><span class="p">)</span>
+        <span class="n">About</span><span class="o">.</span><span class="n">resize</span><span class="p">(</span><span class="mi">464</span><span class="p">,</span> <span class="mi">294</span><span class="p">)</span>
         <span class="n">sizePolicy</span> <span class="o">=</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QSizePolicy</span><span class="p">(</span><span class="n">QtWidgets</span><span class="o">.</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Fixed</span><span class="p">,</span> <span class="n">QtWidgets</span><span class="o">.</span><span class="n">QSizePolicy</span><span class="o">.</span><span class="n">Fixed</span><span class="p">)</span>
         <span class="n">sizePolicy</span><span class="o">.</span><span class="n">setHorizontalStretch</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
         <span class="n">sizePolicy</span><span class="o">.</span><span class="n">setVerticalStretch</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
@@ -202,7 +207,7 @@
 <div class="viewcode-block" id="Ui_About.retranslateUi"><a class="viewcode-back" href="../../../_auto_rst/cgdat.qt_ui.html#cgdat.qt_ui.about_ui.Ui_About.retranslateUi">[docs]</a>    <span class="k">def</span> <span class="nf">retranslateUi</span><span class="p">(</span><span class="bp">self</span><span class="p">,</span> <span class="n">About</span><span class="p">):</span>
         <span class="n">_translate</span> <span class="o">=</span> <span class="n">QtCore</span><span class="o">.</span><span class="n">QCoreApplication</span><span class="o">.</span><span class="n">translate</span>
         <span class="n">About</span><span class="o">.</span><span class="n">setWindowTitle</span><span class="p">(</span><span class="n">_translate</span><span class="p">(</span><span class="s2">&quot;About&quot;</span><span class="p">,</span> <span class="s2">&quot;Dialog&quot;</span><span class="p">))</span>
-        <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">_translate</span><span class="p">(</span><span class="s2">&quot;About&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> text-decoration: underline;</span><span class="se">\&quot;</span><span class="s2">&gt;Description:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;This tool was created to aid in a more streamlinedgame data analysation process. For questions or suggestions mail &lt;a href=</span><span class="se">\&quot;</span><span class="s2">mailto:wbosman@fittestbody.nl</span><span class="se">\&quot;</span><span class="s2">&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> text-decoration: underline; color:#0000ff;</span><span class="se">\&quot;</span><span class="s2">&gt;wbosman@fittestbody.nl&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> text-decoration: underline;</span><span class="se">\&quot;</span><span class="s2">&gt;Other info:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> font-weight:600;</span><span class="se">\&quot;</span><span class="s2">&gt;Repository: &lt;/span&gt;&lt;a href=</span><span class="se">\&quot;</span><span class="s2">https://github.com/rickstaa/CGDAT</span><span class="se">\&quot;</span><span class="s2">&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> text-decoration: underline; color:#0000ff;</span><span class="se">\&quot;</span><span class="s2">&gt;https://github.com/rickstaa/CGDAT&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> font-weight:600;</span><span class="se">\&quot;</span><span class="s2">&gt;Created By: &lt;/span&gt;&lt;a href=</span><span class="se">\&quot;</span><span class="s2">https://github.com/rickstaa</span><span class="se">\&quot;</span><span class="s2">&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> text-decoration: underline; color:#0000ff;</span><span class="se">\&quot;</span><span class="s2">&gt;Rick Staa&lt;/span&gt;&lt;/a&gt; &amp;amp; Wesley Bosman&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Copyright 2018 &lt;span style=</span><span class="se">\&quot;</span><span class="s2"> font-weight:600;</span><span class="se">\&quot;</span><span class="s2">&gt;© &lt;/span&gt;&lt;a href=</span><span class="se">\&quot;</span><span class="s2">https://github.com/rickstaa/</span><span class="se">\&quot;</span><span class="s2">&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> text-decoration: underline; color:#0000ff;</span><span class="se">\&quot;</span><span class="s2">&gt;Rick Staa&lt;/span&gt;&lt;/a&gt; &amp;amp; Wesley Bosman&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> font-weight:600;</span><span class="se">\&quot;</span><span class="s2">&gt; (Licenced under a &lt;/span&gt;&lt;a href=</span><span class="se">\&quot;</span><span class="s2">https://github.com/rickstaa/CGDAT/blob/master/LICENSE</span><span class="se">\&quot;</span><span class="s2">&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> text-decoration: underline; color:#0000ff;</span><span class="se">\&quot;</span><span class="s2">&gt;GNU General Public License v3.0&lt;/span&gt;&lt;/a&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> font-size:medium; font-weight:600;</span><span class="se">\&quot;</span><span class="s2">&gt;)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&quot;</span><span class="p">))</span></div></div>
+        <span class="bp">self</span><span class="o">.</span><span class="n">label</span><span class="o">.</span><span class="n">setText</span><span class="p">(</span><span class="n">_translate</span><span class="p">(</span><span class="s2">&quot;About&quot;</span><span class="p">,</span> <span class="s2">&quot;&lt;html&gt;&lt;head/&gt;&lt;body&gt;&lt;p&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> text-decoration: underline;</span><span class="se">\&quot;</span><span class="s2">&gt;Description:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;This tool was created to aid in a more streamlinedgame data analysation process. For questions or suggestions mail &lt;a href=</span><span class="se">\&quot;</span><span class="s2">mailto:wbosman@fittestbody.nl</span><span class="se">\&quot;</span><span class="s2">&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> text-decoration: underline; color:#0000ff;</span><span class="se">\&quot;</span><span class="s2">&gt;wbosman@fittestbody.nl&lt;/span&gt;&lt;/a&gt;.&lt;/p&gt;&lt;p&gt;&lt;br/&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> text-decoration: underline;</span><span class="se">\&quot;</span><span class="s2">&gt;Other info:&lt;/span&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> font-weight:600;</span><span class="se">\&quot;</span><span class="s2">&gt;Version: &lt;/span&gt;2.4.0&lt;/p&gt;&lt;p&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> font-weight:600;</span><span class="se">\&quot;</span><span class="s2">&gt;Repository: &lt;/span&gt;&lt;a href=</span><span class="se">\&quot;</span><span class="s2">https://github.com/rickstaa/CGDAT</span><span class="se">\&quot;</span><span class="s2">&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> text-decoration: underline; color:#0000ff;</span><span class="se">\&quot;</span><span class="s2">&gt;https://github.com/rickstaa/CGDAT&lt;/span&gt;&lt;/a&gt;&lt;/p&gt;&lt;p&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> font-weight:600;</span><span class="se">\&quot;</span><span class="s2">&gt;Created By: &lt;/span&gt;&lt;a href=</span><span class="se">\&quot;</span><span class="s2">https://github.com/rickstaa</span><span class="se">\&quot;</span><span class="s2">&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> text-decoration: underline; color:#0000ff;</span><span class="se">\&quot;</span><span class="s2">&gt;Rick Staa&lt;/span&gt;&lt;/a&gt; &amp;amp; Wesley Bosman&lt;br/&gt;&lt;/p&gt;&lt;p&gt;Copyright 2018 &lt;span style=</span><span class="se">\&quot;</span><span class="s2"> font-weight:600;</span><span class="se">\&quot;</span><span class="s2">&gt;© &lt;/span&gt;&lt;a href=</span><span class="se">\&quot;</span><span class="s2">https://github.com/rickstaa/</span><span class="se">\&quot;</span><span class="s2">&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> text-decoration: underline; color:#0000ff;</span><span class="se">\&quot;</span><span class="s2">&gt;Rick Staa&lt;/span&gt;&lt;/a&gt; &amp;amp; Wesley Bosman&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> font-weight:600;</span><span class="se">\&quot;</span><span class="s2">&gt; (Licenced under a &lt;/span&gt;&lt;a href=</span><span class="se">\&quot;</span><span class="s2">https://github.com/rickstaa/CGDAT/blob/master/LICENSE</span><span class="se">\&quot;</span><span class="s2">&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> text-decoration: underline; color:#0000ff;</span><span class="se">\&quot;</span><span class="s2">&gt;GNU General Public License v3.0&lt;/span&gt;&lt;/a&gt;&lt;span style=</span><span class="se">\&quot;</span><span class="s2"> font-size:medium; font-weight:600;</span><span class="se">\&quot;</span><span class="s2">&gt;)&lt;/span&gt;&lt;/p&gt;&lt;/body&gt;&lt;/html&gt;&quot;</span><span class="p">))</span></div></div>
 
 
 <span class="k">if</span> <span class="vm">__name__</span> <span class="o">==</span> <span class="s2">&quot;__main__&quot;</span><span class="p">:</span>
@@ -213,7 +218,6 @@
     <span class="n">ui</span><span class="o">.</span><span class="n">setupUi</span><span class="p">(</span><span class="n">About</span><span class="p">)</span>
     <span class="n">About</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
     <span class="n">sys</span><span class="o">.</span><span class="n">exit</span><span class="p">(</span><span class="n">app</span><span class="o">.</span><span class="n">exec_</span><span class="p">())</span>
-
 </pre></div>
 
            </div>
@@ -243,35 +247,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'../../../',
-              VERSION:'',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="../../../_static/jquery.js"></script>
-        <script type="text/javascript" src="../../../_static/underscore.js"></script>
-        <script type="text/javascript" src="../../../_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="../../../_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
@@ -31,21 +38,16 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="Additional information" href="info.html" />
     <link rel="prev" title="Installation" href="installation.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -62,7 +64,7 @@
             
             
               <div class="version">
-                2.3.8
+                2.4.0
               </div>
             
           
@@ -87,6 +89,7 @@
             
             
               <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">Requirements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Usage</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="#tool-interface">Tool interface</a></li>
@@ -167,35 +170,32 @@
 <p>This package can both be imported as a python package or run as a stand alone gui (see <a class="reference internal" href="#figure-1"><span class="std std-numref">Fig. 1</span></a>). To import the python package use <code class="samp docutils literal notranslate"><span class="pre">import</span> <span class="pre">cgdat</span></code>. To use as a stand alone package run the <code class="samp docutils literal notranslate"><span class="pre">cgdat-gui</span></code> cmd.</p>
 <div class="section" id="tool-interface">
 <h2>Tool interface<a class="headerlink" href="#tool-interface" title="Permalink to this headline">¶</a></h2>
-<div class="figure" id="figure-1">
+<div class="figure align-default" id="figure-1">
 <a class="reference internal image-reference" href="_images/gui_overview.png"><img alt="A overview of the CGDAT GUI window." src="_images/gui_overview.png" style="width: 800.0px; height: 630.0px;" /></a>
-<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">A overview of the CGDAT GUI.</span></p>
+<p class="caption"><span class="caption-number">Fig. 1 </span><span class="caption-text">A overview of the CGDAT GUI.</span><a class="headerlink" href="#figure-1" title="Permalink to this image">¶</a></p>
 </div>
 </div>
 <div class="section" id="functions">
 <h2>Functions<a class="headerlink" href="#functions" title="Permalink to this headline">¶</a></h2>
 <p>This repository can be used to perform a simple csv game data filtering. The tool can filter a input data file based on:</p>
 <ul class="simple">
-<li><dl class="first docutils">
-<dt>Conditions:</dt>
-<dd><ul class="first last">
-<li>Example: Speed &gt; 10 &amp; Acceleration &lt; 5</li>
+<li><dl class="simple">
+<dt>Conditions:</dt><dd><ul>
+<li><p>Example: Speed &gt; 10 &amp; Acceleration &lt; 5</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>A time section file:</dt>
-<dd><ul class="first last">
-<li>A file containing a <code class="samp docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Time</span></code> and <code class="samp docutils literal notranslate"><span class="pre">End</span> <span class="pre">Time</span></code> column specifying the sections where you want to apply the condition filter.</li>
+<li><dl class="simple">
+<dt>A time section file:</dt><dd><ul>
+<li><p>A file containing a <code class="samp docutils literal notranslate"><span class="pre">Start</span> <span class="pre">Time</span></code> and <code class="samp docutils literal notranslate"><span class="pre">End</span> <span class="pre">Time</span></code> column specifying the sections where you want to apply the condition filter.</p></li>
 </ul>
 </dd>
 </dl>
 </li>
-<li><dl class="first docutils">
-<dt>Player name:</dt>
-<dd><ul class="first last">
-<li>In the gui you can specify for which players you want to conduct the analysis. For this option to work the <code class="samp docutils literal notranslate"><span class="pre">input_data.csv</span></code> file needs to contain a <code class="samp docutils literal notranslate"><span class="pre">Name</span></code> column.</li>
+<li><dl class="simple">
+<dt>Player name:</dt><dd><ul>
+<li><p>In the gui you can specify for which players you want to conduct the analysis. For this option to work the <code class="samp docutils literal notranslate"><span class="pre">input_data.csv</span></code> file needs to contain a <code class="samp docutils literal notranslate"><span class="pre">Name</span></code> column.</p></li>
 </ul>
 </dd>
 </dl>
@@ -207,8 +207,8 @@
 <h2>Console commands<a class="headerlink" href="#console-commands" title="Permalink to this headline">¶</a></h2>
 <p>This package also installs some additional console commands:</p>
 <ul class="simple">
-<li><code class="samp docutils literal notranslate"><span class="pre">cgdat-gui</span></code> - This will launch the CGDAT gui.</li>
-<li><code class="samp docutils literal notranslate"><span class="pre">cgdat-shortcut</span></code> - This will create a shortcut to launch the GUI on your desktop folder.</li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">cgdat-gui</span></code> - This will launch the CGDAT gui.</p></li>
+<li><p><code class="samp docutils literal notranslate"><span class="pre">cgdat-shortcut</span></code> - This will create a shortcut to launch the GUI on your desktop folder.</p></li>
 </ul>
 </div>
 </div>
@@ -224,7 +224,7 @@
         <a href="info.html" class="btn btn-neutral float-right" title="Additional information" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="installation.html" class="btn btn-neutral" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="installation.html" class="btn btn-neutral float-left" title="Installation" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -250,35 +250,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

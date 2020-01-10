@@ -16,7 +16,7 @@ Functions
 .. autosummary::
    :toctree: _autosummary
 
-    cgdat.cgdat
+    cgdat.cgdat_gui
     cgdat.create_shortcut_cl
     cgdat.start_cl
 
@@ -28,4 +28,4 @@ Scripts
 
     start_cgdat
     install_cgdat
-    create_shortcut_cl
+    create_cgdat_shortcut

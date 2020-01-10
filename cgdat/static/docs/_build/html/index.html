@@ -17,34 +17,36 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
     <link rel="index" title="Index" href="genindex.html" />
     <link rel="search" title="Search" href="search.html" />
-    <link rel="next" title="Installation" href="installation.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
+    <link rel="next" title="Requirements" href="requirements.html" /> 
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -61,7 +63,7 @@
             
             
               <div class="version">
-                2.3.8
+                2.4.0
               </div>
             
           
@@ -86,6 +88,7 @@
             
             
               <ul>
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">Requirements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use.html">Usage</a></li>
 <li class="toctree-l1"><a class="reference internal" href="info.html">Additional information</a></li>
@@ -160,13 +163,17 @@
 <h1>Welcome to CGDAT’s documentation!<a class="headerlink" href="#welcome-to-cgdat-s-documentation" title="Permalink to this headline">¶</a></h1>
 <p>This package contains a simple csv data analyse GUI which I created for a friend of mine to help him with his data analysis.
 The repository of this tool can be found on <a class="reference external" href="https://github.com/rickstaa/CGDAT">github</a>.</p>
-<a class="reference external image-reference" href="https://www.python.org/downloads/release/python-370/"><img alt="Python version badge" src="https://img.shields.io/badge/python-3.7-blue.svg" /></a>
-<a class="reference external image-reference" href="https://github.com/rickstaa/CGDAT"><img alt="Maintained badge" src="https://img.shields.io/badge/maintained%3F-yes!-brightgreen.svg?style=flat" /></a>
+<a class="reference external image-reference" href="https://www.codacy.com/app/rickstaa/CGDAT?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=rickstaa/CGDAT&amp;utm_campaign=Badge_Grade"><img alt="Codacy code quality badge" src="https://api.codacy.com/project/badge/Grade/affacdc15e004c02a4bffe9bb1d65ae9" /></a>
+<a class="reference external image-reference" href="https://github.com/rickstaa/CGDAT/pulse:alt:GithubPulsebadge"><img alt="https://img.shields.io/badge/maintained%3F-yes-brightgreen.svg?style=flat" src="https://img.shields.io/badge/maintained%3F-yes-brightgreen.svg?style=flat" /></a>
+<a class="reference external image-reference" href="https://github.com/rickstaa/CGDAT/blob/master/contributing.md:alt:Githubcontributionsbadge"><img alt="https://img.shields.io/badge/contributions-welcome-orange.svg" src="https://img.shields.io/badge/contributions-welcome-orange.svg" /></a>
+<a class="reference external image-reference" href="https://www.python.org/"><img alt="Python versions badge" src="https://img.shields.io/badge/python%203-3.7%20%7C%203.6%20%7C%203.5-green.svg" /></a>
+<a class="reference external image-reference" href="https://www.microsoft.com/"><img alt="OS badge" src="https://img.shields.io/badge/os-windows-informational" /></a>
 <a class="reference external image-reference" href="https://www.gnu.org/licenses/gpl-3.0"><img alt="License badge" src="https://img.shields.io/badge/License-GPLv3-blue.svg" /></a>
 <div class="section" id="contents">
 <h2>Contents:<a class="headerlink" href="#contents" title="Permalink to this headline">¶</a></h2>
 <div class="toctree-wrapper compound">
 <ul>
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">Requirements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a><ul>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#install-using-the-python-package-index-pypi">Install using the python package index (PyPi)</a></li>
 <li class="toctree-l2"><a class="reference internal" href="installation.html#development-setup">Development setup</a></li>
@@ -184,8 +191,6 @@ The repository of this tool can be found on <a class="reference external" href="
 <li class="toctree-l2"><a class="reference internal" href="info.html#contributing">Contributing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="info.html#contributors">Contributors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="info.html#credits">Credits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="info.html#known-problems">Known Problems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="info.html#todos">Todos</a></li>
 </ul>
 </li>
 </ul>
@@ -202,9 +207,9 @@ The repository of this tool can be found on <a class="reference external" href="
 <div class="section" id="indices-and-tables">
 <h2>Indices and tables<a class="headerlink" href="#indices-and-tables" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></li>
-<li><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></li>
-<li><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></li>
+<li><p><a class="reference internal" href="genindex.html"><span class="std std-ref">Index</span></a></p></li>
+<li><p><a class="reference internal" href="py-modindex.html"><span class="std std-ref">Module Index</span></a></p></li>
+<li><p><a class="reference internal" href="search.html"><span class="std std-ref">Search Page</span></a></p></li>
 </ul>
 </div>
 </div>
@@ -217,7 +222,7 @@ The repository of this tool can be found on <a class="reference external" href="
   
     <div class="rst-footer-buttons" role="navigation" aria-label="footer navigation">
       
-        <a href="installation.html" class="btn btn-neutral float-right" title="Installation" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
+        <a href="requirements.html" class="btn btn-neutral float-right" title="Requirements" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
     </div>
@@ -244,35 +249,16 @@ The repository of this tool can be found on <a class="reference external" href="
   
 
 
-  
-
-    
-    
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

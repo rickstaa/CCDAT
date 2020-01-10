@@ -26,4 +26,3 @@ If you want to manually install the python package please fork from `github <htt
     python setup.py build
     python setup.py develop
     python setup.py install
-

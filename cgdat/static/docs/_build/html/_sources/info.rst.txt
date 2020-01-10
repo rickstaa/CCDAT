@@ -29,11 +29,3 @@ Contributors
 Credits
 -----------------------------
 - CDAT icon created by FreePis from `www.flaticon.com <https://www.flaticon.com>`_.
-
-Known Problems
--------------------------------
-- When a csv file is given that contains the data of multiple players the time padding only works when the player filter is enabled. This is caused by the nature of the padding algorithm which adds a number of samples before and after the sample in which the condition was met without taking into account the file structure.
-
-Todos
---------------------------
-- Add the ability to add time border when the player filter is not enabled. To do this we need to scan the file for its structure and divide the file into sections based on the timestamps before applying the filters.

@@ -17,13 +17,20 @@
   
 
   
+  <script type="text/javascript" src="_static/js/modernizr.min.js"></script>
+  
+    
+      <script type="text/javascript" id="documentation_options" data-url_root="./" src="_static/documentation_options.js"></script>
+        <script type="text/javascript" src="_static/jquery.js"></script>
+        <script type="text/javascript" src="_static/underscore.js"></script>
+        <script type="text/javascript" src="_static/doctools.js"></script>
+        <script type="text/javascript" src="_static/language_data.js"></script>
+    
+    <script type="text/javascript" src="_static/js/theme.js"></script>
 
-  
-  
     
 
   
-
   <link rel="stylesheet" href="_static/css/theme.css" type="text/css" />
   <link rel="stylesheet" href="_static/pygments.css" type="text/css" />
   <link rel="stylesheet" href="_static/theme_overrides.css" type="text/css" />
@@ -31,21 +38,16 @@
     <link rel="search" title="Search" href="search.html" />
     <link rel="next" title="API Reference" href="code.html" />
     <link rel="prev" title="Usage" href="use.html" /> 
-
-  
-  <script src="_static/js/modernizr.min.js"></script>
-
 </head>
 
 <body class="wy-body-for-nav">
 
    
   <div class="wy-grid-for-nav">
-
     
     <nav data-toggle="wy-nav-shift" class="wy-nav-side">
       <div class="wy-side-scroll">
-        <div class="wy-side-nav-search">
+        <div class="wy-side-nav-search" >
           
 
           
@@ -62,7 +64,7 @@
             
             
               <div class="version">
-                2.3.8
+                2.4.0
               </div>
             
           
@@ -87,6 +89,7 @@
             
             
               <ul class="current">
+<li class="toctree-l1"><a class="reference internal" href="requirements.html">Requirements</a></li>
 <li class="toctree-l1"><a class="reference internal" href="installation.html">Installation</a></li>
 <li class="toctree-l1"><a class="reference internal" href="use.html">Usage</a></li>
 <li class="toctree-l1 current"><a class="current reference internal" href="#">Additional information</a><ul>
@@ -95,8 +98,6 @@
 <li class="toctree-l2"><a class="reference internal" href="#contributing">Contributing</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#contributors">Contributors</a></li>
 <li class="toctree-l2"><a class="reference internal" href="#credits">Credits</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#known-problems">Known Problems</a></li>
-<li class="toctree-l2"><a class="reference internal" href="#todos">Todos</a></li>
 </ul>
 </li>
 </ul>
@@ -180,36 +181,24 @@
 <div class="section" id="contributing">
 <h2>Contributing<a class="headerlink" href="#contributing" title="Permalink to this headline">¶</a></h2>
 <ol class="arabic simple">
-<li>Fork it (&lt;<a class="reference external" href="https://github.com/rickstaa/CGDAT">https://github.com/rickstaa/CGDAT</a>&gt;)</li>
-<li>Create your feature branch (<cite>git checkout -b feature/fooBar</cite>)</li>
-<li>Commit your changes (<cite>git commit -am ‘Add some fooBar’</cite>)</li>
-<li>Push to the branch (<cite>git push origin feature/fooBar</cite>)</li>
-<li>Create a new Pull Request</li>
+<li><p>Fork it (&lt;<a class="reference external" href="https://github.com/rickstaa/CGDAT">https://github.com/rickstaa/CGDAT</a>&gt;)</p></li>
+<li><p>Create your feature branch (<cite>git checkout -b feature/fooBar</cite>)</p></li>
+<li><p>Commit your changes (<cite>git commit -am ‘Add some fooBar’</cite>)</p></li>
+<li><p>Push to the branch (<cite>git push origin feature/fooBar</cite>)</p></li>
+<li><p>Create a new Pull Request</p></li>
 </ol>
 </div>
 <div class="section" id="contributors">
 <h2>Contributors<a class="headerlink" href="#contributors" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>Created by Rick Staa</li>
-<li>Maintained by Wesley Bosman <a class="reference external" href="mailto:wesleybosmann&#37;&#52;&#48;gmail&#46;com">(wesleybosmann<span>&#64;</span>gmail<span>&#46;</span>com</a>)</li>
+<li><p>Created by Rick Staa</p></li>
+<li><p>Maintained by Wesley Bosman <a class="reference external" href="mailto:wesleybosmann&#37;&#52;&#48;gmail&#46;com">(wesleybosmann<span>&#64;</span>gmail<span>&#46;</span>com</a>)</p></li>
 </ul>
 </div>
 <div class="section" id="credits">
 <h2>Credits<a class="headerlink" href="#credits" title="Permalink to this headline">¶</a></h2>
 <ul class="simple">
-<li>CDAT icon created by FreePis from <a class="reference external" href="https://www.flaticon.com">www.flaticon.com</a>.</li>
-</ul>
-</div>
-<div class="section" id="known-problems">
-<h2>Known Problems<a class="headerlink" href="#known-problems" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>When a csv file is given that contains the data of multiple players the time padding only works when the player filter is enabled. This is caused by the nature of the padding algorithm which adds a number of samples before and after the sample in which the condition was met without taking into account the file structure.</li>
-</ul>
-</div>
-<div class="section" id="todos">
-<h2>Todos<a class="headerlink" href="#todos" title="Permalink to this headline">¶</a></h2>
-<ul class="simple">
-<li>Add the ability to add time border when the player filter is not enabled. To do this we need to scan the file for its structure and divide the file into sections based on the timestamps before applying the filters.</li>
+<li><p>CDAT icon created by FreePis from <a class="reference external" href="https://www.flaticon.com">www.flaticon.com</a>.</p></li>
 </ul>
 </div>
 </div>
@@ -225,7 +214,7 @@
         <a href="code.html" class="btn btn-neutral float-right" title="API Reference" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right"></span></a>
       
       
-        <a href="use.html" class="btn btn-neutral" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
+        <a href="use.html" class="btn btn-neutral float-left" title="Usage" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left"></span> Previous</a>
       
     </div>
   
@@ -251,35 +240,16 @@
   
 
 
-  
-
-    
-    
-      <script type="text/javascript">
-          var DOCUMENTATION_OPTIONS = {
-              URL_ROOT:'./',
-              VERSION:'',
-              LANGUAGE:'None',
-              COLLAPSE_INDEX:false,
-              FILE_SUFFIX:'.html',
-              HAS_SOURCE:  true,
-              SOURCELINK_SUFFIX: '.txt'
-          };
-      </script>
-        <script type="text/javascript" src="_static/jquery.js"></script>
-        <script type="text/javascript" src="_static/underscore.js"></script>
-        <script type="text/javascript" src="_static/doctools.js"></script>
-    
-
-  
-
-  <script type="text/javascript" src="_static/js/theme.js"></script>
-
   <script type="text/javascript">
       jQuery(function () {
           SphinxRtdTheme.Navigation.enable(true);
       });
-  </script> 
+  </script>
+
+  
+  
+    
+   
 
 </body>
 </html>

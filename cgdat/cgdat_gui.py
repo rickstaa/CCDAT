@@ -575,8 +575,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         settings are supported:
 
             - Change the input file frequency: By default this will be around 600 hz.
-            - Set the columns to include in the output file: By default the CGDAT tool
-            only keeps the variables (csv columns) that are specified in your conditions.
+            - Set the columns to include in the output file: By default the CGDAT tool only keeps the variables (csv columns) that are specified in your conditions.
         """
 
         # Display output settings dialog
@@ -1073,7 +1072,7 @@ class DataAnalyserGUI(Ui_MainWindow):
     def time_input_worker_finished(self, result):
         """QT slot function used to check whether the time section file was
         successfully imported. If successful it updates the player filter
-            choicer menu by adding the available players to the menu options.
+        choicer menu by adding the available players to the menu options.
 
         Args:
             bool: Boolean specifying whether the data file import was successfully.
