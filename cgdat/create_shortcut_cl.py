@@ -1,7 +1,8 @@
 """This function creates a shortcut which can be used to run the CGDAT tool"""
 
 # Import needed modules
-import os, winshell
+import os
+import winshell
 from win32com.client import Dispatch
 import sys
 
@@ -23,6 +24,7 @@ icon_path = os.path.abspath(os.path.join(DIRNAME, "static/media/CGDAT.ico")).rep
     "\\", "/"
 )  # Toggle on icon
 
+
 ##############################################################
 #### Create shortuct function                             ####
 ##############################################################
@@ -36,3 +38,6 @@ def main():
     shortcut.Arguments = arguments
     shortcut.IconLocation = icon_path
     shortcut.save()
+
+
+main()

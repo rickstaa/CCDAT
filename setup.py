@@ -10,12 +10,12 @@ os.chdir(dirname)
 
 ## Package requirements ##
 requirements = [
+    "pyqt5",
     "pandas",
     "numpy",
     "xlsxwriter",
-    "PyQt5",
     "winshell",
-    "pypiwin32",
+    "pywin32",
     "configobj",
 ]
 

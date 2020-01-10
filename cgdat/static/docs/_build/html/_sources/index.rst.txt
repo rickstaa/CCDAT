@@ -33,7 +33,6 @@ Contents:
 .. toctree::
    :maxdepth: 2
 
-   requirements
    installation
    use
    info
