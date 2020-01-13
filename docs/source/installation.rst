@@ -17,7 +17,7 @@ Installation
 Install using the python package index (PyPi)
 ---------------------------------------------------
 
-:underline:`Windows`:
+:underline:`Windows`::
 
     pip install cgdat
 

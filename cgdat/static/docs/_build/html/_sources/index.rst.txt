@@ -23,8 +23,8 @@ The repository of this tool can be found on `github <https://github.com/rickstaa
     :target: https://www.microsoft.com/
     :alt: OS badge
 
-.. image:: https://img.shields.io/badge/License-GPLv3-blue.svg
-   :target: https://www.gnu.org/licenses/gpl-3.0
+.. image:: https://img.shields.io/github/license/rickstaa/CGDAT
+   :target: https://github.com/rickstaa/CGDAT/blob/master/LICENSE
    :alt: License badge
 
 Contents:

@@ -2,9 +2,8 @@
 """
 This file contains the main GUI class that is used in the *Conditional game data
 analyse tool (CGDAT)* was created for a friend of mine to help him with the data
-analysis he had to do for his graduation project. This tool is licensed under the
-GPL open source license. You are therefore free use the source code in any way
-provided that you the original copyright statements.
+analysis he had to do for his graduation project. This tool is licensed under a
+`MIT license <https://github.com/rickstaa/CGDAT/blob/master/LICENSE>`__.
 """
 
 # Set all

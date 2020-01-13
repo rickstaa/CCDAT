@@ -3,19 +3,17 @@ Additional information
 
 Licence
 -------------------------------
-This tool is licensed under the GPL open source license. You are therefore free use the source code in any way provided that you the original copyright statements.
+This tool is licensed under a `MIT license <https://github.com/rickstaa/CGDAT/blob/master/LICENSE>`__.
 
 Meta
 -----------------------------------------------
 
 Rick Staa – `github <https://github.com/rickstaa>`_
 
-Distributed under the GNU General Public License v3 (GPLv3). See `LICENSE <https://github.com/rickstaa/CGDAT/blob/master/LICENSE>`_ for more information.
-
 Contributing
 ----------------------------------
 
-1. Fork it (<https://github.com/rickstaa/CGDAT>)
+1. Fork it from `https://github.com/rickstaa/CGDAT <https://github.com/rickstaa/CGDAT>`_.
 2. Create your feature branch (`git checkout -b feature/fooBar`)
 3. Commit your changes (`git commit -am 'Add some fooBar'`)
 4. Push to the branch (`git push origin feature/fooBar`)

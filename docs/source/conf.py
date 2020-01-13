@@ -29,7 +29,7 @@ author = u"Rick Staa"
 # release = re.sub('^v', '', os.popen('git describe').read().strip())
 # The short X.Y version.
 # version = release.split("-")[0]
-version = r"v2.4.1"
+version = r"v2.4.2"
 
 # -- General configuration ---------------------------------------------------
 
