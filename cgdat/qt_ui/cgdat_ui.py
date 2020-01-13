@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\users\user\development\cgdat\cgdat\..\qt\cgdat.ui'
+# Form implementation generated from reading ui file 'c:\Users\user\Development\CGDAT\cgdat\..\qt\cgdat.ui'
 #
 # Created by: PyQt5 UI code generator 5.14.1
 #
@@ -21,7 +21,7 @@ class Ui_MainWindow(object):
         MainWindow.setSizePolicy(sizePolicy)
         MainWindow.setMinimumSize(QtCore.QSize(0, 0))
         icon = QtGui.QIcon()
-        icon.addPixmap(QtGui.QPixmap("c:\\users\\user\\development\\cgdat\\cgdat\\..\\qt\\../media/CGDAT.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon.addPixmap(QtGui.QPixmap("c:\\Users\\user\\Development\\CGDAT\\cgdat\\..\\qt\\../media/CGDAT.svg"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         MainWindow.setWindowIcon(icon)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
@@ -149,7 +149,7 @@ class Ui_MainWindow(object):
         self.output_settings_btn = QtWidgets.QPushButton(self.control_group_box)
         self.output_settings_btn.setText("")
         icon1 = QtGui.QIcon()
-        icon1.addPixmap(QtGui.QPixmap("c:\\users\\user\\development\\cgdat\\cgdat\\..\\qt\\../media/settings_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon1.addPixmap(QtGui.QPixmap("c:\\Users\\user\\Development\\CGDAT\\cgdat\\..\\qt\\../media/settings_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.output_settings_btn.setIcon(icon1)
         self.output_settings_btn.setObjectName("output_settings_btn")
         self.horizontalLayout.addWidget(self.output_settings_btn)
@@ -249,12 +249,12 @@ class Ui_MainWindow(object):
         MainWindow.setStatusBar(self.statusbar)
         self.actionAbout = QtWidgets.QAction(MainWindow)
         icon2 = QtGui.QIcon()
-        icon2.addPixmap(QtGui.QPixmap("c:\\users\\user\\development\\cgdat\\cgdat\\..\\qt\\../media/about_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon2.addPixmap(QtGui.QPixmap("c:\\Users\\user\\Development\\CGDAT\\cgdat\\..\\qt\\../media/about_icon.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionAbout.setIcon(icon2)
         self.actionAbout.setObjectName("actionAbout")
         self.actionDocumentation = QtWidgets.QAction(MainWindow)
         icon3 = QtGui.QIcon()
-        icon3.addPixmap(QtGui.QPixmap("c:\\users\\user\\development\\cgdat\\cgdat\\..\\qt\\../media/docs.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        icon3.addPixmap(QtGui.QPixmap("c:\\Users\\user\\Development\\CGDAT\\cgdat\\..\\qt\\../media/docs.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
         self.actionDocumentation.setIcon(icon3)
         self.actionDocumentation.setObjectName("actionDocumentation")
         self.menuFile.addAction(self.actionDocumentation)

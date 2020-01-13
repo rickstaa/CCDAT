@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'c:\users\user\development\cgdat\cgdat\..\qt\splash_screen.ui'
+# Form implementation generated from reading ui file 'c:\Users\user\Development\CGDAT\cgdat\..\qt\splash_screen.ui'
 #
 # Created by: PyQt5 UI code generator 5.14.1
 #
@@ -54,7 +54,7 @@ class Ui_splash_screen(object):
         font.setPointSize(10)
         self.icon_holder.setFont(font)
         self.icon_holder.setText("")
-        self.icon_holder.setPixmap(QtGui.QPixmap("c:\\users\\user\\development\\cgdat\\cgdat\\..\\qt\\../cgdat/static/media/CGDAT.png"))
+        self.icon_holder.setPixmap(QtGui.QPixmap("c:\\Users\\user\\Development\\CGDAT\\cgdat\\..\\qt\\../cgdat/static/media/CGDAT.png"))
         self.icon_holder.setScaledContents(True)
         self.icon_holder.setWordWrap(True)
         self.icon_holder.setObjectName("icon_holder")
@@ -91,7 +91,7 @@ class Ui_splash_screen(object):
 "<html><head><meta name=\"qrichtext\" content=\"1\" /><style type=\"text/css\">\n"
 "p, li { white-space: pre-wrap; }\n"
 "</style></head><body style=\" font-family:\'MS Shell Dlg 2\'; font-size:7.8pt; font-weight:400; font-style:normal;\">\n"
-"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:12pt; font-weight:600;\">CGDat (V2.4.0)</span></p>\n"
+"<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:12pt; font-weight:600;\">CGDAT (V2.4.2)</span></p>\n"
 "<p style=\" margin-top:12px; margin-bottom:12px; margin-left:0px; margin-right:0px; -qt-block-indent:0; text-indent:0px;\"><span style=\" font-family:\'MS Shell Dlg 2\'; font-size:12pt;\">Welcome to the conditional game data analyse tool (CGDAT). Please wait as we load the application.</span></p></body></html>"))
 
 

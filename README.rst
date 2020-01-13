@@ -10,8 +10,8 @@ This package contains a simple csv data analyse GUI which I created for a friend
    :target: https://github.com/rickstaa/CGDAT
    :alt: Maintained badge
 
-.. image:: https://img.shields.io/badge/License-GPLv3-blue.svg
-   :target: https://www.gnu.org/licenses/gpl-3.0
+.. image:: https://img.shields.io/github/license/rickstaa/CGDAT
+   :target: https://github.com/rickstaa/CGDAT/blob/master/LICENSE
    :alt: License badge
 
 |
@@ -102,14 +102,12 @@ Additional information
 
 Licence
 -------------------------------
-This tool is licensed under the GPL open source license. You are therefore free use the source code in any way provided that you the original copyright statements.
+This tool is licensed under a `MIT license <https://github.com/rickstaa/CGDAT/blob/master/LICENSE>`__.
 
 Meta
 -----------------------------------------------
 
 Rick Staa \- `github page <https://github.com/rickstaa>`__
-
-Distributed under the GNU General Public License v3 (GPLv3). See `LICENSE <https://github.com/rickstaa/CGDAT/blob/master/LICENSE>`__ for more information.
 
 Contributing
 ----------------------------------

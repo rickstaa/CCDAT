@@ -29,14 +29,14 @@ if __name__ == "__main__":
     # Run setup function #
     setuptools.setup(
         name="cgdat",
-        version="v2.4.1",
+        version="v2.4.2",
         author="Rick Staa",
         author_email="rick.staa@outlook.com",
         description="A simple csv data analyse tool.",
         long_description=long_description,
         long_description_content_type="text/x-rst",
         url="https://github.com/rickstaa/CGDAT",
-        download_url="https://github.com/rickstaa/CGDAT/archive/v2.4.1.tar.gz",
+        download_url="https://github.com/rickstaa/CGDAT/archive/v2.4.2.tar.gz",
         packages=setuptools.find_packages(),
         entry_points={
             "console_scripts": [
@@ -46,7 +46,7 @@ if __name__ == "__main__":
         },
         classifiers=[
             "Programming Language :: Python :: 3",
-            "License :: OSI Approved :: GNU General Public License v3 (GPLv3)",
+            "License :: OSI Approved :: MIT License",
             "Operating System :: OS Independent",
         ],
         install_requires=requirements,

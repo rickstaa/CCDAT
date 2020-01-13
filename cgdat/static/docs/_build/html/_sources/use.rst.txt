@@ -18,7 +18,7 @@ Functions
 This repository can be used to perform a simple csv game data filtering. The tool can filter a input data file based on:
 
 * Conditions:
-    * Example: Speed > 10 & Acceleration < 5
+    * ``Example: Speed > 10 & Acceleration < 5``
 * A time section file:
     * A file containing a :samp:`Start Time` and :samp:`End Time` column specifying the sections where you want to apply the condition filter.
 * Player name:
