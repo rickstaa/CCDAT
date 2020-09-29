@@ -1,6 +1,6 @@
 # Conditional Game Data Analyse Tool (CGAT)
 
-[![Codacy Badge](https://api.codacy.com/project/badge/Grade/affacdc15e004c02a4bffe9bb1d65ae9)](https://www.codacy.com/app/rickstaa/CGDAT?utm_source=github.com&utm_medium=referral&utm_content=rickstaa/CGDAT&utm_campaign=Badge_Grade)
+[![Codacy Badge](https://app.codacy.com/project/badge/Grade/d74c5076f2094cf1b08eefd625c98ac4)](https://www.codacy.com/gh/rickstaa/CGDAT/dashboard?utm_source=github.com&utm_medium=referral&utm_content=rickstaa/CGDAT&utm_campaign=Badge_Grade)
 [![Maintained](https://img.shields.io/badge/maintained%3F-yes-brightgreen.svg?style=flat)](https://github.com/rickstaa/CGDAT/pulse)
 [![Contributions](https://img.shields.io/badge/contributions-welcome-orange.svg)](contributing.md)
 [![Python 3](https://img.shields.io/badge/python%203-3.7%20%7C%203.6%20%7C%203.5-green.svg)](https://www.python.org/)
