@@ -73,7 +73,6 @@ class Worker(QThread):
         """
         Initialise the runner function with passed args, kwargs.
         """
-
         # Run QRunnable initialiser
         super(Worker, self).__init__()
 
@@ -94,7 +93,6 @@ class Worker(QThread):
     def run(self):
         """Retrieve args/kwargs and start up the thread using them.
         """
-
         # Retrieve args/kwargs here; and fire processing using them
         try:
             # Run callback function

@@ -18,7 +18,6 @@ DIRNAME = os.path.dirname(os.path.abspath(__file__))
 def main():
     """Main function that is executed when we use the :samp:`cgdat-gui` command. This
     function starts the CGDAT gui window."""
-
     # Create QT app
     app = QtWidgets.QApplication(sys.argv)
     MainWindow = QtWidgets.QMainWindow()

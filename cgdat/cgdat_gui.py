@@ -115,7 +115,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         CGDAT.ui file by the PyQt5.uic.pyuic converter.
 
     """
-
     # #########################################################
     # # Class initiation ######################################
     # #########################################################
@@ -442,7 +441,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         """Qt slot function displays the documentation. This slot is triggered when
         the docs menu item is clicked or the user uses the F2 keyboard shortcut.
         """
-
         # open documentation
         webbrowser.open_new(self.docs_path)
 
@@ -453,7 +451,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         """ This slot function is called when the splash screen emits a finished
         signal.
         """
-
         # Perform the right action
         if not result:  # If dialog was cancelled stop CGDAT GUI
             sys.exit()
@@ -494,7 +491,6 @@ class DataAnalyserGUI(Ui_MainWindow):
             result (bool): Boolean specifying whether the config file could be loaded
             successfully.
         """
-
         # If config file was loaded successfully apply settings to GUI
         if result:
 
@@ -573,7 +569,6 @@ class DataAnalyserGUI(Ui_MainWindow):
             - Change the input file frequency: By default this will be around 600 hz.
             - Set the columns to include in the output file: By default the CGDAT tool only keeps the variables (csv columns) that are specified in your conditions.
         """
-
         # Display output settings dialog
         self.output_settings_dialog.show()
 
@@ -584,7 +579,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         """Qt slot that is triggered when the output settings dialog is finished. This
         function updates the settings the user changed into the GUI member variables.
         """
-
         # Variables
         if not result:  # If dialog was accepted
 
@@ -659,7 +653,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         to the input_file_browser_btn and displays a
         file choicer dialog in which the user can specify the input data file.
         """
-
         # Create file dialog
         file_dialog = QtWidgets.QFileDialog()
         fileName, _ = file_dialog.getOpenFileName(
@@ -722,7 +715,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         following add the available players to the player filter comboBox. This
         slot function is run in a worker thread so it does not freeze the GUI.
         """
-
         # Import the csv file
         try:
             self.df = pd.read_csv(
@@ -816,7 +808,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         Args:
             bool: Boolean specifying whether the data file import was successfully.
         """
-
         # Apply the right action
         if result[0]:  # If import was successful
 
@@ -943,7 +934,6 @@ class DataAnalyserGUI(Ui_MainWindow):
             result (int): Bool specifying whether the QDialog was accepted (1)
             or rejected (0)
         """
-
         # Terminate threads if the cancel button is clicked
         if not result:
             self.input_file_path.setText("")  # Reset input file text
@@ -966,7 +956,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         time_file_browser_btn and displays a file choicer dialog in which the user can
         specify the input data file.
         """
-
         # Create file dialog
         file_dialog = QtWidgets.QFileDialog()
         fileName, _ = file_dialog.getOpenFileName(
@@ -1024,7 +1013,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         valid. This slot function is run in a worker thread so it does not freeze
         the GUI.
         """
-
         # Import the csv file
         try:
             # Get data out of specified time sections file
@@ -1073,7 +1061,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         Args:
             bool: Boolean specifying whether the data file import was successfully.
         """
-
         # Apply the right action
         if result[0]:  # If import was successful
 
@@ -1130,7 +1117,6 @@ class DataAnalyserGUI(Ui_MainWindow):
             result (int): Bool specifying whether the QDialog was accepted (1) or
             rejected (0)
         """
-
         # Terminate threads if the cancel button is clicked
         if not result:
             self.time_file_path.setText("")  # Reset input file text
@@ -1148,7 +1134,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         the output files will be placed in a CGDAT/results folder which is placed
         in the windows documents folder.
         """
-
         # Create folder dialog
         folder_dir = QtWidgets.QFileDialog.getExistingDirectory(
             None, "Select output directory"
@@ -1171,7 +1156,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         grid. It is linked to the condition_add_row_btn and triggered when the
         button is clicked.
         """
-
         # Get the nr of rows that are currently present in the condition grid
         rows = self.conditions_grid_rows
 
@@ -1206,7 +1190,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         grid. It is linked to the condition_remove_row_btn and triggered when the
         button is clicked.
         """
-
         # Get the nr of rows that are currently present in the condition grid
         rows = self.conditions_grid_rows
 
@@ -1242,7 +1225,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         in which only condition row is present. It is linked to the
         reset_conditions_grid_btn.
         """
-
         # Remove all condition rows except one
         while self.conditions_grid_rows > 1:
             rows = self.conditions_grid_rows  # Get number of rows currently present
@@ -1280,7 +1262,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         Args:
             error_tuple (tuple): The error tuple that was send by the worker tread.
         """
-
         # Display error message
         msg = QtWidgets.QMessageBox()
         msg.setIcon(QtWidgets.QMessageBox.Critical)
@@ -1359,7 +1340,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         the excel columns I convert the numbers to uppercase chars. When a number
         is higher than 26 the remainder gets appended to the A such that 27 gives AA.
         """
-
         # Translate number to letter
         if (
             number <= 26
@@ -1377,7 +1357,7 @@ class DataAnalyserGUI(Ui_MainWindow):
     # Add padding to bool array function ############
     #################################################
     def padBoolArray(self, bool_array, n):
-
+        """Add padding to bool array."""
         # Check whether a bool array was inputted
         bool_test = all([item.dtype == bool for item in bool_array])
 
@@ -1411,7 +1391,6 @@ class DataAnalyserGUI(Ui_MainWindow):
         Returns:
             bool: Boolean specifying whether the condition format is correct.
         """
-
         #################################################
         # Check if input file path is not empty #########
         #################################################
@@ -1577,7 +1556,6 @@ class DataAnalyserGUI(Ui_MainWindow):
             result (int): Bool specifying whether the QDialog was accepted (1)
             or rejected (0)
         """
-
         # Terminate threads if the cancel button is clicked
         if not result:
             for worker in self.data_analyse_worker:
@@ -1587,11 +1565,10 @@ class DataAnalyserGUI(Ui_MainWindow):
     # Condition validity check function #############
     #################################################
     def worker_finished(self, result):
-        """ Qt slot function which is triggered when a thread is completed. It is
+        """Qt slot function which is triggered when a thread is completed. It is
         connected to the threads finished signal. These signals are created using the
         pyqtSignal class.
         """
-
         # Append finished workers
         self.finished_workers += 1
         self.active_workers -= 1
