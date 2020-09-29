@@ -1,4 +1,4 @@
-"""This function creates a shortcut which can be used to run the CGDAT tool"""
+"""Function for creating a shortcut which can be used to run the CGDAT tool."""
 
 # Import needed modules
 import os
@@ -26,11 +26,11 @@ icon_path = os.path.abspath(os.path.join(DIRNAME, "static/media/CGDAT.ico")).rep
 
 
 ##############################################################
-#### Create shortuct function                             ####
+# Create shortcut function  ###########################################
 ##############################################################
 def main():
-    """Main function that is executed when we use the :samp:`cgdat-shortcut` command. This function creates a
-    shortcut for the gui on the desktop."""
+    """Main function that is executed when we use the :samp:`cgdat-shortcut` command.
+    This function creates a  shortcut for the gui on the desktop."""
 
     shell = Dispatch("WScript.Shell")
     shortcut = shell.CreateShortCut(path)
@@ -40,4 +40,5 @@ def main():
     shortcut.save()
 
 
+# Run main function
 main()

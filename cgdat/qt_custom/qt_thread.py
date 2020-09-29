@@ -1,5 +1,5 @@
-"""This module contains the classes and functions that are used qt gui to enable multithreading. It contains the
-following components:
+"""This module contains the classes and functions that are used qt gui to enable
+multithreading. It contains the following components:
 """
 
 # Set all
@@ -12,8 +12,9 @@ from PyQt5.QtCore import QObject, QThread, pyqtSignal, pyqtSlot
 import traceback
 import sys
 
+
 ###################################################################
-### WorkerSignals Class                                         ###
+# WorkerSignals Class #############################################
 ###################################################################
 class WorkerSignals(QObject):
     """
@@ -46,7 +47,7 @@ class WorkerSignals(QObject):
 
 
 #####################################################################
-### Worker Class                                                  ###
+# Worker Class ######################################################
 #####################################################################
 # class Worker(QRunnable):
 class Worker(QThread):
@@ -57,7 +58,7 @@ class Worker(QThread):
 
     Args:
         fn (callback): The function callback to run on this worker thread. The
-                       supplied args and kwargs will be passed through to the runner.
+            supplied args and kwargs will be passed through to the runner.
 
         args (\*args): Arguments to pass to the callback function.
 
@@ -66,7 +67,7 @@ class Worker(QThread):
     """
 
     #################################################
-    ### Class initiation                          ###
+    # Class initiation ##############################
     #################################################
     def __init__(self, fn, *args, **kwargs):
         """
@@ -87,7 +88,7 @@ class Worker(QThread):
         self.kwargs["progress_callback"] = self.signals.progress
 
     #################################################
-    ### Class run function                        ###
+    # Class run function ############################
     #################################################
     @pyqtSlot()
     def run(self):

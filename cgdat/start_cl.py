@@ -1,8 +1,9 @@
-"""This script is used to starts the cgdat gui out of the command line"""
+"""Script used to starts the cgdat gui out of the command line"""
 
 # Import modules
 from PyQt5 import QtGui, QtWidgets
-import os, sys
+import os
+import sys
 
 # Import package modules
 from cgdat import DataAnalyserGUI
@@ -10,12 +11,13 @@ from cgdat import DataAnalyserGUI
 # Get relative script path
 DIRNAME = os.path.dirname(os.path.abspath(__file__))
 
+
 ##############################################################
-#### Main execution function                              ####
+# Main execution function  ###########################################
 ##############################################################
 def main():
-    """Main function that is executed when we use the :samp:`cgdat-gui` command. This function starts the
-    cgdat gui window."""
+    """Main function that is executed when we use the :samp:`cgdat-gui` command. This
+    function starts the CGDAT gui window."""
 
     # Create QT app
     app = QtWidgets.QApplication(sys.argv)

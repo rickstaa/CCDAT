@@ -1,7 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-This file contains some dialog classes that are created for the CGDAT GUI. These classes inherit from the
-QtWidgets.Qdialog Class.
+Module that contains some dialog classes that are created for the CGDAT GUI. These classes inherit from
+the QtWidgets.Qdialog Class.
 """
 
 # Set all

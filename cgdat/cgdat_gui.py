@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-This file contains the main GUI class that is used in the *Conditional game data
+Module containing the main GUI class that is used in the *Conditional game data
 analyse tool (CGDAT)* was created for a friend of mine to help him with the data
 analysis he had to do for his graduation project. This tool is licensed under a
 `MIT license <https://github.com/rickstaa/CGDAT/blob/master/LICENSE>`__.
@@ -82,7 +82,7 @@ else:  # If run as module
 script_logger = logging.getLogger("cgdat_gui")
 
 #####################################################################
-#### Deal with high resolution screens ##############################
+# Deal with high resolution screens #################################
 #####################################################################
 if hasattr(QtCore.Qt, "AA_EnableHighDpiScaling"):
     QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_EnableHighDpiScaling, True)
@@ -90,19 +90,20 @@ if hasattr(QtCore.Qt, "AA_UseHighDpiPixmaps"):
     QtWidgets.QApplication.setAttribute(QtCore.Qt.AA_UseHighDpiPixmaps, True)
 
 #####################################################################
-#### Script settings ################################################
+# Script settings ###################################################
 #####################################################################
 # sections = ["Speed", "Acceleration"]
 operators = [">", ">=", "<", "<=", "==", "!=", "&", "(", ")"]
 
 #####################################################################
-#### Script variables ###############################################
+# Script variables ##################################################
 #####################################################################
 # Create list with valid operators
 OPERATOR_STR = "(" + "|".join([("\\" + op) for op in operators]) + ")"
 
+
 #####################################################################
-#### Overload Qt DataAnalyserGUI class ##############################
+# Overload Qt DataAnalyserGUI class #################################
 #####################################################################
 class DataAnalyserGUI(Ui_MainWindow):
     """This is the qt class used to create the general user interface for the CGDAT
@@ -116,7 +117,7 @@ class DataAnalyserGUI(Ui_MainWindow):
     """
 
     # #########################################################
-    # #### Class initiation ###################################
+    # # Class initiation ######################################
     # #########################################################
     # # Done to make sure new objects can be passed during    #
     # # the initiation.                                       #
@@ -125,7 +126,7 @@ class DataAnalyserGUI(Ui_MainWindow):
     #     super(DataAnalyserGUI, self).__init__(*args, **kwargs)
 
     #########################################################
-    #### UI initiation ######################################
+    # UI initiation #########################################
     #########################################################
 
     def setupUi(self, MainWindow):
@@ -142,7 +143,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         )  # Run parent initializer function
 
         ########################################
-        ### Create splash screen ###############
+        # Create splash screen  ################
         ########################################
         self.splash_screen_dialog = qt_dialogs.splashDialog()
         cgdat_icon = os.path.join(
@@ -154,11 +155,11 @@ class DataAnalyserGUI(Ui_MainWindow):
         self.splash_screen_dialog.setModal(True)
         self.splash_screen_dialog.finished.connect(
             self.splash_screen_finished
-        )  # Connect finished signal to function that checks if the used cancelled the analysis
+        )  # Connect finished signal  to func that checks if the analysis is canceled.
         self.splash_screen_dialog.show()
 
         ########################################
-        ### Set main GUI menu items ############
+        # Set main GUI menu items ##############
         ########################################
 
         # Create media paths
@@ -214,7 +215,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         self.actionDocumentation.triggered.connect(self.action_doc_slot)  # Set slot
 
         ########################################
-        ### Add file settings buttons ##########
+        # Add file settings buttons  #####################
         ########################################
 
         # Link input file chooser button signal to slot
@@ -230,7 +231,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         self.output_file_browser_btn.clicked.connect(self.get_output_dir)
 
         ########################################
-        ### Add additional options #############
+        # Add additional options  ######################
         ########################################
 
         # Add response empty member list
@@ -292,7 +293,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         self.player_filter_drop_down_menu.setEnabled(0)
 
         ########################################
-        ### Create condition choicer grid ######
+        # Create condition choicer grid  ##################
         ########################################
 
         # Grid row counter
@@ -336,7 +337,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         self.conditions_grid.addWidget(self.condition_remove_row_btn, 0, 3, 1, 1)
 
         ########################################
-        ### Create data analyse menu ###########
+        # Create data analyse menu  ####################
         ########################################
 
         # Create a reset grid button
@@ -363,27 +364,25 @@ class DataAnalyserGUI(Ui_MainWindow):
             []
         )  # Create member variables to save output columns settings
         self.input_file_freq_toggle = (
-            False
-        )  # Create member variable to save old frame toggle state
+            False  # Create member variable to save old frame toggle state
+        )
         self.output_columns_toggle = (
-            False
-        )  # Create member variable to save old output columns toggle
-        self.output_settings_freq_warning = (
-            True
-        )  # Create member variable to save whether a warning needs to be displayed
+            False  # Create member variable to save old output columns toggle
+        )
+        self.output_settings_freq_warning = True  # Display warning
 
         # Create dialog object
         self.output_settings_dialog = qt_dialogs.outputSettingsDialog()
         self.output_settings_dialog.setModal(True)
         self.output_settings_dialog.finished.connect(
             self.output_settings_dialog_finished
-        )  # Connect finished signal to function that checks if the used cancelled the analysis
+        )  # Connect to cancel signal
         self.input_file_freq_start = (
             self.output_settings_dialog.frame_rate_value.value()
-        )  # Create member variable holding input file frequency settings
+        )  # Connect to cancel signal
 
         ########################################
-        ### Retrieve saved settings ############
+        # Retrieve saved settings ############
         ########################################
 
         # Create config object and set settings
@@ -397,7 +396,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         self.splash_screen_dialog.setModal(True)
         self.splash_screen_dialog.finished.connect(
             self.splash_screen_finished
-        )  # Connect finished signal to function that checks if the used cancelled the analysis
+        )  # Connect to cancel signal
         self.splash_screen_dialog.show()
 
         # Create worker that checks if the data file is valid
@@ -415,12 +414,12 @@ class DataAnalyserGUI(Ui_MainWindow):
         self.settings_load_worker.start()
 
         ########################################
-        ### Additional member variables ########
+        # Additional member variables ########
         ########################################
         self.time_column_name = "Time"  # Set name of the time column
 
     #########################################################
-    #### GUI member functions ###############################
+    # GUI member functions ###############################
     #########################################################
 
     #################################################
@@ -444,7 +443,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         the docs menu item is clicked or the user uses the F2 keyboard shortcut.
         """
 
-        ## open documentation ##
+        # open documentation
         webbrowser.open_new(self.docs_path)
 
     #################################################
@@ -479,7 +478,8 @@ class DataAnalyserGUI(Ui_MainWindow):
             return False
         except (ConfigObjError):
             script_logger.warn(
-                "An error occurred while parsing the settings_sav.ini configuration file."
+                "An error occurred while parsing the settings_sav.ini configuration "
+                "file."
             )
             return False
 
@@ -626,13 +626,13 @@ class DataAnalyserGUI(Ui_MainWindow):
                 self.output_settings_dialog.frame_rate_toggle.isChecked()
             )  # Save freq toggle
 
-            ### Show reimport dialog
+            # Show reimport dialog
             # Data file needs to be reinported if frame rate is changed
             if self.input_file_path.isEnabled() and self.input_file_freq_toggle:
                 if (
                     self.output_settings_freq_warning
                 ):  # Display warning if user didn't disable it
-                    ## Display Info message ##
+                    # Display Info message
                     info_str = (
                         "A data file was already imported, to use the adjusted frame "
                         "rate please reimport the data file."
@@ -646,7 +646,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                     msg.show()
                     msg.exec_()
 
-                    ## Disable dialog if user checked the checkbox ##
+                    # Disable dialog if user checked the checkbox
                     self.output_settings_freq_warning = (
                         True if not msg.checkBox().isChecked() else False
                     )
@@ -680,7 +680,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             self.import_dialog.progress_header.setText(import_str)
             self.import_dialog.finished.connect(
                 self.import_dialog_finished
-            )  # Connect finished signal to function that checks if the used cancelled the analysis
+            )  # Connect to finished signal
             self.import_dialog.show()
 
             # Enable input file display widget
@@ -834,8 +834,8 @@ class DataAnalyserGUI(Ui_MainWindow):
             # Add players to player filter drop down menu
             for player in self.players:  # Add rest of the players
                 self.player_filter_drop_down_menu.addItem(player)
-            self.player_filter_drop_down_menu.removeAllOption()  # Add a select all option to the menu
-            self.player_filter_drop_down_menu.addAllOption()  # Add a select all option to the menu
+            self.player_filter_drop_down_menu.removeAllOption()  # Add a select all opt
+            self.player_filter_drop_down_menu.addAllOption()  # Add a select all opt
 
             # Change toolbox menu text
             self.player_filter_drop_down_menu.setEnabled(
@@ -932,7 +932,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 msg.exec_()
 
     #################################################
-    #### Data analyse dialog finished function ######
+    # Data analyse dialog finished function ######
     #################################################
     def import_dialog_finished(self, result):
         """This function is used to check whether the data import was
@@ -988,7 +988,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             self.import_dialog.progress_header.setText(import_str)
             self.import_dialog.finished.connect(
                 self.time_import_dialog_finished
-            )  # Connect finished signal to function that checks if the used cancelled the analysis
+            )  # Connect to finished signal
             self.import_dialog.show()
 
             # Enable input file display widget
@@ -1119,7 +1119,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 msg.exec_()
 
     #################################################
-    #### Time import dialog finished function #######
+    # Time import dialog finished function ##########
     #################################################
     def time_import_dialog_finished(self, result):
         """This function is used to check whether the file specifying the time sections
@@ -1139,7 +1139,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             self.time_input_worker.terminate()  # Terminate worker thread
 
     #################################################
-    ### Get output folder file path function ########
+    # Get output folder file path function ##########
     #################################################
     def get_output_dir(self):
         """Qt slot function created to get a user specified output folder. It is
@@ -1164,7 +1164,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             self.output_file_path.setEnabled(0)
 
     #################################################
-    ### Add extra condition row function ############
+    # Add extra condition row function ##############
     #################################################
     def add_conditions_row(self):
         """Qt slot function created to add an extra condition row to the condition
@@ -1199,7 +1199,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         self.conditions_grid_rows += 1
 
     #################################################
-    ### Remove condition row function ###############
+    # Remove condition row function #################
     #################################################
     def remove_conditions_row(self):
         """Qt slot function created to add an extra condition row to the condition
@@ -1235,11 +1235,12 @@ class DataAnalyserGUI(Ui_MainWindow):
             self.conditions_grid_rows -= 1
 
     #################################################
-    ### Reset condition field function ##############
+    # Reset condition field function ################
     #################################################
     def reset_conditions(self):
         """Qt slot function created to reset the condition grid to its original state
-        in which only condition row is present. It is linked to the reset_conditions_grid_btn.
+        in which only condition row is present. It is linked to the
+        reset_conditions_grid_btn.
         """
 
         # Remove all condition rows except one
@@ -1271,7 +1272,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         self.condition_line_edit[0].setText("")
 
     #################################################
-    #### Catch worker error #########################
+    # Catch worker error ############################
     #################################################
     def catch_thread_errors(self, error_tuple):
         """This function catches errors in worker threads and outputs them to the user.
@@ -1300,7 +1301,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         msg.exec_()
 
     #################################################
-    ## Create folder function #######################
+    # Create folder function ########################
     #################################################
     def createFolder(self, directory):
         """This function is used to create a folder when it does not exists"""
@@ -1311,7 +1312,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             print("Error: Creating directory. " + directory)
 
     #################################################
-    ## Create DateTime list function ################
+    # Create DateTime list function #################
     #################################################
     def timeDelta2DateTime(self, time_delta_list):
         """This method converts a list containing the time since measurement onset
@@ -1350,7 +1351,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         ]
 
     #################################################
-    ## Convert number to alphabetic letter ##########
+    # Convert number to alphabetic letter ###########
     #################################################
     def num2alphabet(self, number):
         """This function converts a number into its corresponding alphabetic
@@ -1365,7 +1366,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         ):  # If number is lower or equal to 26 translate to alphabetic letter
             letter_code = chr(number + 64)
             return letter_code
-        else:  # If number is higher than 26 append the remainder as a alphabetic letter. Example: AB
+        else:  # Append the remainder as a alphabetic letter
             n, r = divmod(number, 26)
             letter_code = "".join(n * [chr(1 + 64)] + [chr(r + 64)])
 
@@ -1373,7 +1374,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         return letter_code
 
     #################################################
-    ## Add padding to bool array function ###########
+    # Add padding to bool array function ############
     #################################################
     def padBoolArray(self, bool_array, n):
 
@@ -1399,7 +1400,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             raise TypeError("Please input a array containing only booleans.")
 
     #################################################
-    #### Condition validity check function ##########
+    # Condition validity check function #############
     #################################################
     def check_condition(self):
         """Qt slot function created to check whether the conditions have the right format.
@@ -1412,7 +1413,7 @@ class DataAnalyserGUI(Ui_MainWindow):
         """
 
         #################################################
-        ### Check if input file path is not empty #######
+        # Check if input file path is not empty #########
         #################################################
 
         # Display message box when input file path is empty
@@ -1426,13 +1427,13 @@ class DataAnalyserGUI(Ui_MainWindow):
             return False  # Return that the check has failed
 
         #################################################
-        ### Check if conditions are not empty ###########
+        # Check if conditions are not empty #############
         #################################################
         self.response_given = []
         for condition_text in self.condition_line_edit:
             self.response_given.append(
                 len(condition_text.text()) == 0
-            )  ## Set true if empty
+            )  # Set true if empty
 
         # Check if response list is empty
         if any(self.response_given) and not (
@@ -1442,7 +1443,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 and len(self.player_filter_drop_down_menu.selectedItems()) >= 1
                 and len(self.condition_line_edit) <= 1
             )
-        ):  # Throw error if empty unless time sections is enabled and only one condition row is present.
+        ):  # Throw error if empty unless time sections is enabled
 
             # Check which conditions are empty
             empty_indexes = [i + 1 for i, x in enumerate(self.response_given) if x]
@@ -1471,14 +1472,15 @@ class DataAnalyserGUI(Ui_MainWindow):
                     "or enable the time section filter or player filter."
                 )
             warn_dialog.setInformativeText(
-                "<b>Example</b>: speed > 10 & speed < 15 & acceleration > 5 & acceleration < 8"
+                "<b>Example</b>: speed > 10 & speed < 15 & acceleration > 5 &"
+                " acceleration < 8"
             )
             warn_dialog.setStandardButtons(QtWidgets.QMessageBox.Ok)
             warn_dialog.exec_()
             return False  # Return that the check has failed
 
         #################################################
-        ### Check validity of condition statement #######
+        # Check validity of condition statement #########
         #################################################
 
         # Split input command in list items
@@ -1494,7 +1496,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             result_invalid.append(False)  # Condition passed condition validity test
 
         #################################################
-        ### Check validity of operators #################
+        # Check validity of operators ###################
         #################################################
         symbols = [
             y.strip() for y in re.split(r"\w", condition_text.text())
@@ -1533,31 +1535,38 @@ class DataAnalyserGUI(Ui_MainWindow):
                 warn_dialog.setText(
                     "Some of your conditions are not valid please check conditions "
                     + condition_error_str
-                    + ". The accepted operators are (&gt;, &gt;=, &lt;, &lt;=, ==, &amp;)"
+                    + (
+                        ". The accepted operators are (&gt;, &gt;=, &lt;, &lt;=, ==, "
+                        "&amp;)"
+                    )
                 )
             else:
                 warn_dialog.setText(
                     "One of your conditions is not valid please check condition "
                     + condition_error_str
-                    + ". The accepted operators are (&gt;, &gt;=, &lt;, &lt; =, ==, &amp;)"
+                    + (
+                        ". The accepted operators are (&gt;, &gt;=, &lt;, &lt; =, ==, "
+                        "&amp;)"
+                    )
                 )
 
             warn_dialog.setInformativeText(
-                "<b>Example</b>: speed > 10 & speed < 15 & acceleration > 5 & acceleration < 8"
+                "<b>Example</b>: speed > 10 & speed < 15 & acceleration > 5 &"
+                " acceleration < 8"
             )
             warn_dialog.setStandardButtons(QtWidgets.QMessageBox.Ok)
             warn_dialog.exec_()
             return False
 
         #################################################
-        ### Return test results #########################
+        # Return test results ###########################
         #################################################
 
         # If user input passed all test return True
         return True
 
     #################################################
-    #### Data analyse dialog finished function ######
+    # Data analyse dialog finished function #########
     #################################################
     def data_analyse_dialog_finished(self, result):
         """This function is used to check whether the data analysis was
@@ -1565,7 +1574,8 @@ class DataAnalyserGUI(Ui_MainWindow):
         When the data analysis was cancelled it terminates any running workers.
 
         Args:
-            result (int): Bool specifying whether the QDialog was accepted (1) or rejected (0)
+            result (int): Bool specifying whether the QDialog was accepted (1)
+            or rejected (0)
         """
 
         # Terminate threads if the cancel button is clicked
@@ -1574,11 +1584,12 @@ class DataAnalyserGUI(Ui_MainWindow):
                 worker.terminate()  # Terminate worker thread
 
     #################################################
-    #### Condition validity check function ##########
+    # Condition validity check function #############
     #################################################
     def worker_finished(self, result):
-        """ Qt slot function which is triggered when a thread is completed. It is connected
-        to the threads finished signal. These signals are created using the pyqtSignal class.
+        """ Qt slot function which is triggered when a thread is completed. It is
+        connected to the threads finished signal. These signals are created using the
+        pyqtSignal class.
         """
 
         # Append finished workers
@@ -1624,13 +1635,19 @@ class DataAnalyserGUI(Ui_MainWindow):
                     warn_dialog.setText(
                         "Unfortunately, conditions "
                         + result[2]
-                        + " contain invalid variables. Please check these conditions and try again."
+                        + (
+                            " contain invalid variables. Please check these conditions "
+                            "and try again."
+                        )
                     )
                 else:
                     warn_dialog.setText(
                         "Unfortunately condition "
                         + result[2]
-                        + " seems to contain an invalid variable. Please check this condition and try again."
+                        + (
+                            " seems to contain an invalid variable. Please check this "
+                            "condition and try again."
+                        )
                     )
                 warn_dialog.setInformativeText("<b>Valid keys</b>: " + result[3])
                 warn_dialog.setStandardButtons(QtWidgets.QMessageBox.Ok)
@@ -1674,34 +1691,58 @@ class DataAnalyserGUI(Ui_MainWindow):
                         warn_dialog.setText(
                             "Unfortunately, conditions "
                             + result[2]
-                            + " contain invalid variables. Further also the syntax of condition "
+                            + (
+                                " contain invalid variables. Further also the syntax "
+                                "of condition "
+                            )
                             + result[4]
-                            + " seems to be incorrect. Please check your conditions and try again."
+                            + (
+                                " seems to be incorrect. Please check your conditions "
+                                "and try again."
+                            )
                         )
                     else:
                         warn_dialog.setText(
                             "Unfortunately, conditions "
                             + result[2]
-                            + " contains an invalid variables. Further also the syntax of conditions "
+                            + (
+                                " contains an invalid variables. Further also the "
+                                "syntax of conditions "
+                            )
                             + result[4]
-                            + " seems to be incorrect. Please check your conditions and try again."
+                            + (
+                                " seems to be incorrect. Please check your conditions "
+                                "and try again."
+                            )
                         )
                 else:
                     if len(result[4]) == 1:
                         warn_dialog.setText(
                             "Unfortunately, condition "
                             + result[2]
-                            + " contains an invalid variables. Further also the syntax of condition "
+                            + (
+                                " contains an invalid variables. Further also the "
+                                "syntax of condition "
+                            )
                             + result[4]
-                            + " seems to be incorrect. Please check your conditions and try again."
+                            + (
+                                " seems to be incorrect. Please check your conditions "
+                                "and try again."
+                            )
                         )
                     else:
                         warn_dialog.setText(
                             "Unfortunately, condition "
                             + result[2]
-                            + " contains an invalid variables. Further also the syntax of conditions "
+                            + (
+                                " contains an invalid variables. Further also the "
+                                "syntax of conditions "
+                            )
                             + result[4]
-                            + " seems to be incorrect. Please check your conditions and try again."
+                            + (
+                                " seems to be incorrect. Please check your conditions "
+                                "and try again."
+                            )
                         )
                 warn_dialog.setInformativeText("<b>Valid keys</b>: " + result[3])
                 warn_dialog.setStandardButtons(QtWidgets.QMessageBox.Ok)
@@ -1723,7 +1764,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 msg.exec_()
 
     #################################################
-    #### Start data analyse slot ####################
+    # Start data analyse slot #######################
     #################################################
     def start_data_analysis(self):
         """Qt slot function that is used to start the data analysis in a number of worker
@@ -1747,7 +1788,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 self.player_filter_toggle.isChecked()
                 and len(filtered_players) >= 1
                 and len(self.condition_line_edit) == 1
-            ):  # Throw error if conditions were empty unless time filter is enabled and only one condition row was present.
+            ):  # Throw error if cond. were empty unless time filter enabled
 
                 # Display non-modal popup
                 info_str = (
@@ -1766,7 +1807,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 self.player_filter_toggle.isChecked()
                 and len(filtered_players) >= 1
                 and len(self.condition_line_edit) == 1
-            ):  # Throw error if conditions were empty unless player filter is enabled and only one condition row was present.
+            ):  # Throw error if cond. empty unless player filter enabled
 
                 # Display non-modal popup
                 info_str = (
@@ -1808,7 +1849,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             self.finished_workers = 0
             self.active_workers = 0
 
-            ### Check which data analysis needs to be performed and then start the workers
+            # Check which data analysis needs to be performed and then start the workers
             if not self.player_filter_toggle.isChecked():  # Player filter not selected
 
                 # Create dialog header
@@ -1824,7 +1865,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 self.progress_dialog.setModal(True)
                 self.progress_dialog.finished.connect(
                     self.data_analyse_dialog_finished
-                )  # Connect finished signal to function that checks if the used cancelled the analysis
+                )  # Connect to finished signal
                 self.load_movie.start()  # Start loader object
                 self.progress_dialog.show()
 
@@ -1876,7 +1917,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 self.progress_dialog.setModal(True)
                 self.progress_dialog.finished.connect(
                     self.data_analyse_dialog_finished
-                )  # Connect finished signal to function that checks if the used cancelled the analysis
+                )  # Connect to finished signal
                 self.load_movie.start()  # Start loader object
                 self.progress_dialog.show()
 
@@ -1920,7 +1961,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 self.progress_dialog.setModal(True)
                 self.progress_dialog.finished.connect(
                     self.data_analyse_dialog_finished
-                )  # Connect finished signal to function that checks if the used cancelled the analysis
+                )  # Connect to finished signal
                 self.load_movie.start()  # Start loader object
                 self.progress_dialog.show()
 
@@ -1965,7 +2006,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                         QtWidgets.QApplication.processEvents()
 
     #################################################
-    #### Data analyse function ######################
+    # Data analyse function #########################
     #################################################
     def analyse_data(self, *args, **kwargs):
         """The function in which the data analysis is performed. The function uses the
@@ -2004,13 +2045,13 @@ class DataAnalyserGUI(Ui_MainWindow):
         )
 
         #################################################
-        ### Perform data analysis #######################
+        # Perform data analysis #######################
         #################################################
 
         # Create hardcopy of database
         df_tmp = self.df.copy()
 
-        ### Create writer object
+        # Create writer object
         if player_name:  # If a player was specified
 
             # Make player name path save
@@ -2070,7 +2111,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             condition = " & ".join(["(" + item + ")" for item in condition_split_3])
 
             #################################################
-            ### Filter data based on time sections ##########
+            # Filter data based on time sections ############
             #################################################
             # If a time section file was specified in the   #
             # time_sections_file_path filter the data based #
@@ -2085,7 +2126,8 @@ class DataAnalyserGUI(Ui_MainWindow):
                 # Create hardcopy of time dataframe
                 df_time_tmp = self.df_time.copy()
 
-                # Substract the "Begin Time" of the "Start" row from all of the other Begin and start times
+                # Substract the "Begin Time" of the "Start" row from all of the
+                # other Begin and start times
                 begin_times = pd.to_timedelta(
                     df_time_tmp["Start Time"]
                 )  # Get start times out of dataframe (timedelta format)
@@ -2104,7 +2146,8 @@ class DataAnalyserGUI(Ui_MainWindow):
                     end_times - start_time_offset
                 )  # Substract time offset from end times
 
-                # Convert begin and start times to datetime format (needed for the pd.between_times module)
+                # Convert begin and start times to datetime format
+                # (needed for the pd.between_times module)
                 begin_times = pd.to_datetime(
                     begin_times
                 ).dt.time  # List containing section begin times
@@ -2125,7 +2168,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 )  # Get array with included elements
 
             #################################################
-            ### Change index to time index ##################
+            # Change index to time index ####################
             #################################################
 
             # Make sure time column name is unique
@@ -2146,7 +2189,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             del counter_tmp
 
             #################################################
-            ### Filter on player name is player name exists##
+            # Filter on player name is player name exists####
             #################################################
             if player_name:
                 df_player_bool_array = (
@@ -2154,7 +2197,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                 )  # Only keep data belonging to the player specified in player_name
 
             #################################################
-            ### Check data against conditions ###############
+            # Check data against conditions #################
             #################################################
             try:
                 df_condition_bool_array = pd.eval(condition)
@@ -2164,17 +2207,17 @@ class DataAnalyserGUI(Ui_MainWindow):
                 syntax_invalid.append(False)  # Save syntax check results
 
             # If Key not valid save what went wrong
-            except KeyError as e:
+            except KeyError:
                 key_invalid.append(True)  # Save key error value check result
                 syntax_invalid.append(False)
 
-            ### If condition not valid display dialog ##
-            except SyntaxError as e:
+            # If condition not valid display dialog ##
+            except SyntaxError:
                 syntax_invalid.append(True)  # Save syntax error value check result
                 key_invalid.append(False)
 
             #################################################
-            ### Create boolean result array #################
+            # Create boolean result array ###################
             #################################################
 
             # Both player filter and time filter enabled and condition empty == FALSE
@@ -2298,12 +2341,12 @@ class DataAnalyserGUI(Ui_MainWindow):
                 )
 
             #################################################
-            ### Continue if df_results_bool is not empty ####
+            # Continue if df_results_bool is not empty ######
             #################################################
             if not (len(df_results_bool) == 0):
 
                 #################################################
-                ### Add padding if this was specified ###########
+                # Add padding if this was specified #############
                 #################################################
                 if self.time_range_toggle.isChecked():
 
@@ -2316,25 +2359,26 @@ class DataAnalyserGUI(Ui_MainWindow):
                         df_results_bool, padding
                     )  # Apply padding
 
-                    ### If player filter is enabled make sure only samples from current player is included
+                    # If player filter is enabled make sure only samples from
+                    # current player is included
                     if player_name:
                         df_results_bool_padded = (
                             df_results_bool_padded & df_player_bool_array.values
                         )
 
                     #################################################
-                    ### Get result data out of dataframe ############
+                    # Get result data out of dataframe ##############
                     #################################################
                     df_result_tmp = df_copy_tmp[df_results_bool_padded]
                 else:
 
                     #################################################
-                    ### Get result data out of dataframe ############
+                    # Get result data out of dataframe ##############
                     #################################################
                     df_result_tmp = df_copy_tmp[df_results_bool]
 
                 #################################################
-                ### Remove not specified columns ################
+                # Remove not specified columns ##################
                 #################################################
 
                 # Get keywords that are used in the condition
@@ -2362,7 +2406,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                         keywords_tmp = [
                             self.time_column_name,
                             "Timestamp",
-                        ] + keywords  # Append 'Timestamp' and 'Time columns to output columns
+                        ] + keywords  # Append 'Timestamp' and 'Time columns
 
                 # Filter dataframe
                 seen = set()
@@ -2372,12 +2416,12 @@ class DataAnalyserGUI(Ui_MainWindow):
                 df_result_tmp = df_result_tmp[keywords_tmp]
 
                 #################################################
-                # Save condition result to xlsx file object
+                # Save condition result to xlsx file object #####
                 #################################################
                 start_row = 2  # Row on which we start displaying the data analysis
                 start_column = (
-                    0
-                )  # Column on which we start displaying the data analysis
+                    0  # Column on which we start displaying the data analysis
+                )
                 df_result_tmp = df_result_tmp.sort_index()
                 df_result_tmp.to_excel(
                     writer,
@@ -2424,7 +2468,8 @@ class DataAnalyserGUI(Ui_MainWindow):
                     0, 0, condition_text_str, header_format
                 )  # Add condition as a header row
 
-                # If padding is enabled add color the rows in which the condition was satisfied
+                # If padding is enabled add color the rows in which the condition
+                # was satisfied
                 if self.time_range_toggle.isChecked():
                     df_color = pd.DataFrame(df_results_bool[df_results_bool_padded])
                     df_color.to_excel(
@@ -2456,7 +2501,7 @@ class DataAnalyserGUI(Ui_MainWindow):
                     worksheet_color.hide()
                     del df_result_tmp  # Remove temporary results dataframe
 
-            ### Perform clean-up and increment actions ###
+            # Perform clean-up and increment actions ###
             del df_copy_tmp  # Remove temporary datafile copy
             counter += 1
 
@@ -2593,7 +2638,7 @@ class DataAnalyserGUI(Ui_MainWindow):
             return (True,)
 
     #################################################
-    #### Data analyse function ######################
+    # Data analyse function #########################
     #################################################
     def closeEvent(self):
         """This function is run when the GUI interface is closed. It saves the current
@@ -2613,7 +2658,7 @@ class DataAnalyserGUI(Ui_MainWindow):
 
 
 ##############################################################
-#### Main execution code #####################################
+# Main execution code ########################################
 ##############################################################
 if __name__ == "__main__":
 

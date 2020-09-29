@@ -1,6 +1,6 @@
 # subclass
-"""This module contains classes and functions that add added custom made widgets and functionalities to the qt GUI. It contains the
-following components:
+"""This module contains classes and functions that add added custom made widgets and
+functionalities to the qt GUI. It contains the following components:
 """
 
 # Set all
@@ -9,15 +9,16 @@ __all__ = ["MultiSelectMenu"]
 # Import needed modules
 from PyQt5 import QtCore, QtWidgets
 
+
 ###################################################################
-### CheckableComboBox Class                                     ###
+# CheckableComboBox Class #########################################
 ###################################################################
 class MultiSelectMenu(QtWidgets.QToolButton):
     """This class is used to create a multi selection drop down menu.
     """
 
     #################################################
-    ### Class initializer                         ###
+    # Class initializer #############################
     #################################################
     def __init__(self, all_text_enabled=True, all_text="Select all"):
         """Initialize object."""
@@ -44,7 +45,7 @@ class MultiSelectMenu(QtWidgets.QToolButton):
             self.all_text_enabled = True
 
     #################################################
-    ### addItem method                            ###
+    # addItem method ################################
     #################################################
     def addItem(self, item):
         """Method used to add additional actions to the toolbar menu."""
@@ -60,13 +61,14 @@ class MultiSelectMenu(QtWidgets.QToolButton):
             action.changed.connect(self.selectAction)
 
     #################################################
-    ### addAllOption method                       ###
+    # addAllOption method ###########################
     #################################################
     def addAllOption(self, all_text="Select all"):
         """This function is used to add a "Select all" action to the toolbar menu.
 
         Args:
-            all_text (str, optional): Defaults to "Select all". The text used for the select all element.
+            all_text (str, optional): Defaults to "Select all". The text used for the
+            select all element.
         """
 
         # Check whether all text was already enabled
@@ -85,7 +87,7 @@ class MultiSelectMenu(QtWidgets.QToolButton):
             print("All text already enabled use changeAllText to change the all text.")
 
     #################################################
-    ### ChangeAllText method                      ###
+    # ChangeAllText method  #########################
     #################################################
     def changeAllText(self, all_text):
         """This function is used to change the "Select all" text.
@@ -97,14 +99,15 @@ class MultiSelectMenu(QtWidgets.QToolButton):
         # Check whether all text was already enabled
         if not self.all_text_enabled:
             print(
-                "No all text was enabled please first use the addAllOption method to enable the select all option."
+                "No all text was enabled please first use the addAllOption method to "
+                "enable the select all option."
             )
         else:
             self.all_text = all_text
             self.toolmenu.actions()[0].setText(all_text)
 
     #################################################
-    ### removeAllOption method                       ###
+    # removeAllOption method ########################
     #################################################
     def removeAllOption(self):
         """This function is used to remove a "Select all" action to the toolbar menu.
@@ -118,10 +121,11 @@ class MultiSelectMenu(QtWidgets.QToolButton):
             print("No select all action was found.")
 
     #################################################
-    ### selectAll method                          ###
+    # selectAll method ##############################
     #################################################
     def selectAll(self):
-        """This method is used to select all the options when the select all action is selected
+        """This method is used to select all the options when the select all action
+        is selected
         """
 
         # Check or unchecked the other actions based on the "Select all" action
@@ -137,11 +141,12 @@ class MultiSelectMenu(QtWidgets.QToolButton):
                 action.changed.connect(self.selectAction)
 
     #################################################
-    ### selectAction method                          ###
+    # selectAction method ###########################
     #################################################
     def selectAction(self):
-        """This method is used to unselect the select all option when one of the other values is unselected. Further it
-        also makes sure that the select all button is selected again if all items are selected again.
+        """This method is used to unselect the select all option when one of the other
+        values is unselected. Further it also makes sure that the select all button is
+        selected again if all items are selected again.
         """
 
         # Check or unchecked the other actions based on the "Select all" action
@@ -161,10 +166,11 @@ class MultiSelectMenu(QtWidgets.QToolButton):
             self.toolmenu.actions()[0].setChecked(1)  # Enable all selected
 
     #################################################
-    ### selectedItems method                      ###
+    # selectedItems method ##########################
     #################################################
     def selectedItems(self):
-        """This method returns a list containing the items that were selected in the toolbox menu.
+        """This method returns a list containing the items that were selected in the
+        toolbox menu.
 
         Returns:
             list: List containing the items that were selected.
@@ -187,7 +193,7 @@ class MultiSelectMenu(QtWidgets.QToolButton):
         return selected_items
 
     #################################################
-    ### Clear method                      ###
+    # Clear method  #################################
     #################################################
     def clear(self):
         """This function clears all the cations out of the Qmenu."""
@@ -203,7 +209,7 @@ class MultiSelectMenu(QtWidgets.QToolButton):
             self.all_text_enabled = True
 
     #################################################
-    ### eventFilter method                        ###
+    # eventFilter method ############################
     #################################################
     def eventFilter(self, obj, event):
         """This function is used to slightly edit the open and close behaviour of the

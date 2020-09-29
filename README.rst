@@ -126,4 +126,3 @@ Contributors
 Credits
 -----------------------------
 * CDAT icon created by FreePis from `www.flaticon.com <https://www.flaticon.com>`__.
-

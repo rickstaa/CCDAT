@@ -12,6 +12,24 @@ This package contains a simple csv data analyse GUI which I created for a friend
 
 ## Installation
 
+### Conda environment
+
+From the general python package sanity perspective, it is a good idea to use conda
+environments to make sure packages from different projects do not interfere with
+each other.
+
+To create a conda env with python3, one runs
+
+```sh
+conda create -n cgdat python=3.6
+```
+
+To activate the env:
+
+```sh
+conda activate cgdat
+```
+
 ### OS X & Linux
 
 ```sh
@@ -38,14 +56,16 @@ This package can both be imported as a python package or run as a stand alone gu
 
 This repository can be used to perform a simple csv game data filtering. The tool can filter a input data file based on:
 
--   Conditions:
-    -   Example: `Speed > 10 & Acceleration &lt; 5`
+- Conditions:
 
--   A time section file:
-    -   A file containing a `Start Time` and `End Time` column specifying the sections where you want to apply the condition filter.
+  - Example: `Speed > 10 & Acceleration &lt; 5`
 
--   Player name:
-    -   In the gui you can specify for which players you want to conduct the analysis. For this option to work the `input_data.csv` file needs to contain a `Name` column.
+- A time section file:
+
+  - A file containing a `Start Time` and `End Time` column specifying the sections where you want to apply the condition filter.
+
+- Player name:
+  - In the gui you can specify for which players you want to conduct the analysis. For this option to work the `input_data.csv` file needs to contain a `Name` column.
 
 Further you can add also add a safety padding to the data filtering. Meaning that the program will also include a number of samples before and after the specified conditions are met.
 
@@ -53,8 +73,8 @@ Further you can add also add a safety padding to the data filtering. Meaning tha
 
 This package also installs some additional console commands:
 
--   `cgdat-gui` - This will launch the CGDAT gui.
--   `cgdat-shortcut` - This will create a shortcut to launch the GUI on your desktop folder.
+- `cgdat-gui` - This will launch the CGDAT gui.
+- `cgdat-shortcut` - This will create a shortcut to launch the GUI on your desktop folder.
 
 ## Further documentation
 
